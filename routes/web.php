@@ -148,3 +148,9 @@ Route::post('/shipping-to-job', [ShipToJobsController::class, 'store'])->name('s
 
 Route::get('/relocate-to-wms', [RelocateToWMSController::class, 'store'])->name('relocateToWMS');
 Route::post('/relocate-to-wms', [RelocateToWMSController::class, 'store'])->name('relocateToWMS');
+
+
+
+Route::get('/popup', function(){
+    return view('racks.partialRemove1');
+});

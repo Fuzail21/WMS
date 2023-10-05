@@ -37,10 +37,64 @@
     @endforeach
 
 
+    <div class="border-gray-200 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+            <li class="mr-2" role="presentation">
+                <button class="inline-block p-4 border-b-1 rounded-t-sm" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Warehouse</button>
+            </li>
+            <li class="mr-2" role="presentation">
+                <button class="inline-block p-4 border-b-1 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Staging</button>
+            </li>
 
-    {{-- This code snippet generates a location selection dropdown with dynamically populated options for viewing racks in different locations. --}}
+        </ul>
+    </div>
+    <div id="myTabContent">
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
-        <div class="d-flex align-items-center col-md-12">
+
+            {{-- This code snippet generates a location selection dropdown with dynamically populated options for viewing racks in different locations. --}}
+
+            <div class="d-flex align-items-center col-md-12">
+                <div class="col-md-4">
+                    <select id="location" class="form-control" name="location" required>
+                        <option value="" disabled selected>Select a location</option>
+                        @foreach($allLocation as $location)
+                        <option class="capitalize" value="{{ route('viewAllRacks', ['locID' => $location->locID]) }}">{{ $location->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <a href="{{ route('newRack') }}" class="ml-[60%]">
+                    <button class="text-white bg-[#0A1E61] py-2 px-2 ml-2">Add Racks</button>
+                </a>
+            </div>
+
+
+        {{-- print all rack name on div of specific location name through controller --}}
+        <div class="text-black text-lg grid grid-cols-4">
+            @foreach ($racksAll as $rack)
+            <a class=" text-black hover:text-black hover:no-underline" href="{{ route('viewRacks', ['id' => $rack->rack_id]) }}">
+                <div class=" bg-gray-200 shadow-md py-5 m-3 bg-grey text-center">
+                    <p class="px-4 ">{{ $rack->rackName }}</p>
+                </div>
+            </a>
+            @endforeach
+        </div>
+
+
+        </div>
+
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+            <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Dashboard tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+        </div>
+
+    </div>
+
+
+
+
+
+        {{-- <div class="d-flex align-items-center col-md-12">
             <div class="col-md-4">
                 <select id="location" class="form-control" name="location" required>
                     <option value="" disabled selected>Select a location</option>
@@ -56,7 +110,6 @@
         </div>
 
 
-    {{-- print all rack name on div of specific location name through controller --}}
     <div class="text-black text-lg grid grid-cols-4">
         @foreach ($racksAll as $rack)
         <a class=" text-black hover:text-black hover:no-underline" href="{{ route('viewRacks', ['id' => $rack->rack_id]) }}">
@@ -65,7 +118,7 @@
             </div>
         </a>
         @endforeach
-    </div>
+    </div> --}}
 
 
 
@@ -96,6 +149,31 @@
             window.location.replace(selectedUrl);
         }
     });
+
+
+
+
+
+
+    $(document).ready(function () {
+  // Add a click event handler for the tab buttons
+  $("button[role='tab']").click(function () {
+    // Get the target content ID from the data-tabs-target attribute
+    var targetContentId = $(this).attr("data-tabs-target");
+
+    // Hide all content divs
+    $("div[role='tabpanel']").addClass("hidden");
+
+    // Show the selected content
+    $(targetContentId).removeClass("hidden");
+
+    // Remove the "aria-selected" attribute from all buttons
+    $("button[role='tab']").attr("aria-selected", "false");
+
+    // Set the "aria-selected" attribute for the clicked button to "true"
+    $(this).attr("aria-selected", "true");
+  });
+});
 </script>
 
 
