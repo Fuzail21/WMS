@@ -258,7 +258,7 @@
 
                                                                             <form method="POST" action="{{ route('relocateToWMS') }}">
                                                                                 @csrf
-                                                                                <input id="boxNameInput" type="search" class="form-control text-black px-3 mb-2 mt-2" name="boxName" placeholder="Box Name:" required autocomplete="off" autofocus>
+                                                                                <input id="boxNameInput" type="search" class="form-control text-black px-3 mb-2 mt-2 " name="boxName" placeholder="Box Name:" required autocomplete="off" autofocus>
                                                                                     @foreach ($allBoxNames as $boxName)
 
                                                                                     @endforeach
@@ -271,7 +271,7 @@
                                                                                 <input type="hidden" name="rackId" id="rackIdInput" value="{{ $id = request()->segment(2); }}">
 
                                                                                     <div class="col-md-6 offset-md-4 pt-2" >
-                                                                                        <button class="button text-black bg-[#ADEFD1FF] py-2 px-2">Submit</button>
+                                                                                        <button class="button text-white bg-[#00203F] py-2 px-2">Submit</button>
                                                                                     </div>
                                                                                     @if(session('error'))
                                                                                         <div class="alert alert-danger">
@@ -307,29 +307,29 @@
                                                                              @csrf
 
 
-                                                                                    <label for="dateIn" class="col-md-4 col-form-label text-md-end font-semibold" style="color:#0A1E61;">Date Out</label>
+                                                                                    <label for="dateIn" class="col-md-4 col-form-label text-md-end font-semibold" style="color:#0A1E61; text-align:left; ">Date Out</label>
 
                                                                                     <input type="text" class="form-control" name="dateOut" id="dateInput" value="" autocomplete="off">
 
 
                                                                                     <label for="jobName" class="col-md-4 col-form-label text-md-end font-semibold"
-                                                                                        style="color:#0A1E61;">Driver:</label>
+                                                                                        style="color:#0A1E61; text-align:left;">Driver:</label>
 
                                                                                         <input id="driver" type="text" class="form-control" name="removingDriver" value=""  autocomplete="off" >
 
 
-                                                                                    <label for="location" class="col-md-4 col-form-label text-md-end font-semibold" style="color:#0A1E61;">Location:</label>
+                                                                                    <label for="location" class="col-md-4 col-form-label text-md-end font-semibold" style="color:#0A1E61; text-align:left;">Location:</label>
 
                                                                                         <input id="location" type="text" class="form-control" name="deliveryLocation" value="" autocomplete="off">
 
 
 
-                                                                                    <label for="note" class="col-md-4 col-form-label text-md-end font-semibold" style="color:#0A1E61;">Note:</label>
+                                                                                    <label for="note" class="col-md-4 col-form-label text-md-end font-semibold" style="color:#0A1E61; text-align:left;">Note:</label>
 
                                                                                         <input id="note" type="text" class="form-control" name="removingNote"  value="" autocomplete="off">
 
 
-                                                                                    <label for="truckNumber" class="col-md-4 col-form-label text-md-end font-semibold" style="color:#0A1E61;">Truck Number:</label>
+                                                                                    <label for="truckNumber" class="col-md-4 col-form-label text-md-end font-semibold" style="color:#0A1E61; text-align:left;">Truck Number:</label>
 
 
                                                                                         <input id="truckNumber" type="text" class="form-control " name="truckNumber"  value="" autocomplete="off">
@@ -339,7 +339,7 @@
 
 
                                                                                     <div class="col-md-7 offset-md-4">
-                                                                                        <button class="button offset-md-8 text-black bg-[#ADEFD1FF] py-2 px-2" onclick="shippingToJob()">Remove</button>
+                                                                                        <button class="button offset-md-8 text-white bg-[#00203F] py-2 px-2" onclick="shippingToJob()">Remove</button>
 
 
                                                                                 <!-- {{-- error handling if rackname already exist in same location  --}}

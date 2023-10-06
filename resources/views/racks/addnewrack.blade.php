@@ -102,6 +102,30 @@
                             </div>
                         </div>
 
+
+
+
+                        <div class="radio-inputs col-md-6 offset-md-3 mb-2">
+                            <label>
+                                <input class="radio-input" type="radio" name="option" value="0">
+                                    <span class="radio-tile">
+
+                                    <span class="radio-label">Warehouse</span>
+                                </span>
+                            </label>
+                            <label>
+                                <input class="radio-input" type="radio" name="option" value="1">
+                                <span class="radio-tile">
+                                    <span class="radio-icon">
+
+                                    <span class="radio-label">Staging</span>
+                                </span>
+                            </label>
+                    </div>
+
+
+
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button class="button">Submit</button>

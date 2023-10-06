@@ -16,7 +16,8 @@ class Racks extends Model
 
     protected $fillable = [
         'rackName',
-        'locID'
+        'locID',
+        'isStaging'
     ];
 
     public function boxes()

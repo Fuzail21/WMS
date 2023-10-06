@@ -34,9 +34,15 @@ class RackController extends Controller
         $location = Location::where('locID', $selectedLocation)->first();
         $locID = $location->locID; // Assuming 'primaryKey' is the actual column name
 
+
+        $selectedOption = $request->input('option');
+        // dd($option);
+
         $data = [
             'rackName' => $request['rackName'],
-            'locID' => $locID
+            'locID' => $locID,
+            'isStaging' => $selectedOption
+
         ];
 
         $existingRack = $existingRack = Racks::where('rackName', $request['rackName'])
@@ -105,10 +111,16 @@ class RackController extends Controller
     // This function retrieves all racks for a specific location and passes this data along with location details to the "AllRacks" view for display.
     public function viewAll($locID){
         $racksAll = Racks::where('locID', $locID)->get();
+        $stagingRacks = Racks::where('locID', $locID)->where('isStaging', '=', '1')->get();
+
+        $warehouseRacks = Racks::where('locID', $locID)->where('isStaging', '=', '0')->get();
+
+
+
         $location = Location::where('locID', $locID)->get();
         $allLocation = Location::all();
 
-        $data = compact('racksAll', 'location', 'allLocation');
+        $data = compact('stagingRacks', 'location', 'allLocation', 'warehouseRacks');
         return view('racks.AllRacks')->with($data);
     }
 

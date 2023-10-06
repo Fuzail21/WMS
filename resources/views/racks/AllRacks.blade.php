@@ -25,11 +25,6 @@
 
 
 
-
-
-
-
-
     {{-- print a location name through controller  --}}
     @foreach ($location as $loc) {{-- $location saved in RackController FUNCTION VIEWALL --}}
     <h1 class="text-center uppercase ">{{ $loc->name }}</h1>
@@ -37,42 +32,49 @@
     @endforeach
 
 
-    <div class="border-gray-200 dark:border-gray-700">
-        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
-            <li class="mr-2" role="presentation">
-                <button class="inline-block p-4 border-b-1 rounded-t-sm" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Warehouse</button>
-            </li>
-            <li class="mr-2" role="presentation">
-                <button class="inline-block p-4 border-b-1 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Staging</button>
-            </li>
+    <div class="d-flex align-items-center col-md-12 mb-4">
+        <div class="col-md-4">
+            <select id="location" class="form-control" name="location" required>
+                <option value="" disabled selected>Select a location</option>
+                @foreach($allLocation as $location)
+                <option class="capitalize" value="{{ route('viewAllRacks', ['locID' => $location->locID]) }}">{{ $location->name }}</option>
+                @endforeach
+            </select>
+        </div>
 
+        <a href="{{ route('newRack') }}" class="ml-[60%]">
+            <button class="text-white bg-[#0A1E61] py-2 px-2 ml-2">Add Racks</button>
+        </a>
+    </div>
+
+
+
+    <div class="border-gray-200 dark:border-gray-700 ">
+        <ul class="flex -mb-px text-md font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+            <li class="flex-grow" role="presentation">
+                <button class="w-[99%] p-4 border-b-1 rounded-t-sm " id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Warehouse</button>
+            </li>
+            <li class="flex-grow" role="presentation">
+                <button class="w-[99%] p-4 rounded-t-lg hover:text-gray-600  dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Staging</button>
+            </li>
         </ul>
     </div>
+
+
+
+
     <div id="myTabContent">
         <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
 
-            {{-- This code snippet generates a location selection dropdown with dynamically populated options for viewing racks in different locations. --}}
 
-            <div class="d-flex align-items-center col-md-12">
-                <div class="col-md-4">
-                    <select id="location" class="form-control" name="location" required>
-                        <option value="" disabled selected>Select a location</option>
-                        @foreach($allLocation as $location)
-                        <option class="capitalize" value="{{ route('viewAllRacks', ['locID' => $location->locID]) }}">{{ $location->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
 
-                <a href="{{ route('newRack') }}" class="ml-[60%]">
-                    <button class="text-white bg-[#0A1E61] py-2 px-2 ml-2">Add Racks</button>
-                </a>
-            </div>
+
 
 
         {{-- print all rack name on div of specific location name through controller --}}
         <div class="text-black text-lg grid grid-cols-4">
-            @foreach ($racksAll as $rack)
+            @foreach ($warehouseRacks as $rack)
             <a class=" text-black hover:text-black hover:no-underline" href="{{ route('viewRacks', ['id' => $rack->rack_id]) }}">
                 <div class=" bg-gray-200 shadow-md py-5 m-3 bg-grey text-center">
                     <p class="px-4 ">{{ $rack->rackName }}</p>
@@ -85,7 +87,25 @@
         </div>
 
         <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-            <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Dashboard tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+
+
+
+
+
+
+        {{-- print all rack name on div of specific location name through controller --}}
+        <div class="text-black text-lg grid grid-cols-4">
+            @foreach ($stagingRacks as $rack)
+            <a class=" text-black hover:text-black hover:no-underline" href="{{ route('viewRacks', ['id' => $rack->rack_id]) }}">
+                <div class=" bg-gray-200 shadow-md py-5 m-3 bg-grey text-center">
+                    <p class="px-4 ">{{ $rack->rackName }}</p>
+                </div>
+            </a>
+            @endforeach
+        </div>
+
+
+
         </div>
 
     </div>
