@@ -18,6 +18,11 @@ use App\Models\BranchLocation;
 use App\Http\Controllers\ShipToJobsController;
 use App\Http\Controllers\RelocateToWMSController;
 use App\Http\Controllers\PartialRemoveController;
+use App\Http\Controllers\Packet\ShippingToJobController;
+use App\Http\Controllers\Packet\StagingAreaController;
+use App\Http\Controllers\Packet\PartialRemoveMenuController;
+use App\Http\Controllers\Packet\RelocateToWMS;
+
 
 
 
@@ -154,3 +159,15 @@ Route::post('/relocate-to-wms', [RelocateToWMSController::class, 'store'])->name
 Route::get('/popup', function(){
     return view('racks.partialRemove1');
 });
+
+Route::get('/partialRemoveMenu', [PartialRemoveMenuController::class, 'index']);
+Route::post('/packet/shipping-to-job', [ShippingToJobController::class, 'shippingToJob'])->name('packet-shipToJob');
+
+
+// Route::post('/packet/staging-area', [StagingAreaController::class, 'stagingArea'])->name('packet-stagingArea');
+
+
+// Route::get('/getJobNumbersForStaging', [StagingAreaController::class, 'getJobNumberForStaging'])->name('getJobNumbersForStaging');
+
+
+Route::post('/location', [RelocateToWMS::class, 'fetchLocation']);

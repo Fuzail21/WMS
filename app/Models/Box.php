@@ -20,4 +20,10 @@ class Box extends Model
     {
         return $this->belongsTo(Racks::class, 'rack_id');
     }
+
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class);
+    }
 }

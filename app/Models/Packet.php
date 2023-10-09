@@ -25,4 +25,11 @@ class Packet extends Model
         'boxName',
         'pkgID',
     ];
+
+
+
+    public function box()
+{
+    return $this->belongsTo(Box::class, 'boxName', 'boxName');
+}
 }

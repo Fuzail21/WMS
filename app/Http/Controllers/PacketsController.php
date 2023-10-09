@@ -83,6 +83,8 @@ class PacketsController extends Controller
         try {
                 // Retrieve and validate data from the request
                 $packetID = $request->input('packetID');
+                $modifiedDate = $request->input('dateIn');
+
                 // Retrieve other form fields as needed
 
                 $numberOfBundle = $request->input('numberOfBundles');
@@ -93,6 +95,8 @@ class PacketsController extends Controller
                 //  Update the specific fields in the database
                 Packet::where('packetID', $packetID)->update([
                     'numberOfBundles' => $updatedBundles,
+                    'modifiedDate' => $modifiedDate,
+                    'modifiedNumOfBundles' => $addBundles,
                 ]);
 
                 // Respond with a success message

@@ -44,15 +44,15 @@
 
                 <div class="card-body">
                     {{-- Form start --}}
-                    <form method="POST" action="{{ route('partialRemove', ['packetID' => request()->segment(2)]) }}">
+                    <form method="GET" action="{{ url('/partialRemoveMenu') }}">
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="jobName" class="col-md-4 col-form-label text-md-end"
+                            <label for="jobNumber" class="col-md-4 col-form-label text-md-end"
                                 style="color:#0A1E61;">Job Number</label>
 
                             <div class="col-md-6">
-                                <input id="jobName" type="text" class="form-control" name="jobName"
+                                <input id="jobNumber" type="text" class="form-control" name="jobNumber"
                                 value="{{isset($packetDetails) ? $packetDetails->jobNumber : ''}}" required autofocus >
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                                 style="color:#0A1E61;">Material Type</label>
 
                             <div class="col-md-6">
-                                <input id="material-type" type="text" class="form-control" name="material-type" value="{{isset($packetDetails) ? $packetDetails->materialType : ''}}" required >
+                                <input id="materialType" type="text" class="form-control" name="material-type" value="{{isset($packetDetails) ? $packetDetails->materialType : ''}}" required >
 
                             </div>
                         </div>

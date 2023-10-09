@@ -131,13 +131,13 @@
   .radio-input:checked + .radio-tile:before {
     transform: scale(1);
     opacity: 1;
-    background-color: #2260ff;
-    border-color: #2260ff;
+    background-color: #F20017;
+    border-color: #F20017;
   }
 
 
   .radio-input:checked + .radio-tile .radio-label {
-    color: #2260ff;
+    color: #F20017;
   }
 
 
@@ -179,7 +179,7 @@
   }
 
   .radio-tile:hover {
-    border-color: #2260ff;
+    border-color: #F20017;
   }
 
   .radio-tile:hover:before {
