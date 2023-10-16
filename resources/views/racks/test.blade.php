@@ -24,28 +24,19 @@
 
 
 
-
     <div class="border-gray-200 bg-gray-50 dark:border-gray-700 w-[160%]">
         <ul class="flex text-md font-medium text-center" id="myTab" role="tablist">
-            {{-- <li class="flex-grow" role="presentation">
-                <button class="w-[99%] p-4 border-b-1 rounded-t-sm" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Staging Area</button>
-            </li> --}}
+
             <li class="flex-grow" role="presentation">
                 <button class="w-[99%] p-4 rounded-t-lg hover:text-gray-600 dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Shipping To Job</button>
             </li>
             <li class="flex-grow" role="presentation">
                 <button class=" w-[99%] p-4 rounded-t-lg hover:text-gray-600 dark:hover:text-gray-300" id="relocate-tab" data-tabs-target="#relocate" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Relocate to WMS</button>
             </li>
-
         </ul>
     </div>
 
     <div id="myTabContent" >
-
-
-
-
-
 
 
         <div class="hidden p-4 rounded-lg h-full w-full" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
@@ -125,14 +116,7 @@
         </div>
 
 
-
-
-
-
-
         <div class="hidden p-4 rounded-lg h-full w-full" id="relocate" role="tabpanel" aria-labelledby="dashboard-tab">
-
-
 
             <div class="logo">
                 <img class="" src="img/20-20-Logo-Color.png" alt="20-20-Logo" width="170px">
@@ -147,35 +131,108 @@
 
                         <div class="card-body">
                             {{-- Form start --}}
-                            <form method="POST" action="{{ route('relocateToWMS') }}">
+                            <form method="POST" action="">
                                 @csrf
 
                                 <div class="row mb-3">
                                     <label for="boxName" class="col-md-4 col-form-label text-md-end"
-                                        style="color:#0A1E61;">Box Name</label>
-                                        {{-- {{ dd($boxNamesWithPackages) }} --}}
+                                        style="color:#0A1E61;">Branch Location</label>
 
+                                        @foreach ($branchLocation as $branches)
+
+                                        @endforeach
+                                    <div class="col-md-6 ">
+                                        <input type="text" class="form-control col-form-label text-md-end" name="branchLocation" list="branchLocation" id="branch" autocomplete="off"/>
+                                            <datalist id="branchLocation">
+                                                <option value="{{ $branches }}">{{ $branches }}</option>
+                                            </datalist>
+                                    </div>
+                                </div>
+
+
+                                <div class="row mb-3">
+                                    <label for="jobNumber" class="col-md-4 col-form-label text-md-end" style="color:#0A1E61;">Location</label>
+
+                                <div class="col-md-6 ">
+                                    <input type="text" class="form-control col-form-label text-md-end" name="location" list="location"  autocomplete="off"/>
+                                        <datalist id="location">
+                                            <option id="Loc" value=""></option>
+                                        </datalist>
+
+                                </div>
+                                </div>
+
+
+
+                                <div class="radio-inputs col-md-6 offset-md-3 mb-2">
+                                    <label>
+                                        <input class="radio-input" type="radio" name="option" value="0">
+                                            <span class="radio-tile">
+
+                                            <span class="radio-label">Warehouse</span>
+                                        </span>
+                                    </label>
+                                    <label>
+                                        <input class="radio-input" type="radio" name="option" value="1">
+                                        <span class="radio-tile">
+                                            <span class="radio-icon">
+
+                                            <span class="radio-label">Staging</span>
+                                        </span>
+                                    </label>
+                            </div>
+
+
+
+                                <div class="row mb-3">
+                                    <label for="boxName" class="col-md-4 col-form-label text-md-end"
+                                        style="color:#0A1E61;">Rack Name</label>
 
                                     <div class="col-md-6">
-                                        <input id="boxNameInput" type="search" class="form-control text-black " name="boxName" placeholder="" required autocomplete="off" autofocus>
-                                        <div id="boxNameDropdown" class="bg-white border rounded-lg mt-2 hidden">
-                                            <ul id="boxNameList" class="text-black text-lg p-2" style="max-height: 200px; overflow-y: auto;">
-                                                @foreach ($boxNamesWithPackages as $boxName)
-                                                    <li>{{ $boxName }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
+                                        <input id="boxName" type="text" class="form-control" name="boxName"
+                                            value="" required autocomplete="off" autofocus>
+
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="boxName" class="col-md-4 col-form-label text-md-end"
+                                        style="color:#0A1E61;">Box Name</label>
+
+                                    <div class="col-md-6">
+                                        <input id="boxName" type="text" class="form-control" name="boxName"
+                                            value="" required autocomplete="off" autofocus>
                                     </div>
                                 </div>
 
 
 
-                                <div class="row mb-3" >
+                                <div class="radio-inputs col-md-6 offset-md-3 mb-2">
+                                    <label>
+                                        <input class="radio-input" type="radio" name="option" value="0">
+                                            <span class="radio-tile">
+
+                                            <span class="radio-label">Existing</span>
+                                        </span>
+                                    </label>
+                                    <label>
+                                        <input class="radio-input" type="radio" name="option" value="1">
+                                        <span class="radio-tile">
+                                            <span class="radio-icon">
+
+                                            <span class="radio-label">New</span>
+                                        </span>
+                                    </label>
+                            </div>
+
+
+
+                                <div class="row mb-3">
                                     <label for="boxName" class="col-md-4 col-form-label text-md-end"
                                         style="color:#0A1E61;">Job Number</label>
 
                                     <div class="col-md-6">
-                                        <input id="jobNumber" type="text" class="form-control" name="jobNumber"
+                                        <input id="boxName" type="text" class="form-control" name="boxName"
                                             value="" required autocomplete="off" autofocus>
 
                                     </div>
@@ -212,8 +269,6 @@
 
 
 
-
-
 </div>{{------- main div -------}}
 
 
@@ -229,6 +284,38 @@
 <script>
 
 
+
+
+
+$("#branch").change(function() {
+    var branchLocation = $(this).val();
+    const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+    fetch("{{ route('getPacketLocation') }}", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken,
+        },
+        body: JSON.stringify({
+            branchLocation: branchLocation
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.locationName) {
+            $("#Loc").val(data.locationName);
+            $("#Loc").html(data.locationName);
+
+            alert(data.locationName);
+        } else {
+            alert("Location name not found in the response");
+        }
+    })
+    .catch(error => {
+        alert("Error: " + error);
+    });
+});
 
 
 
@@ -254,68 +341,6 @@
   });
 });
 
-
-
-
-
-
-
- //  this javascript code show list of boxName in popup after click on remove button and inside the Relocate to WMS tab when user type something inside the feild this code filtered
-    // allBoxName and show only those box name according to input text -----------------------------------------------------------------------
-
-    var allBoxNames = @json($boxNamesWithPackages); // Your Laravel array of box names
-
-    var boxNameInput = document.getElementById("boxNameInput");
-    var boxNameDropdown = document.getElementById("boxNameDropdown");
-    var boxNameList = document.getElementById("boxNameList");
-
-boxNameInput.addEventListener("input", function () {
-    var query = this.value.trim().toLowerCase();
-    var filteredBoxNames = allBoxNames.filter(function (boxName) {
-        return boxName.toLowerCase().includes(query);
-    });
-
-    displayFilteredBoxNames(filteredBoxNames);
-});
-
-function displayFilteredBoxNames(results) {
-    boxNameList.innerHTML = ""; // Clear previous results
-
-    if (results.length > 0) {
-        results.forEach(function (boxName) {
-            var listItem = document.createElement("li");
-            listItem.textContent = boxName;
-            listItem.addEventListener("click", function () {
-                boxNameInput.value = boxName;
-                boxNameDropdown.classList.add("hidden");
-            });
-            boxNameList.appendChild(listItem);
-        });
-
-        boxNameDropdown.classList.remove("hidden");
-    } else {
-        boxNameDropdown.classList.add("hidden");
-    }
-}
-
-// Close the dropdown when clicking outside of it
-document.addEventListener("click", function (event) {
-    if (!boxNameDropdown.contains(event.target) && event.target !== boxNameInput) {
-        boxNameDropdown.classList.add("hidden");
-    }
-});
-
-// Prevent the dropdown from closing when clicking inside it
-boxNameDropdown.addEventListener("click", function (event) {
-    event.stopPropagation();
-});
-
-
-
-
-
-
-//----------------------------------------------------- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ----------------------------------------------------------------------------
 
 
 

@@ -47,6 +47,8 @@
         <a class="text-black hover:text-black hover:no-underline"
             href="{{ route('viewAllRacks', ['locID' => $location->locID ]) }}">
 
+            {{-- <input type="hidden" name="locID" value="{{ $id = request()->segment(2); }}"> --}}
+
             <div class=" bg-gray-200 shadow-md py-5 m-3 bg-grey text-center drop-shadow-lg">
                 <p class="px-4 uppercase ">{{ $location->name }}</p> {{--  In this tag print location name through database --}}
             </div>

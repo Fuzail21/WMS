@@ -75,7 +75,7 @@
         {{-- print all rack name on div of specific location name through controller --}}
         <div class="text-black text-lg grid grid-cols-4">
             @foreach ($warehouseRacks as $rack)
-            <a class=" text-black hover:text-black hover:no-underline" href="{{ route('viewRacks', ['id' => $rack->rack_id]) }}">
+            <a class=" text-black hover:text-black hover:no-underline" href="{{ route('viewRacks', ['id' => $rack->rack_id]) }}?locID={{ $id = request()->segment(2); }}">
                 <div class=" bg-gray-200 shadow-md py-5 m-3 bg-grey text-center">
                     <p class="px-4 ">{{ $rack->rackName }}</p>
                 </div>
@@ -96,7 +96,7 @@
         {{-- print all rack name on div of specific location name through controller --}}
         <div class="text-black text-lg grid grid-cols-4">
             @foreach ($stagingRacks as $rack)
-            <a class=" text-black hover:text-black hover:no-underline" href="{{ route('viewRacks', ['id' => $rack->rack_id]) }}">
+            <a class=" text-black hover:text-black hover:no-underline" href="{{ route('viewRacks', ['id' => $rack->rack_id]) }}?locID={{ $id = request()->segment(2); }}">
                 <div class=" bg-gray-200 shadow-md py-5 m-3 bg-grey text-center">
                     <p class="px-4 ">{{ $rack->rackName }}</p>
                 </div>

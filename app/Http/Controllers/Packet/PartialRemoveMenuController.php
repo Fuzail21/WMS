@@ -8,6 +8,7 @@ use App\Models\Box;
 use App\Models\Racks;
 use App\Models\BranchLocation;
 use App\Models\Packet;
+use App\Models\Package;
 
 
 
@@ -22,12 +23,27 @@ class PartialRemoveMenuController extends Controller
         $modifiedDate = $request->input('modifiedDate');
         $packetID = $request->input('packetID');
 
+        $locID = $request->input('locID');
 
         $branchLocation = BranchLocation::pluck('branchLocation')->toArray();
+        $allRackIds = Racks::where('locID', $locID)->pluck('rack_id');
+
+        $allBoxNamesFromBox = Box::whereIn('rack_id', $allRackIds)->pluck('boxName');
+        // dd($allBoxNamesFromBox);
+        $allBoxNames = Box::whereIn('rack_id', $allRackIds)->pluck('boxName');
+
+        $boxNamesFromPackage = Package::where('dateOut', NULL)->pluck('boxName');
+        // dd($boxNamesFromPackage);
 
 
+        $boxNamesWithPackages = $allBoxNamesFromBox->filter(function ($boxName) use ($boxNamesFromPackage) {
+            return $boxNamesFromPackage->contains($boxName);
+        });
 
-        $data = compact('jobNumber', 'materialType', 'materialDescription', 'numberOfBundles', 'removeBundles', 'modifiedDate', 'packetID', 'branchLocation');
+        // dd($boxNamesWithPackages);
+
+        $data = compact('jobNumber', 'materialType', 'materialDescription', 'numberOfBundles', 'removeBundles', 'modifiedDate', 'packetID', 'branchLocation', 'allBoxNames', 'boxNamesWithPackages');
         return view('racks.partialRemoveMenu')->with($data);
     }
 }
+

@@ -118,8 +118,6 @@ Route::get('/delete-packets/{packetID}', [PacketsController::class, 'delete'])->
 
 
 
-
-
 Route::get('/get-packet-details/{packetID}', [PacketsController::class, 'getPacketDetails']);
 
 
@@ -156,10 +154,6 @@ Route::post('/relocate-to-wms', [RelocateToWMSController::class, 'store'])->name
 
 
 
-Route::get('/popup', function(){
-    return view('racks.partialRemove1');
-});
-
 Route::get('/partialRemoveMenu', [PartialRemoveMenuController::class, 'index']);
 Route::post('/packet/shipping-to-job', [ShippingToJobController::class, 'shippingToJob'])->name('packet-shipToJob');
 
@@ -170,4 +164,7 @@ Route::post('/packet/shipping-to-job', [ShippingToJobController::class, 'shippin
 // Route::get('/getJobNumbersForStaging', [StagingAreaController::class, 'getJobNumberForStaging'])->name('getJobNumbersForStaging');
 
 
-Route::post('/location', [RelocateToWMS::class, 'fetchLocation']);
+Route::post('/packet-relocate', [RelocateToWMS::class, 'relocateToWMS'])->name('relocateToWMS');
+
+
+// Route::get('/test', [PartialRemoveMenuController::class, 'index']);

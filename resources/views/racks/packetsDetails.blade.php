@@ -64,7 +64,9 @@
                         <form method="GET" action="{{route('partial-Remove', ['packetID' => $packet->packetID])}}">
                             @csrf
                             <input type="hidden" name="pkgId" value="{{request()->segment(2) }}">
-                            {{-- @dd(request()->segment(2)); --}}
+
+                            <input type="hidden" name="locID" value="{{request()->input('locID') }}">
+
 
                             <button class="btn btn-danger" type="submit"><span class="material-symbols-outlined">delete</span></button>
                         </form>

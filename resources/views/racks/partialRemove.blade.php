@@ -110,6 +110,10 @@
                         <input type="hidden" name="packetID" id="packetIdInput" value="{{ $id = request()->segment(2); }}">
                         <input type="hidden" name="pkgID" id="packageIdInput" value="{{ $pkgId }}">
 
+                        <input type="hidden" name="locID" id="locIdInput" value="{{ $locID }}">
+
+
+
 
                         <div class="row mb-0">
                             <div class="col-md-7 offset-md-4">

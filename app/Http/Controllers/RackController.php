@@ -109,11 +109,14 @@ class RackController extends Controller
 
 
     // This function retrieves all racks for a specific location and passes this data along with location details to the "AllRacks" view for display.
-    public function viewAll($locID){
+    public function viewAll(Request $request, $locID){
         $racksAll = Racks::where('locID', $locID)->get();
         $stagingRacks = Racks::where('locID', $locID)->where('isStaging', '=', '1')->get();
 
         $warehouseRacks = Racks::where('locID', $locID)->where('isStaging', '=', '0')->get();
+
+        // $locationID = $request->input('locID');
+        // dd($locationID);
 
 
 

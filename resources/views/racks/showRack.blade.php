@@ -210,7 +210,7 @@
                                 </button>
                             </a>
 
-                            <a href="{{ route('packets-details', ['pkgId' => $pkgIDs])}}">
+                            <a href="{{ route('packets-details', ['pkgId' => $pkgIDs])}}?locID={{ $id = request()->input('locID'); }}">
                                 <button type="button"
                                     class="text-[#ADEFD1FF] focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-xs py-1 px-10.5"
                                     data-value1="{{ $rowsLoop }}" data-value2="{{ $columnsLoop }}" data-value3="{{ $boxesLoop }}"
@@ -385,7 +385,7 @@
 // This JavaScript function opens a popup for entering a new name, sends the data via AJAX to a specified route, and handles the response, including
 //  redirection when necessary.
 
-
+        // j, i, k stands for 'row', 'column', 'inner boxes'
         function openPopup(event, j, i, k) {
         event.preventDefault();
 

@@ -14,30 +14,27 @@ use App\Models\BranchLocation;
 
 class RelocateToWMS extends Controller
 {
-    public function fetchLocation(Request $request){
-        $userLocation = $request->input('branchLocation');
 
-    // Find the branch location record
-    $branchlocRecord = BranchLocation::where('branchLocation', $userLocation)->first();
+public function relocateToWMS(Request $request){
+    $jobNumber = $request->input('jobNumber');
+    $materialType = $request->input('materialType');
+    $materialDescription = $request->input('materialDescription');
+    $numberOfBundles = $request->input('numberOfBundles');
+    $removeBundles = $request->input('removeBundles');
+    $modifiedDate = $request->input('modifiedDate');
 
-    if (!$branchlocRecord) {
-        // Handle the case where the branch location is not found
-        return response()->json(['error' => 'Branch location not found'], 404);
-    }
 
-    $branchID = $branchlocRecord->branchID;
 
-    // Find the location record based on branchID
-    $locationRecord = Location::where('branchID', $branchID)->first();
+    $boxName = $request->input('boxName');
+    $jobNumber = $request->input('jobNumber');
+    $packetID = $request->input('packetID');
 
-    if (!$locationRecord) {
-        // Handle the case where the location is not found
-        return response()->json(['error' => 'Location not found'], 404);
-    }
+    $boxRecord = Box::where("boxName", $boxName)->first();
+    $packetRecord = Packet::where('packetID', $packetID)->first();
 
-    $locationName = $locationRecord->name;
+    dd($boxRecord);
 
-    // Return the locationName in a JSON response
-    return response()->json(['locationName' => $locationName]);
+
+
 }
 }
