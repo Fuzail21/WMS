@@ -31,7 +31,7 @@ class PartialRemoveMenuController extends Controller
         $allBoxNamesFromBox = Box::whereIn('rack_id', $allRackIds)->pluck('boxName');
         // dd($allBoxNamesFromBox);
         $allBoxNames = Box::whereIn('rack_id', $allRackIds)->pluck('boxName');
-
+//  dd($allBoxNames);
         $boxNamesFromPackage = Package::where('dateOut', NULL)->pluck('boxName');
         // dd($boxNamesFromPackage);
 
