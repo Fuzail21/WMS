@@ -232,8 +232,6 @@
 
 
 
-
-
        $(document).ready(function () {
   // Add a click event handler for the tab buttons
   $("button[role='tab']").click(function () {
@@ -269,46 +267,46 @@
     var boxNameDropdown = document.getElementById("boxNameDropdown");
     var boxNameList = document.getElementById("boxNameList");
 
-boxNameInput.addEventListener("input", function () {
-    var query = this.value.trim().toLowerCase();
-    var filteredBoxNames = allBoxNames.filter(function (boxName) {
-        return boxName.toLowerCase().includes(query);
+    boxNameInput.addEventListener("input", function () {
+        var query = this.value.trim().toLowerCase();
+        var filteredBoxNames = allBoxNames.filter(function(boxName) {
+            return boxName.toLowerCase().includes(query);
     });
 
-    displayFilteredBoxNames(filteredBoxNames);
-});
+        displayFilteredBoxNames(filteredBoxNames);
+    });
 
-function displayFilteredBoxNames(results) {
-    boxNameList.innerHTML = ""; // Clear previous results
+    function displayFilteredBoxNames(results) {
+        boxNameList.innerHTML = ""; // Clear previous results
 
-    if (results.length > 0) {
-        results.forEach(function (boxName) {
-            var listItem = document.createElement("li");
-            listItem.textContent = boxName;
-            listItem.addEventListener("click", function () {
-                boxNameInput.value = boxName;
-                boxNameDropdown.classList.add("hidden");
+        if (results.length > 0) {
+            results.forEach(function (boxName) {
+                var listItem = document.createElement("li");
+                listItem.textContent = boxName;
+                listItem.addEventListener("click", function () {
+                    boxNameInput.value = boxName;
+                    boxNameDropdown.classList.add("hidden");
+                });
+                boxNameList.appendChild(listItem);
             });
-            boxNameList.appendChild(listItem);
-        });
 
-        boxNameDropdown.classList.remove("hidden");
-    } else {
-        boxNameDropdown.classList.add("hidden");
+            boxNameDropdown.classList.remove("hidden");
+        } else {
+            boxNameDropdown.classList.add("hidden");
+        }
     }
-}
 
-// Close the dropdown when clicking outside of it
-document.addEventListener("click", function (event) {
-    if (!boxNameDropdown.contains(event.target) && event.target !== boxNameInput) {
-        boxNameDropdown.classList.add("hidden");
-    }
-});
+    // Close the dropdown when clicking outside of it
+    document.addEventListener("click", function (event) {
+        if (!boxNameDropdown.contains(event.target) && event.target !== boxNameInput) {
+            boxNameDropdown.classList.add("hidden");
+        }
+    });
 
-// Prevent the dropdown from closing when clicking inside it
-boxNameDropdown.addEventListener("click", function (event) {
-    event.stopPropagation();
-});
+    // Prevent the dropdown from closing when clicking inside it
+    boxNameDropdown.addEventListener("click", function (event) {
+        event.stopPropagation();
+    });
 
 
 
