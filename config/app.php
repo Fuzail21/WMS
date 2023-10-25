@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://wms-laravel.azurewebsites.net/'),
+    'url' => env('APP_URL', 'http://wms-laravel.azurewebsites.net/'),
 
     'asset_url' => env('ASSET_URL'),
 
