@@ -62,5 +62,5 @@ jobs:
         with:
           app-name: 'wms-laravel'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8E06699A3A134BB188443FB55807034D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9B156698C3F040529355E7A5BF87DB42 }}
           package: .
