@@ -80,7 +80,7 @@ return [
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
-            'url' => env('DATABASE_URL', 'sqlsrv:server=tcp:wms-laravel-server.database.windows.net,1433;database=wms-laravel-database;UID=wms-laravel-server-admin;PWD=BGQ14S2W1KY2I30I$;'),
+            // 'url' => env('DATABASE_URL', 'sqlsrv:server=tcp:wms-laravel-server.database.windows.net,1433;database=wms-laravel-database;UID=wms-laravel-server-admin;PWD=BGQ14S2W1KY2I30I$;'),
             'host' => env('DB_HOST', 'wms-laravel-server.database.windows.net'),
             'port' => env('DB_PORT', '1433'),
             'database' => env('DB_DATABASE', 'wms-laravel-database'),
@@ -89,6 +89,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            'options' => [
+                'dsn' => 'UID=wms-laravel-server-admin;PWD=BGQ14S2W1KY2I30I$',
+            ],
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
