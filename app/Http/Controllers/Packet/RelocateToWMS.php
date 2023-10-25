@@ -22,18 +22,45 @@ public function relocateToWMS(Request $request){
     $numberOfBundles = $request->input('numberOfBundles');
     $removeBundles = $request->input('removeBundles');
     $modifiedDate = $request->input('modifiedDate');
+    $updateNumofBundles = $numberOfBundles - $removeBundles;
 
+
+
+    $packetID = $request->input('packetID');
 
 
     $boxName = $request->input('boxName');
-    $jobNumber = $request->input('jobNumber');
-    $packetID = $request->input('packetID');
+    $newJobNumber = $request->input('newJobNumber');
 
-    $boxRecord = Box::where("boxName", $boxName)->first();
+    // PACKAGE RECORD AND ID OF THOSE RECORD
+    $packageRecord = Package::where('boxName', $boxName)->get();
+    $pkgIDArray = Package::where('boxName', $boxName)->pluck('pkgID');
+    $pkgID = $pkgIDArray[0];
+
+    // BOX RECORD
+    $boxRecord = Box::where("boxName", $boxName)->get();
+
+    // Update packet
     $packetRecord = Packet::where('packetID', $packetID)->first();
 
-    dd($boxRecord);
+    $packetRecord->numberOfBundles = $updateNumofBundles;
+    $packetRecord->modifiedNumOfBundles = $removeBundles;
+    $packetRecord->modifiedDate = $modifiedDate;
+    $packetRecord->save();
 
+    // Update packet
+
+    $newPacket = new Packet;
+    $newPacket->jobNumber = $newJobNumber;
+    $newPacket->boxName = $boxName;
+    $newPacket->pkgID = $pkgID; // Setting the foreign key to link this packet to the package
+    $newPacket->materialDescription = $materialDescription;
+    $newPacket->materialType = $materialType;
+    $newPacket->numberOfBundles = $updateNumofBundles;
+    $newPacket->dateIn = $modifiedDate;
+    $newPacket->save();
+
+    dd('packet updated');
 
 
 }

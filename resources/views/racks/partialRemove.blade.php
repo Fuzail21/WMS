@@ -62,7 +62,7 @@
                                 style="color:#0A1E61;">Material Type</label>
 
                             <div class="col-md-6">
-                                <input id="materialType" type="text" class="form-control" name="material-type" value="{{isset($packetDetails) ? $packetDetails->materialType : ''}}" required >
+                                <input id="materialType" type="text" class="form-control" name="materialType" value="{{isset($packetDetails) ? $packetDetails->materialType : ''}}" required >
 
                             </div>
                         </div>

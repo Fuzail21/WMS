@@ -175,7 +175,7 @@
                                         style="color:#0A1E61;">Job Number</label>
 
                                     <div class="col-md-6">
-                                        <input id="jobNumber" type="text" class="form-control" name="jobNumber"
+                                        <input id="jobNumber" type="text" class="form-control" name="newJobNumber"
                                             value="" required autocomplete="off" autofocus>
 
                                     </div>
@@ -261,9 +261,9 @@
  //  this javascript code show list of boxName in popup after click on remove button and inside the Relocate to WMS tab when user type something inside the feild this code filtered
     // allBoxName and show only those box name according to input text -----------------------------------------------------------------------
 
-    // var allBoxName = @json($boxNamesWithPackages); // Your Laravel array of box names
-    var allBoxNames = Object.values(allBoxName);
+    var allBoxName = @json($boxNamesWithPackages); // Your Laravel array of box names
 
+    var allBoxNames = Object.values(allBoxName);
 
     var boxNameInput = document.getElementById("boxNameInput");
     var boxNameDropdown = document.getElementById("boxNameDropdown");
