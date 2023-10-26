@@ -210,7 +210,7 @@
                                 </button>
                             </a>
 
-                            <a href="{{ route('packets-details', ['pkgId' => $pkgIDs])}}?locID={{ $id = request()->input('locID'); }}">
+                            <a href="{{ route('packets-details', ['pkgId' => $pkgIDs])}}?locID={{ $id = request()->input('locID'); }}&rackId={{ $id = $rackId }}">
                                 <button type="button"
                                     class="text-[#ADEFD1FF] focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-xs py-1 px-10.5"
                                     data-value1="{{ $rowsLoop }}" data-value2="{{ $columnsLoop }}" data-value3="{{ $boxesLoop }}"

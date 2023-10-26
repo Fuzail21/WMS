@@ -11,6 +11,10 @@ class ShippingToJobController extends Controller
 {
 
     public function shippingToJob(Request $request){
+        $rackID = $request->input('rackID');
+
+
+
         $packetID = $request->input('packetID');
         $modifiedDate = $request->input('modifiedDate');
         $numberOfBundles = $request->input('numberOfBundles');
@@ -34,6 +38,9 @@ class ShippingToJobController extends Controller
         $packet->modifiedNumOfBundles = $removeBundles;
         $packet->numberOfBundles = $updateNumofBundles;
         $packet->save();
+
+
+    return redirect()->route('viewRacks', ['id' => $rackID]);
 
     }
 }

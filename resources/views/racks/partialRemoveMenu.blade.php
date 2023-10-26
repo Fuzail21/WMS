@@ -98,6 +98,8 @@
 
                                     </div>
                                 </div>
+                                <input type="hidden" name="rackID" id="" value="{{ $rackID }}">
+
 
                                 <input type="hidden" name="jobNumber" id="" value="{{ $jobNumber }}">
                                 <input type="hidden" name="materialType" id="" value="{{ $materialType }}">
@@ -181,6 +183,7 @@
                                     </div>
                                 </div>
 
+                                <input type="hidden" name="rackID" id="" value="{{ $rackID }}">
 
 
                                 <input type="hidden" name="jobNumber" id="" value="{{ $jobNumber }}">

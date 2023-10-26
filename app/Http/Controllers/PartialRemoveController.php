@@ -11,10 +11,11 @@ class PartialRemoveController extends Controller
     public function index(Request $request, $packetID){
         $pkgId = $request->input('pkgId');
         $locID = $request->input('locID');
+        $rackID = $request->query('rackID');
 
         $packetDetails = Packet::find($packetID);
         // dd($packetDetails);
-        $data = compact('packetDetails', 'pkgId' , 'locID');
+        $data = compact('packetDetails', 'pkgId' , 'locID', 'rackID');
         return view('racks.partialRemove')->with($data);
     }
 

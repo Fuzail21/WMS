@@ -36,6 +36,7 @@
         <h1 class="text-center ml-[50%]">PACKETS</h1>
     </div>
 
+
     <div class="ml-[25%] w-full">
         <table class="table ">
             <thead>
@@ -66,7 +67,7 @@
                             <input type="hidden" name="pkgId" value="{{request()->segment(2) }}">
 
                             <input type="hidden" name="locID" value="{{request()->input('locID') }}">
-
+                            <input type="hidden" name="rackID" value="{{request()->input('rackId') }}">
 
                             <button class="btn btn-danger" type="submit"><span class="material-symbols-outlined">delete</span></button>
                         </form>

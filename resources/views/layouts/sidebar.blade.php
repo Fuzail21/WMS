@@ -18,7 +18,7 @@
 
         <li>
             <span class="material-symbols-outlined">flag</span>
-            <a href="#">Reports</a>
+            <a href="{{ route('reports') }}">Reports</a>
         </li>
 
         <hr />

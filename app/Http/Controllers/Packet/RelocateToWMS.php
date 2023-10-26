@@ -16,6 +16,9 @@ class RelocateToWMS extends Controller
 {
 
 public function relocateToWMS(Request $request){
+    $rackID = $request->input('rackID');
+
+
     $jobNumber = $request->input('jobNumber');
     $materialType = $request->input('materialType');
     $materialDescription = $request->input('materialDescription');
@@ -47,9 +50,10 @@ public function relocateToWMS(Request $request){
     $packetRecord->modifiedNumOfBundles = $removeBundles;
     $packetRecord->modifiedDate = $modifiedDate;
     $packetRecord->save();
-
     // Update packet
 
+
+    // Create New Packet
     $newPacket = new Packet;
     $newPacket->jobNumber = $newJobNumber;
     $newPacket->boxName = $boxName;
@@ -59,9 +63,10 @@ public function relocateToWMS(Request $request){
     $newPacket->numberOfBundles = $updateNumofBundles;
     $newPacket->dateIn = $modifiedDate;
     $newPacket->save();
+    // Create New Packet
 
     dd('packet updated');
 
-
+    return redirect()->route('viewRacks', ['id' => $rackID]);
 }
 }

@@ -15,6 +15,8 @@ use App\Models\Package;
 class PartialRemoveMenuController extends Controller
 {
     public function index(Request $request){
+        $rackID = $request->input('rackID');
+
         $jobNumber = $request->input('jobNumber');
         $materialType = $request->input('materialType');
         $materialDescription = $request->input('materialDescription');
@@ -42,7 +44,7 @@ class PartialRemoveMenuController extends Controller
 
         // dd($boxNamesWithPackages);
 
-        $data = compact('jobNumber', 'materialType', 'materialDescription', 'numberOfBundles', 'removeBundles', 'modifiedDate', 'packetID', 'branchLocation', 'allBoxNames', 'boxNamesWithPackages');
+        $data = compact('jobNumber', 'materialType', 'materialDescription', 'numberOfBundles', 'removeBundles', 'modifiedDate', 'packetID', 'branchLocation', 'allBoxNames', 'boxNamesWithPackages', 'rackID');
         return view('racks.partialRemoveMenu')->with($data);
     }
 }

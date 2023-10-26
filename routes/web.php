@@ -22,6 +22,8 @@ use App\Http\Controllers\Packet\ShippingToJobController;
 use App\Http\Controllers\Packet\StagingAreaController;
 use App\Http\Controllers\Packet\PartialRemoveMenuController;
 use App\Http\Controllers\Packet\RelocateToWMS;
+use App\Http\Controllers\ReportsConreoller;
+
 
 
 
@@ -167,4 +169,4 @@ Route::post('/packet/shipping-to-job', [ShippingToJobController::class, 'shippin
 Route::post('/packet-relocate', [RelocateToWMS::class, 'relocateToWMS'])->name('relocateToWMS');
 
 
-// Route::get('/test', [PartialRemoveMenuController::class, 'index']);
+Route::get('/reports', [ReportsConreoller::class, 'index'])->name('reports');

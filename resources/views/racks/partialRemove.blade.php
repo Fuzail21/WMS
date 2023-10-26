@@ -111,6 +111,8 @@
                         <input type="hidden" name="pkgID" id="packageIdInput" value="{{ $pkgId }}">
 
                         <input type="hidden" name="locID" id="locIdInput" value="{{ $locID }}">
+                        <input type="hidden" name="rackID" id="rackIdInput" value="{{ $rackID }}">
+
 
 
 
