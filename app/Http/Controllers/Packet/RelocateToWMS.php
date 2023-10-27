@@ -65,7 +65,6 @@ public function relocateToWMS(Request $request){
     $newPacket->save();
     // Create New Packet
 
-    dd('packet updated');
 
     return redirect()->route('viewRacks', ['id' => $rackID]);
 }
