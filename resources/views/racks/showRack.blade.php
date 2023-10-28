@@ -256,7 +256,7 @@
 
                                                                         <div class="card-body">
 
-                                                                            <form method="POST" action="{{ route('relocateToWMS') }}">
+                                                                            <form method="POST" action="{{ route('Package-relocateToWMS') }}">
                                                                                 @csrf
                                                                                 <input id="boxNameInput" type="search" class="form-control text-black px-3 mb-2 mt-2 " name="boxName" placeholder="Box Name:" required autocomplete="off" autofocus>
                                                                                     @foreach ($allBoxNames as $boxName)

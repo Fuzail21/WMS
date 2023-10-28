@@ -151,8 +151,8 @@ Route::get('/shipping-to-job', [ShipToJobsController::class, 'store'])->name('sh
 Route::post('/shipping-to-job', [ShipToJobsController::class, 'store'])->name('shipToJob');
 
 
-Route::get('/relocate-to-wms', [RelocateToWMSController::class, 'store'])->name('relocateToWMS');
-Route::post('/relocate-to-wms', [RelocateToWMSController::class, 'store'])->name('relocateToWMS');
+Route::get('/relocate-to-wms', [RelocateToWMSController::class, 'store'])->name('Package-relocateToWMS');
+Route::post('/relocate-to-wms', [RelocateToWMSController::class, 'store'])->name('Package-relocateToWMS');
 
 
 

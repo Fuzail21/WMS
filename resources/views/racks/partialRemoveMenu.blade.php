@@ -265,7 +265,6 @@
     // allBoxName and show only those box name according to input text -----------------------------------------------------------------------
 
     var allBoxName = @json($boxNamesWithPackages); // Your Laravel array of box names
-
     var allBoxNames = Object.values(allBoxName);
 
     var boxNameInput = document.getElementById("boxNameInput");
