@@ -15,7 +15,7 @@ class ReportsConreoller extends Controller
         return view('racks.reports')->with($data);;
     }
 
-    public function searchData(){
+    public function searchData(Request $request){
         $boxName = $request->input('boxName');
         $pkgID = $request->input('pkgID');
         $pkgName = $request->input('pkgName');
@@ -30,22 +30,67 @@ class ReportsConreoller extends Controller
         $pktDateIn = $request->input('pktDateIn');
         $materialType = $request->input('materialType');
 
-
-        $query1 = Package::query();
-        $query2 = Packet::query();
+        // dd($boxName);
+        $package = Package::query();
+        $packet = Packet::query();
 
 
         if ($boxName) {
-            $query->where('boxName', 'LIKE', '%' . $boxName . '%');
+            $package->where('boxName', 'LIKE', "%{$boxName}%");
         }
 
         if ($pkgID) {
-            $query->where('pkgID', $pkgID);
+            $package->where('pkgID', 'LIKE', "%{$pkgID}%");
         }
 
         if ($pkgName) {
-            $query->whereDate('pkgName', $pkgName);
+            $package->where('pkgName', 'LIKE', "%{$pkgName}%");
         }
 
+        if ($pm) {
+            $package->where('pm', 'LIKE', "%{$pm}%");
+        }
+
+        if ($purchasingAgent) {
+            $package->where('purchasingAgent', 'LIKE', "%{$purchasingAgent}%");
+        }
+
+        if ($pkgDateIn) {
+            $package->whereDate('dateIn', 'LIKE', "%{$pkgDateIn}%");
+        }
+
+        if ($pkgDateOut) {
+            $package->whereDate('dateOut', 'LIKE', "%{$pkgDateOut}%");
+        }
+
+        if ($deliveryLocation) {
+            $package->where('deliveryLocation', 'LIKE', "%{$deliveryLocation}%");
+        }
+
+        if ($removingDriver) {
+            $package->where('removingDriver', 'LIKE', "%{$removingDriver}%");
+        }
+
+        if ($removingNote) {
+            $package->where('removingNote', 'LIKE', "%{$removingNote}%");
+        }
+
+        if ($jobNumber) {
+            $packet->where('jobNumber', 'LIKE', "%{$jobNumber}%");
+        }
+
+        if ($pktDateIn) {
+            $packet->whereDate('dateIn', 'LIKE', "%{$pktDateIn}%");
+        }
+
+        if ($materialType) {
+            $package->where('materialType', 'LIKE',  "%{$materialType}%");
+        }
+
+
+        $packages = $package->get();
+        $packets = $packet->get();
+
+        dd($packages);
     }
 }

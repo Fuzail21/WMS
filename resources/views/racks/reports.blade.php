@@ -3,7 +3,7 @@
 
 @extends('layouts.app')
 
-@section('title' , 'Partial Remove')
+@section('title' , 'Reports')
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/slidebar.css') }}">
@@ -77,7 +77,7 @@
 
 
         <div class="flex justify-center items-center h-screen  " style="margin-top: -15%; margin-bottom: -15%; margin-left: -10%;">
-            <form action="searchData.php" method="get" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
+            <form action="{{ route('searchData') }}" method="GET" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
                 <div class="flex flex-wrap -mx-4">
                     <div class="w-1/4 px-4 mb-4">
                         <input id="boxName" placeholder="Box Name" name="boxName" type="search" class="border-b border-gray-300 p-2 w-full">
