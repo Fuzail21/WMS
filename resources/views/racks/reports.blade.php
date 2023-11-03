@@ -76,8 +76,8 @@
     <div class="hidden p-4 rounded-lg dark:bg-gray-800 w-[167%]" id="Search" role="tabpanel" aria-labelledby="Search-tab">
 
 
-        <div class="flex justify-center items-center h-screen  " style="margin-top: -15%; margin-bottom: -15%; margin-left: -10%;">
-            <form action="{{ route('searchData') }}" method="GET" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
+        <div class="flex justify-center items-center h-screen " style="margin-top: -15%; margin-bottom: -15%; margin-left: -10%;">
+            <form id="searchForm" action="{{ route('searchData') }}" method="GET" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
                 <div class="flex flex-wrap -mx-4">
                     <div class="w-1/4 px-4 mb-4">
                         <input id="boxName" placeholder="Box Name" name="boxName" type="search" class="border-b border-gray-300 p-2 w-full">
@@ -143,9 +143,9 @@
         </button>
 
         <div class=" w-full " style="margin-left: -10%;">
-            <table class="table ">
+            <table class="table" id="dataTable">
                 <thead>
-                    <tr>
+                    <tr class="text=sm">
                         <th>Box Name</th>
                         <th>Package ID</th>
                         <th>Package Name</th>
@@ -166,43 +166,44 @@
                         <th>Modified Date</th>
                         <th>Modified By</th>
                         <th>Truck Number</th>
-                        <th>Job Packet Driver</th>
+                        <th>Packet Driver</th>
                         <th>Packet Truck Number</th>
                         <th>Packet Location</th>
 
                     </tr>
                 </thead>
                 <tbody>
+                    @if (!is_null($dataFromSearch))
 
-                    @foreach ($packageData as $package)
-                        @foreach ($packetData as $packet)
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                        @foreach ($dataFromSearch as $record)
+                                <tr class="text-xs">
+                                    <td>{{ $record->boxName }}</td>
+                                    <td>{{ $record->pkgID }}</td>
+                                    <td>{{ $record->pkgName }}</td>
+                                    <td>{{ $record->pm }}</td>
+                                    <td>{{ $record->purchasingAgent }}</td>
+                                    <td>{{ $record->dateIn }}</td>
+                                    <td>{{ $record->expectedDateOut }}</td>
+                                    <td>{{ $record->dateOut }}</td>
+                                    <td>{{ $record->deliveryLocation }}</td>
+                                    <td>{{ $record->removingDriver }}</td>
+                                    <td>{{ $record->removingNote }}</td>
+                                    <td>{{ $record->pktJobNumber }}</td>
+                                    <td>{{ $record->pktShipIn }}</td>
+                                    <td>{{ $record->pktMaterialType }}</td>
+                                    <td>{{ $record->pktMaterialDesc }}</td>
+                                    <td>{{ $record->pktNumberOfBundles }}</td>
+                                    <td>{{ $record->pktModifiedNumOfBundles }}</td>
+                                    <td>{{ $record->pktModifiedDate }}</td>
+                                    <td>{{ $record->pktModifiedBy }}</td>
+                                    <td>{{ $record->truckNumber }}</td>
+                                    <td>{{ $record->pktDriver }}</td>
+                                    <td>{{ $record->pktTruckNumber }}</td>
+                                    <td>{{ $record->pktLocation }}</td>
+                                </tr>
                         @endforeach
-                    @endforeach
+                    @endif
+
                 </tbody>
             </table>
           </div>
@@ -503,7 +504,7 @@
 
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
 
 
@@ -552,4 +553,47 @@
                 });
             });
 
-    </script>
+
+
+
+
+
+
+
+//         $(document).ready(function() {
+//     // Target the form by its ID
+//     $('#searchForm').on('submit', function(event) {
+//         event.preventDefault(); // Prevent the default form submission
+
+//         // Serialize the form data to send in the request
+//         var formData = $(this).serialize();
+
+//         // Send an AJAX GET request to your PHP script
+//         $.ajax({
+//             url: 'searchData.php',
+//             type: 'GET',
+//             data: formData,
+//             dataType: 'json',
+//             success: function(response) {
+//                 // Clear the existing table data
+//                 $('#dataTable tbody').empty();
+
+//                 // Loop through the JSON data and populate the table
+//                 $.each(response.data, function(index, item) {
+//                     var row = $('<tr>');
+//                     row.append('<td>' + item.pkgID + '</td>');
+//                     row.append('<td>' + item.jobNumber + '</td>');
+//                     // Add more columns for other fields
+//                     $('#dataTable tbody').append(row);
+//                 });
+//             },
+//             error: function(error) {
+//                 console.log(error);
+//             }
+//         });
+//     });
+// });
+
+
+            </script>
+
