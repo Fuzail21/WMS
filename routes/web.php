@@ -172,3 +172,9 @@ Route::post('/packet-relocate', [RelocateToWMS::class, 'relocateToWMS'])->name('
 Route::get('/reports', [ReportsConreoller::class, 'index'])->name('reports');
 
 Route::get('/reports-data', [ReportsConreoller::class, 'searchData'])->name('searchData');
+
+Route::get('/notShipped-data', [ReportsConreoller::class, 'NotShipped'])->name('notShippedData');
+
+Route::get('/Shipped-data', [ReportsConreoller::class, 'Shipped'])->name('shippedData');
+
+

@@ -54,7 +54,7 @@
 <div class="mb-4 border-b border-gray-200 " style="margin-left: -10%;">
     <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
         <li class="mr-2" role="presentation">
-            <button class="inline-block p-4 border-b-2 rounded-t-lg"  id="Search-tab" data-tabs-target="#Search" type="button" role="tab" aria-controls="Search" aria-selected="false">Search Data</button>
+            <button class="inline-block p-4 border-b-2 rounded-t-lg"  id="Search-tab" data-tabs-target="#Search" type="button" role="tab" aria-controls="Search" aria-selected="true">Search Data</button>
         </li>
         <li class="mr-2" role="presentation">
             <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="notShipping-tab" data-tabs-target="#notShipping" type="button" role="tab" aria-controls="notShipping" aria-selected="false">Not Shipped</button>
@@ -201,12 +201,17 @@
                                     <td>{{ $record->pktTruckNumber }}</td>
                                     <td>{{ $record->pktLocation }}</td>
                                 </tr>
+
                         @endforeach
                     @endif
 
                 </tbody>
             </table>
           </div>
+          @if (!is_null($dataFromSearch))
+          <!-- Display pagination links -->
+            {{ $dataFromSearch->links() }}
+        @endif
 
 
     </div>
@@ -221,7 +226,7 @@
 
 
         <div class="flex justify-center items-center h-screen  " style="margin-top: -15%; margin-bottom: -15%; margin-left: -10%;">
-            <form action="searchData.php" method="get" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
+            <form action="{{ route('notShippedData') }}" method="get" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
                 <div class="flex flex-wrap -mx-4">
                     <div class="w-1/4 px-4 mb-4">
                         <input id="boxName" placeholder="Box Name" name="boxName" type="search" class="border-b border-gray-300 p-2 w-full">
@@ -314,28 +319,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    @if (!is_null($dataFromNotShipped))
+
+                        @foreach ($dataFromNotShipped as $record)
+                                <tr class="text-xs">
+                                    <td>{{ $record->boxName }}</td>
+                                    <td>{{ $record->pkgID }}</td>
+                                    <td>{{ $record->pkgName }}</td>
+                                    <td>{{ $record->pm }}</td>
+                                    <td>{{ $record->purchasingAgent }}</td>
+                                    <td>{{ $record->dateIn }}</td>
+                                    <td>{{ $record->expectedDateOut }}</td>
+                                    <td>{{ $record->dateOut }}</td>
+                                    <td>{{ $record->deliveryLocation }}</td>
+                                    <td>{{ $record->removingDriver }}</td>
+                                    <td>{{ $record->removingNote }}</td>
+                                    <td>{{ $record->pktJobNumber }}</td>
+                                    <td>{{ $record->pktShipIn }}</td>
+                                    <td>{{ $record->pktMaterialType }}</td>
+                                    <td>{{ $record->pktMaterialDesc }}</td>
+                                    <td>{{ $record->pktNumberOfBundles }}</td>
+                                    <td>{{ $record->pktModifiedNumOfBundles }}</td>
+                                    <td>{{ $record->pktModifiedDate }}</td>
+                                    <td>{{ $record->pktModifiedBy }}</td>
+                                    <td>{{ $record->truckNumber }}</td>
+                                </tr>
+                        @endforeach
+                    @endif
+
+                </tbody>
                 </tbody>
             </table>
           </div>
@@ -355,7 +367,7 @@
 
 
         <div class="flex justify-center items-center h-screen  " style="margin-top: -15%; margin-bottom: -15%; margin-left: -10%;">
-            <form action="searchData.php" method="get" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
+            <form action="{{ route('shippedData') }}" method="get" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
                 <div class="flex flex-wrap -mx-4">
                     <div class="w-1/4 px-4 mb-4">
                         <input id="boxName" placeholder="Box Name" name="boxName" type="search" class="border-b border-gray-300 p-2 w-full">
@@ -448,28 +460,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    @if (!is_null($dataFromShipped))
+
+                        @foreach ($dataFromShipped as $record)
+                                <tr class="text-xs">
+                                    <td>{{ $record->boxName }}</td>
+                                    <td>{{ $record->pkgID }}</td>
+                                    <td>{{ $record->pkgName }}</td>
+                                    <td>{{ $record->pm }}</td>
+                                    <td>{{ $record->purchasingAgent }}</td>
+                                    <td>{{ $record->dateIn }}</td>
+                                    <td>{{ $record->expectedDateOut }}</td>
+                                    <td>{{ $record->dateOut }}</td>
+                                    <td>{{ $record->deliveryLocation }}</td>
+                                    <td>{{ $record->removingDriver }}</td>
+                                    <td>{{ $record->removingNote }}</td>
+                                    <td>{{ $record->pktJobNumber }}</td>
+                                    <td>{{ $record->pktShipIn }}</td>
+                                    <td>{{ $record->pktMaterialType }}</td>
+                                    <td>{{ $record->pktMaterialDesc }}</td>
+                                    <td>{{ $record->pktNumberOfBundles }}</td>
+                                    <td>{{ $record->pktModifiedNumOfBundles }}</td>
+                                    <td>{{ $record->pktModifiedDate }}</td>
+                                    <td>{{ $record->pktModifiedBy }}</td>
+                                    <td>{{ $record->truckNumber }}</td>
+                                </tr>
+                        @endforeach
+                    @endif
+
                 </tbody>
             </table>
           </div>
@@ -595,5 +613,19 @@
 // });
 
 
-            </script>
+
+
+
+
+
+         // JavaScript code to set the default active tab
+         document.addEventListener("DOMContentLoaded", function () {
+             // Get the button for the desired default active tab
+             var defaultActiveTabButton = document.getElementById("Search-tab");
+
+             // Simulate a click on the button to make it active
+             defaultActiveTabButton.click();
+         });
+
+</script>
 

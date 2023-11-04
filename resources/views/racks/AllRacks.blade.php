@@ -52,10 +52,10 @@
     <div class="border-gray-200 dark:border-gray-700 ">
         <ul class="flex -mb-px text-md font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
             <li class="flex-grow" role="presentation">
-                <button class="w-[99%] p-4 border-b-1 rounded-t-sm " id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Warehouse</button>
+                <button class="w-[99%] p-4 border-b-1 rounded-t-sm " id="warehouse-tab" data-tabs-target="#warehouse" type="button" role="tab" aria-controls="warehouse" aria-selected="false">Warehouse</button>
             </li>
             <li class="flex-grow" role="presentation">
-                <button class="w-[99%] p-4 rounded-t-lg hover:text-gray-600  dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Staging</button>
+                <button class="w-[99%] p-4 rounded-t-lg hover:text-gray-600  dark:hover:text-gray-300" id="staging-tab" data-tabs-target="#staging" type="button" role="tab" aria-controls="staging" aria-selected="false">Staging</button>
             </li>
         </ul>
     </div>
@@ -64,7 +64,7 @@
 
 
     <div id="myTabContent">
-        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="warehouse" role="tabpanel" aria-labelledby="warehouse-tab">
 
 
 
@@ -86,7 +86,7 @@
 
         </div>
 
-        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="staging" role="tabpanel" aria-labelledby="staging-tab">
 
 
 
@@ -125,6 +125,20 @@
             </div>
 
             <a href="{{ route('newRack') }}" class="ml-[60%]">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <button class="text-white bg-[#0A1E61] py-2 px-2 ml-2">Add Racks</button>
             </a>
         </div>
@@ -150,6 +164,20 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+
+//     // JavaScript code to set the default active tab
+// document.addEventListener("DOMContentLoaded", function () {
+//     // Get the button for the desired default active tab
+//     var defaultActiveButton = document.getElementById("warehouse-tab");
+
+//     // Simulate a click on the button to make it active
+//     defaultActiveButton.click();
+// });
+
+
+
+
 
     // This JavaScript code listens for a change in a select element, retrieves the selected option's value (which is expected to be a URL), and redirects the page
     // to that URL when a valid option is chosen, all without displaying a loading indication.
@@ -194,6 +222,9 @@
     $(this).attr("aria-selected", "true");
   });
 });
+
+
+
 </script>
 
 
