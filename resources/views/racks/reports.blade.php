@@ -143,7 +143,7 @@
         </button>
 
         <div class=" w-full " style="margin-left: -10%;">
-            <table class="table" id="dataTable">
+            <table class="table border-separate border border-slate-500" id="dataTable">
                 <thead>
                     <tr class="text=sm">
                         <th>Box Name</th>
