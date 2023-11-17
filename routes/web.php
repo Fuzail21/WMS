@@ -23,8 +23,8 @@ use App\Http\Controllers\Packet\StagingAreaController;
 use App\Http\Controllers\Packet\PartialRemoveMenuController;
 use App\Http\Controllers\Packet\RelocateToWMS;
 use App\Http\Controllers\ReportsConreoller;
-
-
+use App\Http\Controllers\SendMailController;
+use App\Http\Controllers\FormController;
 
 
 
@@ -177,4 +177,12 @@ Route::get('/notShipped-data', [ReportsConreoller::class, 'NotShipped'])->name('
 
 Route::get('/Shipped-data', [ReportsConreoller::class, 'Shipped'])->name('shippedData');
 
+
+
+Route::get('/form', [FormController::class, 'view']);
+
+Route::get('/sendMail', [SendMailController::class, 'index'])->name('sendMail');
+
+
+Route::post('/form', [FormController::class, 'formsubmit'])->name('formsubmit');
 
