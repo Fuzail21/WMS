@@ -11,32 +11,32 @@
 
     <div>
 
-        <table class="table border-separate border border-slate-500">
+        <table class="table border-collapse">
             <thead>
-                <tr class="text=sm">
-                    <th>Box Name</th>
-                    <th>Package ID</th>
-                    <th>Package Name</th>
-                    <th>PM</th>
-                    <th>Purchasing Agent</th>
-                    <th>Pkg Ship In</th>
-                    <th>Pkg Expected Ship Out</th>
-                    <th>Pkg Ship Out</th>
-                    <th>Delivery Location</th>
-                    <th>Removing Driver</th>
-                    <th>Removing Note</th>
-                    <th>Packets Job Number</th>
-                    <th>Packets Ship In</th>
-                    <th>Packet Material Type</th>
-                    <th>Packets Material Decs</th>
-                    <th>Number Of Bundles</th>
-                    <th>Modified Number Of Bundles</th>
-                    <th>Modified Date</th>
-                    <th>Modified By</th>
-                    <th>Truck Number</th>
-                    <th>Packet Driver</th>
-                    <th>Packet Truck Number</th>
-                    <th>Packet Location</th>
+                <tr>
+                    <th class="border border-black">Box Name</th>
+                    <th class="border border-black">Package ID</th>
+                    <th class="border border-black">Package Name</th>
+                    <th class="border border-black">PM</th>
+                    <th class="border border-black">Purchasing Agent</th>
+                    <th class="border border-black">Pkg Ship In</th>
+                    <th class="border border-black">Pkg Expected Ship Out</th>
+                    <th class="border border-black">Pkg Ship Out</th>
+                    <th class="border border-black">Delivery Location</th>
+                    <th class="border border-black">Removing Driver</th>
+                    <th class="border border-black">Removing Note</th>
+                    <th class="border border-black">Packets Job Number</th>
+                    <th class="border border-black">Packets Ship In</th>
+                    <th class="border border-black">Packet Material Type</th>
+                    <th class="border border-black">Packets Material Decs</th>
+                    <th class="border border-black">Number Of Bundles</th>
+                    <th class="border border-black">Modified Number Of Bundles</th>
+                    <th class="border border-black">Modified Date</th>
+                    <th class="border border-black">Modified By</th>
+                    <th class="border border-black">Truck Number</th>
+                    <th class="border border-black">Packet Driver</th>
+                    <th class="border border-black">Packet Truck Number</th>
+                    <th class="border border-black">Packet Location</th>
 
                 </tr>
             </thead>
@@ -44,30 +44,30 @@
                 @if (!is_null($dataForExcel))
 
                     @foreach ($dataForExcel['boxName'] as $index => $boxName)
-                    <tr class="text-xs">
-                        <td>{{ $boxName ?? null }}</td>
-                        <td>{{ $dataForExcel['pkgID'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['pkgName'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['pm'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['purchasingAgent'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['pkgShipIn'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['pkgExpShipOut'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['pkgShipOut'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['deliveryLocation'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['removingDriver'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['removingNote'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['packetsJobNumber'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['packetsShipIn'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['packetsMaterialType'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['pktMaterialDesc'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['numOfBundles'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['modifiedNumOfBundles'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['modifiedDate'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['modifiedBy'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['truckNum'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['packetDriver'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['packetTruckNum'][$index] ?? null }}</td>
-                        <td>{{ $dataForExcel['packetLocation'][$index] ?? null }}</td>
+                    <tr class="text-center text-sm">
+                        <td class="border border-black">{{ $boxName ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['pkgID'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['pkgName'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['pm'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['purchasingAgent'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['pkgShipIn'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['pkgExpShipOut'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['pkgShipOut'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['deliveryLocation'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['removingDriver'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['removingNote'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['packetsJobNumber'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['packetsShipIn'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['packetsMaterialType'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['pktMaterialDesc'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['numOfBundles'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['modifiedNumOfBundles'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['modifiedDate'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['modifiedBy'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['truckNum'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['packetDriver'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['packetTruckNum'][$index] ?? null }}</td>
+                        <td class="border border-black">{{ $dataForExcel['packetLocation'][$index] ?? null }}</td>
                     </tr>
 
                     @endforeach

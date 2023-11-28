@@ -111,7 +111,6 @@ class ReportsConreoller extends Controller
                 'packets.packetLocation AS pktLocation'
             )->get(); // Add pagination with 15 records per page
 
-
             // dd($searchData);
 
         // $dataFromSearch = compact('data');
@@ -361,29 +360,6 @@ class ReportsConreoller extends Controller
             'packetTruckNum' => $request->query('packetTruckNum', []),
             'packetLocation' => $request->query('packetLocation', []),
         ];
-
-
-
-            // Specify the directory path
-            $directoryPath = storage_path('app/public/uploads/userPackageDetails');
-
-            // Create the directory if it doesn't exist
-            if (!file_exists($directoryPath)) {
-                mkdir($directoryPath, 0755, true);
-            }
-
-            // Save the PDF to the specified path
-            $excelPath = $directoryPath . '/packageDetails.xlsx';
-            // Generate and store the Excel file
-            Excel::store(new EquipmentFormExport($dataForExcel), $excelPath);
-
-
-            // Stream the Excel file to the browser for download
-            return response()->download($excelPath, 'packageDetails.xlsx');
-
-
-
-
 
 
 

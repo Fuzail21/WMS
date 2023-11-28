@@ -137,12 +137,9 @@
             </form>
         </div>
 
-{{-- @if (!is_null($dataFromSearch))
-@dd( $dataFromSearch[0]->pkgID )
-@endif --}}
 
 
-        <a href="{{ route('exportExcel') }}?{{ http_build_query([
+        {{-- <a href="{{ route('exportExcel') }}?{{ http_build_query([
             'boxName' => collect($dataFromSearch)->pluck('boxName')->toArray(),
             'pkgID' => collect($dataFromSearch)->pluck('pkgID')->toArray(),
             'pkgName' => collect($dataFromSearch)->pluck('pkgName')->toArray(),
@@ -167,16 +164,16 @@
             'packetTruckNum' => collect($dataFromSearch)->pluck('pktTruckNumber')->toArray(),
             'packetLocation' => collect($dataFromSearch)->pluck('pktLocation')->toArray(),
 
-            ]) }}">
-            <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]">
+            ]) }}"> --}}
+            <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]" onclick="downloadCSV()">
                 <span class="material-symbols-outlined pb-0 text-lg">description</span>
                 <span class="ml-2">EXPORT TO EXCEL</span>
             </button>
-        </a>
+        {{-- </a> --}}
 
 
         <div class=" w-full " style="margin-left: -10%;">
-            <table class="table border-separate border border-slate-500" id="dataTable">
+            <table class="table border-separate border border-slate-500" id="myTable">
                 <thead>
                     <tr class="text=sm">
                         <th>Box Name</th>
@@ -241,6 +238,7 @@
                 </tbody>
             </table>
           </div>
+
           {{-- @if (!is_null($dataFromSearch))
           <!-- Display pagination links -->
             {{ $dataFromSearch->links() }}
@@ -553,6 +551,11 @@
 
 </div> {{-- this is closing div of header <div class="main"> --}}
 
+<!-- Include SheetJS from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+
+<!-- Include FileSaver.js from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -618,6 +621,66 @@
              // Simulate a click on the button to make it active
              defaultActiveTabButton.click();
          });
+
+
+
+
+
+    //      function downloadExcel() {
+    //     // Get the table HTML content
+    //     var table = document.getElementById("myTable");
+    //     var html = table.innerHTML;
+
+    //     // Create a Blob with the HTML content
+    //     var blob = new Blob([html], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+
+    //     // Save the Blob as a file using FileSaver.js
+    //     saveAs(blob, "table.xlsx");
+    // }
+
+
+    function downloadCSV() {
+        // Get the table element by ID
+        var table = document.getElementById("myTable");
+
+        // Initialize an empty CSV string
+        var csv = [];
+
+        // Iterate over the rows in the table
+        var rows = table.querySelectorAll("tr");
+        rows.forEach(function (row) {
+            // Initialize an empty array for each row
+            var rowData = [];
+
+            // Iterate over the cells in the row
+            var cells = row.querySelectorAll("td, th");
+            cells.forEach(function (cell) {
+                // Push the cell's text content into the row data array
+                rowData.push(cell.textContent.trim());
+            });
+
+            // Push the row data as a comma-separated string into the CSV array
+            csv.push(rowData.join(","));
+        });
+
+        // Join the CSV array into a single string with line breaks
+        var csvContent = csv.join("\n");
+
+        // Create a Blob with the CSV content and UTF-8 encoding
+        var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+
+        // Save the Blob as a file using FileSaver.js
+        saveAs(blob, "UserPackageDetails.csv");
+    }
+
+
+
+
+
+
+
+
+
 
 </script>
 
