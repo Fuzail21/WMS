@@ -109,7 +109,7 @@ class ReportsConreoller extends Controller
                 'packets.packetDriver AS pktDriver',
                 'packets.packetTruckNumber AS pktTruckNumber',
                 'packets.packetLocation AS pktLocation'
-            )->paginate(10)->withQueryString(); // Add pagination with 15 records per page
+            )->get(); // Add pagination with 15 records per page
 
 
             // dd($searchData);
@@ -299,4 +299,97 @@ class ReportsConreoller extends Controller
         return redirect()->route('reports')->with('dataFromShipped', $shippedData);
 
     }
+
+
+    public function exportExcel(Request $request){
+
+        // $boxName = $request->query('boxName', []);
+        // $pkgID = $request->query('pkgID', []);
+        // $pkgName = $request->query('pkgName', []);
+        // $pm = $request->query('pm', []);
+        // $purchasingAgent = $request->query('purchasingAgent', []);
+
+        // $pkgShipIn = $request->query('pkgShipIn', []);
+        // $pkgExpShipOut = $request->query('pkgExpShipOut', []);
+        // $pkgShipOut = $request->query('pkgShipOut', []);
+        // $deliveryLocation = $request->query('deliveryLocation', []);
+        // $removingDriver = $request->query('removingDriver', []);
+
+        // $removingNote = $request->query('removingNote', []);
+        // $packetsJobNumber = $request->query('packetsJobNumber', []);
+        // $packetsShipIn = $request->query('packetsShipIn', []);
+        // $packetsMaterialType = $request->query('packetsMaterialType', []);
+        // $pktMaterialDesc = $request->query('pktMaterialDesc', []);
+
+        // $numOfBundles = $request->query('numOfBundles', []);
+        // $modifiedNumOfBundles = $request->query('modifiedNumOfBundles', []);
+        // $modifiedDate = $request->query('modifiedDate', []);
+        // $modifiedBy = $request->query('modifiedBy', []);
+        // $truckNum = $request->query('truckNum', []);
+
+        // $packetDriver = $request->query('packetDriver', []);
+        // $packetTruckNum = $request->query('packetTruckNum', []);
+        // $packetLocation = $request->query('packetLocation', []);
+
+        // // dd($packetLocation);
+
+
+        // return view('excelView');
+
+        $dataForExcel = [
+            'boxName' => $request->query('boxName', []),
+            'pkgID' => $request->query('pkgID', []),
+            'pkgName' => $request->query('pkgName', []),
+            'pm' => $request->query('pm', []),
+            'purchasingAgent' => $request->query('purchasingAgent', []),
+            'pkgShipIn' => $request->query('pkgShipIn', []),
+            'pkgExpShipOut' => $request->query('pkgExpShipOut', []),
+            'pkgShipOut' => $request->query('pkgShipOut', []),
+            'deliveryLocation' => $request->query('deliveryLocation', []),
+            'removingDriver' => $request->query('removingDriver', []),
+            'removingNote' => $request->query('removingNote', []),
+            'packetsJobNumber' => $request->query('packetsJobNumber', []),
+            'packetsShipIn' => $request->query('packetsShipIn', []),
+            'packetsMaterialType' => $request->query('packetsMaterialType', []),
+            'pktMaterialDesc' => $request->query('pktMaterialDesc', []),
+            'numOfBundles' => $request->query('numOfBundles', []),
+            'modifiedNumOfBundles' => $request->query('modifiedNumOfBundles', []),
+            'modifiedDate' => $request->query('modifiedDate', []),
+            'modifiedBy' => $request->query('modifiedBy', []),
+            'truckNum' => $request->query('truckNum', []),
+            'packetDriver' => $request->query('packetDriver', []),
+            'packetTruckNum' => $request->query('packetTruckNum', []),
+            'packetLocation' => $request->query('packetLocation', []),
+        ];
+
+
+
+            // Specify the directory path
+            $directoryPath = storage_path('app/public/uploads/userPackageDetails');
+
+            // Create the directory if it doesn't exist
+            if (!file_exists($directoryPath)) {
+                mkdir($directoryPath, 0755, true);
+            }
+
+            // Save the PDF to the specified path
+            $excelPath = $directoryPath . '/packageDetails.xlsx';
+            // Generate and store the Excel file
+            Excel::store(new EquipmentFormExport($dataForExcel), $excelPath);
+
+
+            // Stream the Excel file to the browser for download
+            return response()->download($excelPath, 'packageDetails.xlsx');
+
+
+
+
+
+
+
+        return view('excelView', compact('dataForExcel'));
+    }
+
+
+
 }

@@ -179,10 +179,9 @@ Route::get('/Shipped-data', [ReportsConreoller::class, 'Shipped'])->name('shippe
 
 
 
-Route::get('/form', [FormController::class, 'view']);
+Route::get('/export-excel',[ReportsConreoller::class, 'exportExcel'])->name('exportExcel');
 
-Route::get('/sendMail', [SendMailController::class, 'index'])->name('sendMail');
-
-
-Route::post('/form', [FormController::class, 'formsubmit'])->name('formsubmit');
+Route::get('/exportView', function(){
+    return view('excelView');
+});
 

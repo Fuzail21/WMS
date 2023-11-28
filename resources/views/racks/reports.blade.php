@@ -137,10 +137,43 @@
             </form>
         </div>
 
-        <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]">
-            <span class="material-symbols-outlined pb-0 text-lg">description</span>
-            <span class="ml-2">EXPORT TO EXCEL</span>
-        </button>
+{{-- @if (!is_null($dataFromSearch))
+@dd( $dataFromSearch[0]->pkgID )
+@endif --}}
+
+
+        <a href="{{ route('exportExcel') }}?{{ http_build_query([
+            'boxName' => collect($dataFromSearch)->pluck('boxName')->toArray(),
+            'pkgID' => collect($dataFromSearch)->pluck('pkgID')->toArray(),
+            'pkgName' => collect($dataFromSearch)->pluck('pkgName')->toArray(),
+            'pm' => collect($dataFromSearch)->pluck('pm')->toArray(),
+            'purchasingAgent' => collect($dataFromSearch)->pluck('purchasingAgent')->toArray(),
+            'pkgShipIn' => collect($dataFromSearch)->pluck('dateIn')->toArray(),
+            'pkgExpShipOut' => collect($dataFromSearch)->pluck('expectedDateOut')->toArray(),
+            'pkgShipOut' => collect($dataFromSearch)->pluck('dateOut')->toArray(),
+            'deliveryLocation' => collect($dataFromSearch)->pluck('deliveryLocation')->toArray(),
+            'removingDriver' => collect($dataFromSearch)->pluck('removingDriver')->toArray(),
+            'removingNote' => collect($dataFromSearch)->pluck('removingNote')->toArray(),
+            'packetsJobNumber' => collect($dataFromSearch)->pluck('pktJobNumber')->toArray(),
+            'packetsShipIn' => collect($dataFromSearch)->pluck('pktShipIn')->toArray(),
+            'packetsMaterialType' => collect($dataFromSearch)->pluck('pktMaterialType')->toArray(),
+            'pktMaterialDesc' => collect($dataFromSearch)->pluck('pktMaterialDesc')->toArray(),
+            'numOfBundles' => collect($dataFromSearch)->pluck('pktNumberOfBundles')->toArray(),
+            'modifiedNumOfBundles' => collect($dataFromSearch)->pluck('pktModifiedNumOfBundles')->toArray(),
+            'modifiedDate' => collect($dataFromSearch)->pluck('pktModifiedDate')->toArray(),
+            'modifiedBy' => collect($dataFromSearch)->pluck('pktModifiedBy')->toArray(),
+            'truckNum' => collect($dataFromSearch)->pluck('truckNumber')->toArray(),
+            'packetDriver' => collect($dataFromSearch)->pluck('pktDriver')->toArray(),
+            'packetTruckNum' => collect($dataFromSearch)->pluck('pktTruckNumber')->toArray(),
+            'packetLocation' => collect($dataFromSearch)->pluck('pktLocation')->toArray(),
+
+            ]) }}">
+            <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]">
+                <span class="material-symbols-outlined pb-0 text-lg">description</span>
+                <span class="ml-2">EXPORT TO EXCEL</span>
+            </button>
+        </a>
+
 
         <div class=" w-full " style="margin-left: -10%;">
             <table class="table border-separate border border-slate-500" id="dataTable">
@@ -208,10 +241,10 @@
                 </tbody>
             </table>
           </div>
-          @if (!is_null($dataFromSearch))
+          {{-- @if (!is_null($dataFromSearch))
           <!-- Display pagination links -->
             {{ $dataFromSearch->links() }}
-        @endif
+        @endif --}}
 
 
     </div>
@@ -570,47 +603,6 @@
                     }
                 });
             });
-
-
-
-
-
-
-
-
-//         $(document).ready(function() {
-//     // Target the form by its ID
-//     $('#searchForm').on('submit', function(event) {
-//         event.preventDefault(); // Prevent the default form submission
-
-//         // Serialize the form data to send in the request
-//         var formData = $(this).serialize();
-
-//         // Send an AJAX GET request to your PHP script
-//         $.ajax({
-//             url: 'searchData.php',
-//             type: 'GET',
-//             data: formData,
-//             dataType: 'json',
-//             success: function(response) {
-//                 // Clear the existing table data
-//                 $('#dataTable tbody').empty();
-
-//                 // Loop through the JSON data and populate the table
-//                 $.each(response.data, function(index, item) {
-//                     var row = $('<tr>');
-//                     row.append('<td>' + item.pkgID + '</td>');
-//                     row.append('<td>' + item.jobNumber + '</td>');
-//                     // Add more columns for other fields
-//                     $('#dataTable tbody').append(row);
-//                 });
-//             },
-//             error: function(error) {
-//                 console.log(error);
-//             }
-//         });
-//     });
-// });
 
 
 
