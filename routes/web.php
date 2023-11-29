@@ -179,7 +179,7 @@ Route::get('/Shipped-data', [ReportsConreoller::class, 'Shipped'])->name('shippe
 
 
 
-Route::get('/export-excel',[ReportsConreoller::class, 'exportExcel'])->name('exportExcel');
+Route::get('/export-excel',[ReportsConreoller::class, 'generateRecord'])->name('generateRecord');
 
 Route::get('/exportView', function(){
     return view('excelView');

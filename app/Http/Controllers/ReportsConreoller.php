@@ -109,7 +109,8 @@ class ReportsConreoller extends Controller
                 'packets.packetDriver AS pktDriver',
                 'packets.packetTruckNumber AS pktTruckNumber',
                 'packets.packetLocation AS pktLocation'
-            )->get(); // Add pagination with 15 records per page
+            )->get();
+                // )->paginate(10)->withQueryString(); // Add pagination with 15 records per page
 
             // dd($searchData);
 
@@ -300,7 +301,7 @@ class ReportsConreoller extends Controller
     }
 
 
-    public function exportExcel(Request $request){
+    public function generateRecord(Request $request){
 
         // $boxName = $request->query('boxName', []);
         // $pkgID = $request->query('pkgID', []);
@@ -361,7 +362,7 @@ class ReportsConreoller extends Controller
             'packetLocation' => $request->query('packetLocation', []),
         ];
 
-
+        dd($dataForExcel['boxName']);
 
         return view('excelView', compact('dataForExcel'));
     }
