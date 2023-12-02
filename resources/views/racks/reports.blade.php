@@ -76,7 +76,7 @@
     <div class="hidden p-4 rounded-lg dark:bg-gray-800 w-[167%]" id="Search" role="tabpanel" aria-labelledby="Search-tab">
 
 
-        <div class="flex justify-center items-center h-screen " style="margin-top: -15%; margin-bottom: -15%; margin-left: -10%;">
+        <div class="flex justify-center items-center h-screen " style="margin-top: -15%; margin-bottom: -15%; margin-left: -10%;" style="">
             <form id="searchForm" action="{{ route('searchData') }}" method="GET" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
                 <div class="flex flex-wrap -mx-4">
                     <div class="w-1/4 px-4 mb-4">
@@ -172,10 +172,12 @@
         {{-- </a> --}}
 
 
+
+
         <div class=" w-full " style="margin-left: -10%;">
-            <table class="table border-separate border border-slate-500" id="searchData">
-                <thead>
-                    <tr class="text=sm">
+            <table class="table border-collapse border border-slate-500" id="searchData">
+                <thead >
+                    <tr class="text-[12px]" >
                         <th>Box Name</th>
                         <th>Package ID</th>
                         <th>Package Name</th>
@@ -323,9 +325,9 @@
         </button>
 
         <div class=" w-full " style="margin-left: -10%;">
-            <table class="table " id="notShippedData">
+            <table class="table" id="notShippedData" >
                 <thead>
-                    <tr>
+                    <tr class="text-[12px]">
                         <th>Box Name</th>
                         <th>Package ID</th>
                         <th>Package Name</th>
@@ -353,7 +355,7 @@
                     @if (!is_null($dataFromNotShipped))
 
                         @foreach ($dataFromNotShipped as $record)
-                                <tr class="text-xs">
+                                <tr class="text-xs" >
                                     <td>{{ $record->boxName }}</td>
                                     <td>{{ $record->pkgID }}</td>
                                     <td>{{ $record->pkgName }}</td>
@@ -467,7 +469,7 @@
         <div class=" w-full " style="margin-left: -10%;">
             <table class="table" id="shippedData">
                 <thead>
-                    <tr>
+                    <tr class="text-[12px]">
                         <th>Box Name</th>
                         <th>Package ID</th>
                         <th>Package Name</th>

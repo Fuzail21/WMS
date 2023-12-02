@@ -336,6 +336,9 @@ class ReportsConreoller extends Controller
 
         // return view('excelView');
 
+
+        $boxName = $request->query('boxName', []);
+
         $dataForExcel = [
             'boxName' => $request->query('boxName', []),
             'pkgID' => $request->query('pkgID', []),
@@ -362,7 +365,7 @@ class ReportsConreoller extends Controller
             'packetLocation' => $request->query('packetLocation', []),
         ];
 
-        dd($dataForExcel['boxName']);
+        dd($boxName);
 
         return view('excelView', compact('dataForExcel'));
     }
