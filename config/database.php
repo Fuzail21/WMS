@@ -113,7 +113,7 @@ return [
                 'prefix' => '',
                 'prefix_indexes' => true,
 
-                
+
 
                 // just to check
 
