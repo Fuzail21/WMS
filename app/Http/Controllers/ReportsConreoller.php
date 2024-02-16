@@ -40,6 +40,7 @@ class ReportsConreoller extends Controller
         $materialType = $request->input('materialType');
 
 
+
         if ($boxName) {
             $record->where('packages.boxName', 'LIKE', "%{$boxName}%");
         }

@@ -1,6 +1,8 @@
 {{-- THIS IS SIDE NAVIGATION BAR IT IS INCLUDE IN ALL PAGES EXCEPT LOGIN OR REGISTER --}}
 
-<div class="sidebar ">
+
+
+<div class="sidebar" id="sidebar">
 
     <div class="user-account ">
         <img src="{{ asset('img/20-20-Logo-Color.png') }}" alt="logo" />
@@ -11,6 +13,7 @@
     <ul class="links">
         <h4>Main Menu</h4>
 
+ 
         <li>
             <span class="material-symbols-outlined">dashboard</span>
             <a href="{{ url('/') }}">Dashboard</a>
@@ -85,5 +88,22 @@
     </ul>
 
 </div>
+
+
+
+<script>
+    // Function to toggle the visibility of the sidebar
+    function toggleSidebar() {
+        var sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('sidebar-open'); // Add or remove a class to show/hide the sidebar
+    }
+</script>
+
+<style>
+    /* Add styles for the open sidebar */
+    .sidebar-open {
+        transform: translateX(0);
+    }
+</style>
 
 

@@ -113,7 +113,7 @@
                                 if ($packages->count() > 1) {
                                     $bgcolor = 'bg-[00203FFF]text-white';
                                 }
-
+                                    $days='';
                                     if ($packages->count() > 1) {
                                         $date = date("Y-m-d");
                                         $date1 = date_create($date);
@@ -179,12 +179,12 @@
                                 </button>
                             </a>
 
-                            <button type="button"
+                            {{-- <button type="button"
                                     class="text-[#ADEFD1FF] focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-xs py-1 px-1"
                                     data-value1="{{ $rowsLoop }}" data-value2="{{ $columnsLoop }}" data-value3="{{ $boxesLoop }}"
                                     data-value4="{{ $rackId }}" data-value5="{{ $pkgIDs }}"
                                     data-boxid="{{ $boxid_from_foreach }}" data-url="{{ url('/delete-packet') }}/{{ $package->pkgID }}?boxid={{ $boxid_from_foreach }}"  onclick="toggleModal('{{ $pkgIDs }}')">Remove
-                                </button>
+                                </button> --}}
 
 
                             @elseif($boxNameFound && $packageAdded && $packetAdded)

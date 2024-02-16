@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('boxes', function (Blueprint $table) {
-            $table->id('boxId');
+            $table->bigIncrements('boxId'); // Non-incrementing primary key
             $table->string('boxName');
             $table->string('row_position');
             $table->string('column_position');

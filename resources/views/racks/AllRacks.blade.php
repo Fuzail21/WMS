@@ -49,13 +49,13 @@
 
 
 
-    <div class="border-gray-200 dark:border-gray-700 ">
+    <div class="border-gray-200 dark:border-gray-700">
         <ul class="flex -mb-px text-md font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
             <li class="flex-grow" role="presentation">
-                <button class="w-[99%] p-4 border-b-1 rounded-t-sm " id="warehouse-tab" data-tabs-target="#warehouse" type="button" role="tab" aria-controls="warehouse" aria-selected="false">Warehouse</button>
+                <button class="w-[99%] p-4 border-b-1 rounded-t-sm hover:text-gray-600  dark:hover:text-gray-300 " id="warehouse-tab" data-tabs-target="#warehouse" type="button" role="tab" aria-controls="warehouse" aria-selected="false">Warehouse</button>
             </li>
             <li class="flex-grow" role="presentation">
-                <button class="w-[99%] p-4 rounded-t-lg hover:text-gray-600  dark:hover:text-gray-300" id="staging-tab" data-tabs-target="#staging" type="button" role="tab" aria-controls="staging" aria-selected="false">Staging</button>
+                <button class="w-[99%] p-4 hover:text-gray-600  dark:hover:text-gray-300" id="staging-tab" data-tabs-target="#staging" type="button" role="tab" aria-controls="staging" aria-selected="false">Staging</button>
             </li>
         </ul>
     </div>
@@ -86,11 +86,10 @@
 
         </div>
 
+
+
+
         <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="staging" role="tabpanel" aria-labelledby="staging-tab">
-
-
-
-
 
 
         {{-- print all rack name on div of specific location name through controller --}}
@@ -112,50 +111,6 @@
 
 
 
-
-
-        {{-- <div class="d-flex align-items-center col-md-12">
-            <div class="col-md-4">
-                <select id="location" class="form-control" name="location" required>
-                    <option value="" disabled selected>Select a location</option>
-                    @foreach($allLocation as $location)
-                    <option class="capitalize" value="{{ route('viewAllRacks', ['locID' => $location->locID]) }}">{{ $location->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <a href="{{ route('newRack') }}" class="ml-[60%]">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <button class="text-white bg-[#0A1E61] py-2 px-2 ml-2">Add Racks</button>
-            </a>
-        </div>
-
-
-    <div class="text-black text-lg grid grid-cols-4">
-        @foreach ($racksAll as $rack)
-        <a class=" text-black hover:text-black hover:no-underline" href="{{ route('viewRacks', ['id' => $rack->rack_id]) }}">
-            <div class=" bg-gray-200 shadow-md py-5 m-3 bg-grey text-center">
-                <p class="px-4 ">{{ $rack->rackName }}</p>
-            </div>
-        </a>
-        @endforeach
-    </div> --}}
-
-
-
 </div> {{--  this is closing div of header <div class="main"> --}}
 
 
@@ -164,19 +119,6 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
-
-//     // JavaScript code to set the default active tab
-// document.addEventListener("DOMContentLoaded", function () {
-//     // Get the button for the desired default active tab
-//     var defaultActiveButton = document.getElementById("warehouse-tab");
-
-//     // Simulate a click on the button to make it active
-//     defaultActiveButton.click();
-// });
-
-
-
 
 
     // This JavaScript code listens for a change in a select element, retrieves the selected option's value (which is expected to be a URL), and redirects the page
@@ -222,6 +164,33 @@
     $(this).attr("aria-selected", "true");
   });
 });
+
+
+    // JavaScript to set the active tab on page load
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // Set the active tab and show the corresponding tab content
+        setActiveTab('warehouse-tab', 'warehouse');
+    });
+
+    function setActiveTab(tabId, tabContentId) {
+        // Remove 'active' class from all tabs
+        document.querySelectorAll('#myTab button').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Remove 'hidden' class from all tab contents
+        document.querySelectorAll('#myTabContent > div').forEach(tabContent => {
+            tabContent.classList.add('hidden');
+        });
+
+        // Add 'active' class to the specified tab
+        document.getElementById(tabId).classList.add('active');
+
+        // Remove 'hidden' class from the specified tab content
+        document.getElementById(tabContentId).classList.remove('hidden');
+    }
+
+
 
 
 
