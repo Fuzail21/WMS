@@ -79,19 +79,23 @@ return [
         ],
 
         'sqlsrv' => [
-            // 'driver' => 'sqlsrv',
-            // // 'url' => env('DATABASE_URL', 'sqlsrv:server=tcp:wms-laravel-server.database.windows.net,1433;database=wms-laravel-database;UID=wms-laravel-server-admin;PWD=BGQ14S2W1KY2I30I$;'),
-            // 'host' => env('DB_HOST', 'wms-laravel-server.database.windows.net'),
-            // 'port' => env('DB_PORT', '1433'),
-            // 'database' => env('DB_DATABASE', 'wms-laravel-database'),
-            // 'username' => env('DB_USERNAME', 'wms-laravel-server-admin'),
-            // 'password' => env('DB_PASSWORD', 'BGQ14S2W1KY2I30I$'),
-            // 'charset' => 'utf8',
-            // 'prefix' => '',
-            // 'prefix_indexes' => true,
-            // 'options' => [
-            //     'dsn' => 'UID=wms-laravel-server-admin;PWD=BGQ14S2W1KY2I30I$',
-            // ],
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL', 'sqlsrv:server=tcp:wms-laravel-server.database.windows.net,1433;database=wms-laravel-database;UID=wms-laravel-server-admin;PWD=BGQ14S2W1KY2I30I$;'),
+            'host' => env('DB_HOST', 'wms-laravel-server.database.windows.net'),
+            'port' => env('DB_PORT', '1433'),
+            'database' => env('DB_DATABASE', 'wms-laravel-database'),
+            'username' => env('DB_USERNAME', 'wms-laravel-server-admin'),
+            'password' => env('DB_PASSWORD', 'BGQ14S2W1KY2I30I$'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'options' => [
+                'dsn' => 'UID=wms-laravel-server-admin;PWD=BGQ14S2W1KY2I30I$',
+            ],
+
+
+
+
 
 
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
@@ -102,16 +106,16 @@ return [
                 // FOR LOCAL
 
 
-                'driver' => 'sqlsrv',
-                'url' => env('DATABASE_URL'),
-                'host' => env('DB_HOST', 'localhost'),
-                'port' => env('DB_PORT', '1433'),
-                'database' => env('DB_DATABASE', 'forge'),
-                'username' => env('DB_USERNAME', 'forge'),
-                'password' => env('DB_PASSWORD', ''),
-                'charset' => 'utf8',
-                'prefix' => '',
-                'prefix_indexes' => true,
+                // 'driver' => 'sqlsrv',
+                // 'url' => env('DATABASE_URL'),
+                // 'host' => env('DB_HOST', 'localhost'),
+                // 'port' => env('DB_PORT', '1433'),
+                // 'database' => env('DB_DATABASE', 'forge'),
+                // 'username' => env('DB_USERNAME', 'forge'),
+                // 'password' => env('DB_PASSWORD', ''),
+                // 'charset' => 'utf8',
+                // 'prefix' => '',
+                // 'prefix_indexes' => true,
 
 
 
