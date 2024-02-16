@@ -80,10 +80,10 @@ return [
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
-            'url' => env('DATABASE_URL', 'sqlsrv:server=tcp:wms-laravel-server.database.windows.net,1433;database=wms-laravel-database;UID=wms-laravel-server-admin;PWD=BGQ14S2W1KY2I30I$;'),
+            'url' => env('DATABASE_URL', 'sqlsrv:server=tcp:wms-laravel-server.database.windows.net,1433;database=wms-laravel;UID=wms-laravel-server-admin;PWD=BGQ14S2W1KY2I30I$;'),
             'host' => env('DB_HOST', 'wms-laravel-server.database.windows.net'),
             'port' => env('DB_PORT', '1433'),
-            'database' => env('DB_DATABASE', 'wms-laravel-database'),
+            'database' => env('DB_DATABASE', 'wms-laravel'),
             'username' => env('DB_USERNAME', 'wms-laravel-server-admin'),
             'password' => env('DB_PASSWORD', 'BGQ14S2W1KY2I30I$'),
             'charset' => 'utf8',
