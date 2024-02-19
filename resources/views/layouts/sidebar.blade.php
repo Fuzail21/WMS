@@ -13,7 +13,7 @@
     <ul class="links">
         <h4>Main Menu</h4>
 
- 
+
         <li>
             <span class="material-symbols-outlined">dashboard</span>
             <a href="{{ url('/') }}">Dashboard</a>
@@ -24,15 +24,15 @@
             <a href="{{ route('reports') }}">Reports</a>
         </li>
 
-        <hr />
-        <h4>Advanced</h4>
+        {{-- <hr /> --}}
+        {{-- <h4>Advanced</h4> --}}
 
         <li>
             <span class="material-symbols-outlined">location_on</span>
-            <a href="{{ route('viewAllBranch') }}"> Location</a>
+            <a href="{{ route('viewAllBranch') }}"> Locations</a>
         </li>
 
-        <li>
+        {{-- <li>
             <span class="material-symbols-outlined">group</span>
             <a href="#">Developer </a>
         </li>
@@ -50,10 +50,10 @@
         <li>
             <span class="material-symbols-outlined">monitoring</span>
             <a href="#">Analytic</a>
-        </li>
+        </li> --}}
 
-        <hr />
-        <h4>Account</h4>
+        {{-- <hr /> --}}
+        {{-- <h4>Account</h4> --}}
 
         <li>
             <span class="material-symbols-outlined">add_location_alt</span>
@@ -66,7 +66,7 @@
         </li>
 
 
-        <li>
+        {{-- <li>
             <span class="material-symbols-outlined">mail</span>
             <a href="#">Message</a>
         </li>
@@ -74,7 +74,7 @@
         <li>
             <span class="material-symbols-outlined">settings</span>
             <a href="#">Settings</a>
-        </li>
+        </li> --}}
 
         <li class="logout" onclick="event.preventDefault();
        document.getElementById('logout-form').submit();">
