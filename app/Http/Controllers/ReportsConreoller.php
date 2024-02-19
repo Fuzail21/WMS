@@ -110,8 +110,8 @@ class ReportsConreoller extends Controller
                 'packets.packetDriver AS pktDriver',
                 'packets.packetTruckNumber AS pktTruckNumber',
                 'packets.packetLocation AS pktLocation'
-            )->get();
-                // )->paginate(10)->withQueryString(); // Add pagination with 15 records per page
+            // )->get();
+                )->paginate(10)->withQueryString(); // Add pagination with 15 records per page
 
             // dd($searchData);
 

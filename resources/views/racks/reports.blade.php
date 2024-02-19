@@ -241,10 +241,10 @@
             </table>
           </div>
 
-          {{-- @if (!is_null($dataFromSearch))
+          @if (!is_null($dataFromSearch))
           <!-- Display pagination links -->
             {{ $dataFromSearch->links() }}
-        @endif --}}
+        @endif
 
 
     </div>
