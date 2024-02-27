@@ -54,7 +54,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end" style="color:#0A1E61;">Code</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="text" class="form-control @error('password') is-invalid @enderror">
+                                <input id="password" type="text" name="password" class="form-control  @error('password') is-invalid @enderror">
                                 {{-- <span>
                                 <img id="password-toggle" src="img/eye.svg" alt="password">
                                 </span> --}}
