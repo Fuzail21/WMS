@@ -19,7 +19,7 @@
                 <div class="card-header" style="font-weight:600 ; text-align:center; font-size: 120%; color:#091F62;">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('createUser') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -51,26 +51,29 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end" style="color:#0A1E61;">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-end" style="color:#0A1E61;">Code</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                                <span>
+                                <input id="password" type="text" class="form-control @error('password') is-invalid @enderror">
+                                {{-- <span>
                                 <img id="password-toggle" src="img/eye.svg" alt="password">
-                                </span>
+                                </span> --}}
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                            <div class="text-red-500" id="errorMessage"></div>
                         </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end" style="color:#0A1E61;">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end" style="color:#0A1E61;">{{ __('Confirm Code') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="text" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <div class="text-red-500" id="errorMessage1"></div>
+
 
                             </div>
                         </div>
@@ -107,7 +110,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3" >
+                        {{-- <div class="row mb-3" >
                             <div class="col-md-6 offset-md-4">
                                 <div class="login" style="padding-top:7px ;">
                                    Already have an account?
@@ -115,7 +118,9 @@
                                    <a href="{{ route('login') }}" style="color:#0A1E61; font-weight:bold;"> Log In</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
+
+
                     </form>
                 </div>
             </div>
@@ -124,26 +129,56 @@
 </div>
 
 
-<script>
-const passwordInput = document.getElementById("password");
-const passwordToggle = document.getElementById("password-toggle");
-
-passwordToggle.addEventListener("click", function () {
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    passwordToggle.textContent = "visibility_off";
-  } else {
-    passwordInput.type = "password";
-    passwordToggle.textContent = "visibility";
-  }
-});
+ <script>
 
 
+// const passwordInput = document.getElementById("password");
+// const passwordToggle = document.getElementById("password-toggle");
+
+// passwordToggle.addEventListener("click", function () {
+//   if (passwordInput.type === "password") {
+//     passwordInput.type = "text";
+//     passwordToggle.textContent = "visibility_off";
+//   } else {
+//     passwordInput.type = "password";
+//     passwordToggle.textContent = "visibility";
+//   }
+// });
 
 
+
+document.getElementById('password').addEventListener('input', function() {
+        var password = this.value;
+        var passwordField = this;
+        var errorMessageElement = document.getElementById('errorMessage');
+
+        if (password.length > 6) {
+            passwordField.classList.add('border-red-500');
+            errorMessageElement.textContent = "Only 6 digit allowed.";
+        } else {
+            passwordField.classList.remove('border-red-500');
+            errorMessageElement.textContent = "";
+        }
+    });
+
+
+    document.getElementById('password-confirm').addEventListener('input', function() {
+        var password = this.value;
+        var passwordField = this;
+        var errorMessageElement = document.getElementById('errorMessage1');
+
+        if (password.length > 6) {
+            passwordField.classList.add('border-red-500');
+            errorMessageElement.textContent = "Only 6 digit allowed.";
+        } else {
+            passwordField.classList.remove('border-red-500');
+            errorMessageElement.textContent = "";
+        }
+    });
 
 
 </script>
+
 </body>
 
 

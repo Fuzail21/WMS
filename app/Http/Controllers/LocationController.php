@@ -41,10 +41,18 @@ class LocationController extends Controller
 
     // This function retrieves all location records, passes them to a view, and displays them on the "AllLocations" view.
     public function view($branchID){
+
+
+        // Added in 2/27/2024
+        $warehouseIds = [15, 10004]; // IDs of the locations you want to exclude
+        $excludeWarehouseLocations = Location::whereNotIn('locID', $warehouseIds)->get();
+        $excludeFabyardLocations = Location::whereIn('locID', $warehouseIds)->get();
+        // Added in 2/27/2024
+
         $location = Location::all();
         $branchLocations = Location::where('branchID', $branchID)->get();
         // dd($branchID);
-        $data = compact('location', 'branchLocations', 'branchID');
+        $data = compact('location', 'branchLocations', 'branchID', 'excludeWarehouseLocations', 'excludeFabyardLocations');
         return view('Location.AllLocations')->with($data);
     }
 }

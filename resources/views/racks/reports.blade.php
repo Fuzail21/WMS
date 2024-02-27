@@ -138,39 +138,25 @@
         </div>
 
 
+            {{-- <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]" onclick="downloadSearchDataCSV()">
+                <span class="material-symbols-outlined pb-0 text-lg">description</span>
+                <span class="ml-2">EXPORT TO EXCEL</span>
+            </button> --}}
 
-        {{-- <a href="{{ route('generateRecord') }}?{{ http_build_query([
-            'boxName' => collect($dataFromSearch)->pluck('boxName')->toArray(),
-            'pkgID' => collect($dataFromSearch)->pluck('pkgID')->toArray(),
-            'pkgName' => collect($dataFromSearch)->pluck('pkgName')->toArray(),
-            'pm' => collect($dataFromSearch)->pluck('pm')->toArray(),
-            'purchasingAgent' => collect($dataFromSearch)->pluck('purchasingAgent')->toArray(),
-            'pkgShipIn' => collect($dataFromSearch)->pluck('dateIn')->toArray(),
-            'pkgExpShipOut' => collect($dataFromSearch)->pluck('expectedDateOut')->toArray(),
-            'pkgShipOut' => collect($dataFromSearch)->pluck('dateOut')->toArray(),
-            'deliveryLocation' => collect($dataFromSearch)->pluck('deliveryLocation')->toArray(),
-            'removingDriver' => collect($dataFromSearch)->pluck('removingDriver')->toArray(),
-            'removingNote' => collect($dataFromSearch)->pluck('removingNote')->toArray(),
-            'packetsJobNumber' => collect($dataFromSearch)->pluck('pktJobNumber')->toArray(),
-            'packetsShipIn' => collect($dataFromSearch)->pluck('pktShipIn')->toArray(),
-            'packetsMaterialType' => collect($dataFromSearch)->pluck('pktMaterialType')->toArray(),
-            'pktMaterialDesc' => collect($dataFromSearch)->pluck('pktMaterialDesc')->toArray(),
-            'numOfBundles' => collect($dataFromSearch)->pluck('pktNumberOfBundles')->toArray(),
-            'modifiedNumOfBundles' => collect($dataFromSearch)->pluck('pktModifiedNumOfBundles')->toArray(),
-            'modifiedDate' => collect($dataFromSearch)->pluck('pktModifiedDate')->toArray(),
-            'modifiedBy' => collect($dataFromSearch)->pluck('pktModifiedBy')->toArray(),
-            'truckNum' => collect($dataFromSearch)->pluck('truckNumber')->toArray(),
-            'packetDriver' => collect($dataFromSearch)->pluck('pktDriver')->toArray(),
-            'packetTruckNum' => collect($dataFromSearch)->pluck('pktTruckNumber')->toArray(),
-            'packetLocation' => collect($dataFromSearch)->pluck('pktLocation')->toArray(),
 
-            ]) }}"> --}}
-            <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]" onclick="downloadSearchDataCSV()">
+
+        <form method="post" action="{{ route('generateRecord') }}">
+            @csrf
+            <input type="hidden" name="dataAll" value="{{ json_encode($dataAll) }}">
+            <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]">
                 <span class="material-symbols-outlined pb-0 text-lg">description</span>
                 <span class="ml-2">EXPORT TO EXCEL</span>
             </button>
-        {{-- </a> --}}
+        </form>
 
+
+{{-- @dd($dataAll); --}}
+{{-- @dd($dataFromSearch); --}}
 
 
 
@@ -220,18 +206,19 @@
                                     <td>{{ $record->deliveryLocation }}</td>
                                     <td>{{ $record->removingDriver }}</td>
                                     <td>{{ $record->removingNote }}</td>
-                                    <td>{{ $record->pktJobNumber }}</td>
-                                    <td>{{ $record->pktShipIn }}</td>
-                                    <td>{{ $record->pktMaterialType }}</td>
-                                    <td>{{ $record->pktMaterialDesc }}</td>
-                                    <td>{{ $record->pktNumberOfBundles }}</td>
-                                    <td>{{ $record->pktModifiedNumOfBundles }}</td>
-                                    <td>{{ $record->pktModifiedDate }}</td>
-                                    <td>{{ $record->pktModifiedBy }}</td>
+
+                                    <td>{{ $record->jobNumber }}</td>
+                                    <td>{{ $record->dateIn }}</td>
+                                    <td>{{ $record->materialType }}</td>
+                                    <td>{{ $record->materialDescription }}</td>
+                                    <td>{{ $record->numberOfBundles }}</td>
+                                    <td>{{ $record->modifiedNumOfBundles }}</td>
+                                    <td>{{ $record->modifiedDate }}</td>
+                                    <td>{{ $record->modifiedBy }}</td>
                                     <td>{{ $record->truckNumber }}</td>
-                                    <td>{{ $record->pktDriver }}</td>
-                                    <td>{{ $record->pktTruckNumber }}</td>
-                                    <td>{{ $record->pktLocation }}</td>
+                                    <td>{{ $record->packetDriver }}</td>
+                                    <td>{{ $record->packetTruckNumber }}</td>
+                                    <td>{{ $record->packetLocation }}</td>
                                 </tr>
 
                         @endforeach

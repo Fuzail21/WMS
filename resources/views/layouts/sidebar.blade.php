@@ -66,12 +66,20 @@
         </li>
 
 
-        {{-- <li>
-            <span class="material-symbols-outlined">mail</span>
-            <a href="#">Message</a>
-        </li>
+         {{-- <li>
+            <span class="material-symbols-outlined">person_add</span>
+            <a href="{{ route('registerUser') }}">Register User</a>
+        </li> --}}
 
+        @if(auth()->check() && auth()->user()->designation == 'Admin')
         <li>
+            <span class="material-symbols-outlined">person_add</span>
+            <a href="{{ route('registerUser') }}">Register User</a>
+        </li>
+    @endif
+
+
+       {{-- <li>
             <span class="material-symbols-outlined">settings</span>
             <a href="#">Settings</a>
         </li> --}}

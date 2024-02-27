@@ -12,12 +12,14 @@ class ReportsConreoller extends Controller
     public function index(Request $request){
 
         $dataFromSearch = $request->session()->get('dataFromSearch');
+        $dataAll = $request->session()->get('dataAll');
+
         $dataFromNotShipped = $request->session()->get('dataFromNotShipped');
         $dataFromShipped = $request->session()->get('dataFromShipped');
 
 
 // dd($dataFromNotShipped);
-        return view('racks.reports', compact('dataFromSearch', 'dataFromNotShipped', 'dataFromShipped'));
+        return view('racks.reports', compact('dataFromSearch', 'dataFromNotShipped', 'dataFromShipped', 'dataAll'));
     }
 
     public function searchData(Request $request){
@@ -93,31 +95,51 @@ class ReportsConreoller extends Controller
             $record->where('packets.materialType', 'LIKE',  "%{$materialType}%");
         }
 
+
         // $data1 = DB::table('packets')->get();
 
-        $searchData = $record
-            ->leftjoin('packets', 'packages.pkgID', '=', 'packets.pkgID')
-            ->select(
-                'packages.*',
-                'packets.jobNumber AS pktJobNumber',
-                'packets.dateIn AS pktShipIn',
-                'packets.materialType AS pktMaterialType',
-                'packets.materialDescription AS pktMaterialDesc',
-                'packets.numberOfBundles AS pktNumberOfBundles',
-                'packets.modifiedNumOfBundles AS pktModifiedNumOfBundles',
-                'packets.modifiedDate AS pktModifiedDate',
-                'packets.modifiedBy AS pktModifiedBy',
-                'packets.packetDriver AS pktDriver',
-                'packets.packetTruckNumber AS pktTruckNumber',
-                'packets.packetLocation AS pktLocation'
-            // )->get();
-                )->paginate(10)->withQueryString(); // Add pagination with 15 records per page
 
-            // dd($searchData);
+                $searchDataAll = $record
+                ->leftjoin('packets', 'packages.pkgID', '=', 'packets.pkgID')
+                ->select(
+                    'packages.*',
+                    'packets.*'
+                )->get();
 
-        // $dataFromSearch = compact('data');
-        // dd($dataFromSearch);
-        return redirect()->route('reports')->with('dataFromSearch', $searchData);
+                // dd($searchDataAll);
+
+
+
+
+                // $searchData = $record
+                // ->leftjoin('packets', 'packages.pkgID', '=', 'packets.pkgID')
+                // ->select(
+                //     'packages.*',
+                //     'packets.*'
+                //     // 'packets.jobNumber AS pktJobNumber',
+                //     // 'packets.dateIn AS pktShipIn',
+                //     // 'packets.materialType AS pktMaterialType',
+                //     // 'packets.materialDescription AS pktMaterialDesc',
+                //     // 'packets.numberOfBundles AS pktNumberOfBundles',
+                //     // 'packets.modifiedNumOfBundles AS pktModifiedNumOfBundles',
+                //     // 'packets.modifiedDate AS pktModifiedDate',
+                //     // 'packets.modifiedBy AS pktModifiedBy',
+                //     // 'packets.packetDriver AS pktDriver',
+                //     // 'packets.packetTruckNumber AS pktTruckNumber',
+                //     // 'packets.packetLocation AS pktLocation'
+                // // )->get();
+                //     )->paginate(10)->withQueryString(); // Add pagination with 15 records per page
+                $searchData = $record
+                ->leftJoin('packets as p1', 'packages.pkgID', '=', 'p1.pkgID')
+                ->select(
+                    'packages.*',
+                    'p1.*'
+                )->paginate(10)->withQueryString();
+
+
+        return redirect()->route('reports')->with('dataFromSearch', $searchData)->with('dataAll', $searchDataAll);
+        dd($dataAll);
+
 
     }
 
@@ -256,7 +278,7 @@ class ReportsConreoller extends Controller
             $record->where('packages.dateIn', 'LIKE', "%{$pkgDateIn}%");
         }
 
-        // Add this condition to filter records where "dateOut" is null
+        // Add this condition to filter records where "dateOut" is NOT null
         $record->whereNotNull('packages.dateOut');
 
         if ($deliveryLocation) {
@@ -304,71 +326,11 @@ class ReportsConreoller extends Controller
 
     public function generateRecord(Request $request){
 
-        // $boxName = $request->query('boxName', []);
-        // $pkgID = $request->query('pkgID', []);
-        // $pkgName = $request->query('pkgName', []);
-        // $pm = $request->query('pm', []);
-        // $purchasingAgent = $request->query('purchasingAgent', []);
-
-        // $pkgShipIn = $request->query('pkgShipIn', []);
-        // $pkgExpShipOut = $request->query('pkgExpShipOut', []);
-        // $pkgShipOut = $request->query('pkgShipOut', []);
-        // $deliveryLocation = $request->query('deliveryLocation', []);
-        // $removingDriver = $request->query('removingDriver', []);
-
-        // $removingNote = $request->query('removingNote', []);
-        // $packetsJobNumber = $request->query('packetsJobNumber', []);
-        // $packetsShipIn = $request->query('packetsShipIn', []);
-        // $packetsMaterialType = $request->query('packetsMaterialType', []);
-        // $pktMaterialDesc = $request->query('pktMaterialDesc', []);
-
-        // $numOfBundles = $request->query('numOfBundles', []);
-        // $modifiedNumOfBundles = $request->query('modifiedNumOfBundles', []);
-        // $modifiedDate = $request->query('modifiedDate', []);
-        // $modifiedBy = $request->query('modifiedBy', []);
-        // $truckNum = $request->query('truckNum', []);
-
-        // $packetDriver = $request->query('packetDriver', []);
-        // $packetTruckNum = $request->query('packetTruckNum', []);
-        // $packetLocation = $request->query('packetLocation', []);
-
-        // // dd($packetLocation);
+        $dataAll = json_decode($request->dataAll);
+        // dd($dataAll);
 
 
-        // return view('excelView');
-
-
-        $boxName = $request->query('boxName', []);
-
-        $dataForExcel = [
-            'boxName' => $request->query('boxName', []),
-            'pkgID' => $request->query('pkgID', []),
-            'pkgName' => $request->query('pkgName', []),
-            'pm' => $request->query('pm', []),
-            'purchasingAgent' => $request->query('purchasingAgent', []),
-            'pkgShipIn' => $request->query('pkgShipIn', []),
-            'pkgExpShipOut' => $request->query('pkgExpShipOut', []),
-            'pkgShipOut' => $request->query('pkgShipOut', []),
-            'deliveryLocation' => $request->query('deliveryLocation', []),
-            'removingDriver' => $request->query('removingDriver', []),
-            'removingNote' => $request->query('removingNote', []),
-            'packetsJobNumber' => $request->query('packetsJobNumber', []),
-            'packetsShipIn' => $request->query('packetsShipIn', []),
-            'packetsMaterialType' => $request->query('packetsMaterialType', []),
-            'pktMaterialDesc' => $request->query('pktMaterialDesc', []),
-            'numOfBundles' => $request->query('numOfBundles', []),
-            'modifiedNumOfBundles' => $request->query('modifiedNumOfBundles', []),
-            'modifiedDate' => $request->query('modifiedDate', []),
-            'modifiedBy' => $request->query('modifiedBy', []),
-            'truckNum' => $request->query('truckNum', []),
-            'packetDriver' => $request->query('packetDriver', []),
-            'packetTruckNum' => $request->query('packetTruckNum', []),
-            'packetLocation' => $request->query('packetLocation', []),
-        ];
-
-        dd($boxName);
-
-        return view('excelView', compact('dataForExcel'));
+        return view('exportExcel', compact('dataAll'));
     }
 
 

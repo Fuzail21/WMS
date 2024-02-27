@@ -25,6 +25,7 @@ use App\Http\Controllers\Packet\RelocateToWMS;
 use App\Http\Controllers\ReportsConreoller;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\UserController;
 
 
 
@@ -179,9 +180,12 @@ Route::get('/Shipped-data', [ReportsConreoller::class, 'Shipped'])->name('shippe
 
 
 
-Route::get('/export-excel',[ReportsConreoller::class, 'generateRecord'])->name('generateRecord');
+Route::post('/export-excel',[ReportsConreoller::class, 'generateRecord'])->name('generateRecord');
 
-Route::get('/exportView', function(){
-    return view('excelView');
-});
+
+Route::get('/register-user', [UserController::class, 'index'])->name('registerUser');
+
+Route::post('/create-user', [UserController::class, 'createUser'])->name('createUser')->middleware('auth');
+
+Route::post('/login-user', [UserController::class, 'login'])->name('loginRegister');
 
