@@ -129,7 +129,6 @@
                     </div>
 
 
-
                 </div>
                 <div class="mt-4">
                     <button class="bg-[#0A1E61] hover:bg-[#0A1E61] text-white font-bold py-2 px-4 rounded" type="submit" name="search">Search</button>
@@ -138,14 +137,7 @@
         </div>
 
 
-            {{-- <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]" onclick="downloadSearchDataCSV()">
-                <span class="material-symbols-outlined pb-0 text-lg">description</span>
-                <span class="ml-2">EXPORT TO EXCEL</span>
-            </button> --}}
-
-
-
-        <form method="post" action="{{ route('generateRecord') }}">
+        <form method="post" action="{{ route('searchDataTab') }}">
             @csrf
             <input type="hidden" name="dataAll" value="{{ json_encode($dataAll) }}">
             <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]">
@@ -153,11 +145,6 @@
                 <span class="ml-2">EXPORT TO EXCEL</span>
             </button>
         </form>
-
-
-{{-- @dd($dataAll); --}}
-{{-- @dd($dataFromSearch); --}}
-
 
 
         <div class=" w-full " style="margin-left: -10%;">
@@ -306,10 +293,14 @@
             </form>
         </div>
 
-        <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]" onclick="downloadnotShippedDataCSV()">
-            <span class="material-symbols-outlined pb-0 text-lg">description</span>
-            <span class="ml-2">EXPORT TO EXCEL</span>
-        </button>
+        <form method="post" action="{{ route('notShippedTabData') }}">
+            @csrf
+            <input type="hidden" name="dataAll" value="{{ json_encode($dataAll) }}">
+            <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]">
+                <span class="material-symbols-outlined pb-0 text-lg">description</span>
+                <span class="ml-2">EXPORT TO EXCEL</span>
+            </button>
+        </form>
 
         <div class=" w-full " style="margin-left: -10%;">
             <table class="table" id="notShippedData" >
@@ -354,14 +345,15 @@
                                     <td>{{ $record->deliveryLocation }}</td>
                                     <td>{{ $record->removingDriver }}</td>
                                     <td>{{ $record->removingNote }}</td>
-                                    <td>{{ $record->pktJobNumber }}</td>
-                                    <td>{{ $record->pktShipIn }}</td>
-                                    <td>{{ $record->pktMaterialType }}</td>
-                                    <td>{{ $record->pktMaterialDesc }}</td>
-                                    <td>{{ $record->pktNumberOfBundles }}</td>
-                                    <td>{{ $record->pktModifiedNumOfBundles }}</td>
-                                    <td>{{ $record->pktModifiedDate }}</td>
-                                    <td>{{ $record->pktModifiedBy }}</td>
+
+                                    <td>{{ $record->jobNumber }}</td>
+                                    <td>{{ $record->dateIn }}</td>
+                                    <td>{{ $record->materialType }}</td>
+                                    <td>{{ $record->materialDescription }}</td>
+                                    <td>{{ $record->numberOfBundles }}</td>
+                                    <td>{{ $record->modifiedNumOfBundles }}</td>
+                                    <td>{{ $record->modifiedDate }}</td>
+                                    <td>{{ $record->modifiedBy }}</td>
                                     <td>{{ $record->truckNumber }}</td>
                                 </tr>
                         @endforeach
@@ -371,6 +363,12 @@
                 </tbody>
             </table>
           </div>
+
+
+          @if (!is_null($dataFromNotShipped))
+          <!-- Display pagination links -->
+            {{ $dataFromNotShipped->links() }}
+        @endif
 
 
     </div>
@@ -448,10 +446,14 @@
         </div>
 
 
-        <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]" onclick="downloadShippedDataCSV()">
-            <span class="material-symbols-outlined pb-0 text-lg">description</span>
-            <span class="ml-2">EXPORT TO EXCEL</span>
-        </button>
+        <form method="post" action="{{ route('shippedTabData') }}">
+            @csrf
+            <input type="hidden" name="dataAll" value="{{ json_encode($dataAll) }}">
+            <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]">
+                <span class="material-symbols-outlined pb-0 text-lg">description</span>
+                <span class="ml-2">EXPORT TO EXCEL</span>
+            </button>
+        </form>
 
         <div class=" w-full " style="margin-left: -10%;">
             <table class="table" id="shippedData">
@@ -495,14 +497,15 @@
                                     <td>{{ $record->deliveryLocation }}</td>
                                     <td>{{ $record->removingDriver }}</td>
                                     <td>{{ $record->removingNote }}</td>
-                                    <td>{{ $record->pktJobNumber }}</td>
-                                    <td>{{ $record->pktShipIn }}</td>
-                                    <td>{{ $record->pktMaterialType }}</td>
-                                    <td>{{ $record->pktMaterialDesc }}</td>
-                                    <td>{{ $record->pktNumberOfBundles }}</td>
-                                    <td>{{ $record->pktModifiedNumOfBundles }}</td>
-                                    <td>{{ $record->pktModifiedDate }}</td>
-                                    <td>{{ $record->pktModifiedBy }}</td>
+
+                                    <td>{{ $record->jobNumber }}</td>
+                                    <td>{{ $record->dateIn }}</td>
+                                    <td>{{ $record->materialType }}</td>
+                                    <td>{{ $record->materialDescription }}</td>
+                                    <td>{{ $record->numberOfBundles }}</td>
+                                    <td>{{ $record->modifiedNumOfBundles }}</td>
+                                    <td>{{ $record->modifiedDate }}</td>
+                                    <td>{{ $record->modifiedBy }}</td>
                                     <td>{{ $record->truckNumber }}</td>
                                 </tr>
                         @endforeach
@@ -512,6 +515,10 @@
             </table>
           </div>
 
+          @if (!is_null($dataFromShipped))
+          <!-- Display pagination links -->
+            {{ $dataFromShipped->links() }}
+        @endif
 
 
     </div>
@@ -598,10 +605,6 @@
 
 
 
-
-
-
-
          // JavaScript code to set the default active tab
          document.addEventListener("DOMContentLoaded", function () {
              // Get the button for the desired default active tab
@@ -614,129 +617,22 @@
 
 
 
-
-    //      function downloadExcel() {
-    //     // Get the table HTML content
-    //     var table = document.getElementById("myTable");
-    //     var html = table.innerHTML;
-
-    //     // Create a Blob with the HTML content
-    //     var blob = new Blob([html], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-
-    //     // Save the Blob as a file using FileSaver.js
-    //     saveAs(blob, "table.xlsx");
-    // }
-
-
-    function downloadSearchDataCSV() {
-        // Get the table element by ID
-        var table = document.getElementById("searchData");
-
-        // Initialize an empty CSV string
-        var csv = [];
-
-        // Iterate over the rows in the table
-        var rows = table.querySelectorAll("tr");
-        rows.forEach(function (row) {
-            // Initialize an empty array for each row
-            var rowData = [];
-
-            // Iterate over the cells in the row
-            var cells = row.querySelectorAll("td, th");
-            cells.forEach(function (cell) {
-                // Push the cell's text content into the row data array
-                rowData.push(cell.textContent.trim());
-            });
-
-            // Push the row data as a comma-separated string into the CSV array
-            csv.push(rowData.join(","));
-        });
-
-        // Join the CSV array into a single string with line breaks
-        var csvContent = csv.join("\n");
-
-        // Create a Blob with the CSV content and UTF-8 encoding
-        var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
-
-        // Save the Blob as a file using FileSaver.js
-        saveAs(blob, "UserPackageDetails.csv");
+         document.addEventListener("DOMContentLoaded", function() {
+    // Get the last active tab from local storage
+    var lastTab = localStorage.getItem('lastTab');
+    if (lastTab) {
+        document.querySelector('[data-tabs-target="' + lastTab + '"]').click();
     }
 
-
-
-
-
-    function downloadnotShippedDataCSV() {
-        // Get the table element by ID
-        var table = document.getElementById("notShippedData");
-
-        // Initialize an empty CSV string
-        var csv = [];
-
-        // Iterate over the rows in the table
-        var rows = table.querySelectorAll("tr");
-        rows.forEach(function (row) {
-            // Initialize an empty array for each row
-            var rowData = [];
-
-            // Iterate over the cells in the row
-            var cells = row.querySelectorAll("td, th");
-            cells.forEach(function (cell) {
-                // Push the cell's text content into the row data array
-                rowData.push(cell.textContent.trim());
-            });
-
-            // Push the row data as a comma-separated string into the CSV array
-            csv.push(rowData.join(","));
+    // Add event listeners to tab buttons
+    document.querySelectorAll('[data-tabs-target]').forEach(button => {
+        button.addEventListener('click', function() {
+            var target = this.getAttribute('data-tabs-target');
+            // Store the active tab in local storage
+            localStorage.setItem('lastTab', target);
         });
-
-        // Join the CSV array into a single string with line breaks
-        var csvContent = csv.join("\n");
-
-        // Create a Blob with the CSV content and UTF-8 encoding
-        var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
-
-        // Save the Blob as a file using FileSaver.js
-        saveAs(blob, "UserPackageDetails.csv");
-    }
-
-
-
-
-    function downloadShippedDataCSV() {
-        // Get the table element by ID
-        var table = document.getElementById("shippedData");
-
-        // Initialize an empty CSV string
-        var csv = [];
-
-        // Iterate over the rows in the table
-        var rows = table.querySelectorAll("tr");
-        rows.forEach(function (row) {
-            // Initialize an empty array for each row
-            var rowData = [];
-
-            // Iterate over the cells in the row
-            var cells = row.querySelectorAll("td, th");
-            cells.forEach(function (cell) {
-                // Push the cell's text content into the row data array
-                rowData.push(cell.textContent.trim());
-            });
-
-            // Push the row data as a comma-separated string into the CSV array
-            csv.push(rowData.join(","));
-        });
-
-        // Join the CSV array into a single string with line breaks
-        var csvContent = csv.join("\n");
-
-        // Create a Blob with the CSV content and UTF-8 encoding
-        var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
-
-        // Save the Blob as a file using FileSaver.js
-        saveAs(blob, "UserPackageDetails.csv");
-    }
-
+    });
+});
 
 
 

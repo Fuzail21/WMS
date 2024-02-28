@@ -138,7 +138,7 @@ class ReportsConreoller extends Controller
 
 
         return redirect()->route('reports')->with('dataFromSearch', $searchData)->with('dataAll', $searchDataAll);
-        dd($dataAll);
+        // dd($dataAll);
 
 
     }
@@ -217,20 +217,20 @@ class ReportsConreoller extends Controller
         }
 
         $notShippedData = $record
-            ->leftjoin('packets', 'packages.pkgID', '=', 'packets.pkgID')
-            ->select(
-                'packages.*',
-                'packets.jobNumber AS pktJobNumber',
-                'packets.dateIn AS pktShipIn',
-                'packets.materialType AS pktMaterialType',
-                'packets.materialDescription AS pktMaterialDesc',
-                'packets.numberOfBundles AS pktNumberOfBundles',
-                'packets.modifiedNumOfBundles AS pktModifiedNumOfBundles',
-                'packets.modifiedDate AS pktModifiedDate',
-                'packets.modifiedBy AS pktModifiedBy',
-            )->get();
+        ->leftjoin('packets', 'packages.pkgID', '=', 'packets.pkgID')
+                ->select(
+                    'packages.*',
+                    'packets.*'
+                )->get();
 
-        return redirect()->route('reports')->with('dataFromNotShipped', $notShippedData);
+        $paginatedNotShippedData = $record
+        ->leftJoin('packets as p1', 'packages.pkgID', '=', 'p1.pkgID')
+        ->select(
+            'packages.*',
+            'p1.*'
+            )->paginate(10)->withQueryString();
+
+        return redirect()->route('reports')->with('dataFromNotShipped', $paginatedNotShippedData)->with('dataAll', $notShippedData);
 
     }
 
@@ -305,26 +305,28 @@ class ReportsConreoller extends Controller
             $record->where('packets.materialType', 'LIKE',  "%{$materialType}%");
         }
 
-        $shippedData = $record
+
+            $shippedData = $record
             ->leftjoin('packets', 'packages.pkgID', '=', 'packets.pkgID')
+                    ->select(
+                        'packages.*',
+                        'packets.*'
+                    )->get();
+
+
+            $paginatedShippedData = $record
+            ->leftJoin('packets as p1', 'packages.pkgID', '=', 'p1.pkgID')
             ->select(
                 'packages.*',
-                'packets.jobNumber AS pktJobNumber',
-                'packets.dateIn AS pktShipIn',
-                'packets.materialType AS pktMaterialType',
-                'packets.materialDescription AS pktMaterialDesc',
-                'packets.numberOfBundles AS pktNumberOfBundles',
-                'packets.modifiedNumOfBundles AS pktModifiedNumOfBundles',
-                'packets.modifiedDate AS pktModifiedDate',
-                'packets.modifiedBy AS pktModifiedBy',
-            )->get();
+                'p1.*'
+                )->paginate(10)->withQueryString();
 
-        return redirect()->route('reports')->with('dataFromShipped', $shippedData);
+        return redirect()->route('reports')->with('dataFromShipped', $paginatedShippedData)->with('dataAll', $shippedData);
 
     }
 
 
-    public function generateRecord(Request $request){
+    public function generateRecordForSearchDataTab(Request $request){
 
         $dataAll = json_decode($request->dataAll);
         // dd($dataAll);
@@ -333,6 +335,24 @@ class ReportsConreoller extends Controller
         return view('exportExcel', compact('dataAll'));
     }
 
+
+    public function generateRecordForNotShippedTab(Request $request){
+
+        $dataAll = json_decode($request->dataAll);
+        // dd($dataAll);
+
+
+        return view('exportExcel', compact('dataAll'));
+    }
+
+    public function generateRecordForShippedTab(Request $request){
+
+        $dataAll = json_decode($request->dataAll);
+        // dd($dataAll);
+
+
+        return view('exportExcel', compact('dataAll'));
+    }
 
 
 }

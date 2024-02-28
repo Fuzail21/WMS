@@ -178,12 +178,17 @@ Route::get('/notShipped-data', [ReportsConreoller::class, 'NotShipped'])->name('
 
 Route::get('/Shipped-data', [ReportsConreoller::class, 'Shipped'])->name('shippedData');
 
+// For export excel file
+Route::post('/export-excel/searchData',[ReportsConreoller::class, 'generateRecordForSearchDataTab'])->name('searchDataTab');
+Route::post('/export-excel/notShippedData',[ReportsConreoller::class, 'generateRecordForNotShippedTab'])->name('notShippedTabData');
+Route::post('/export-excel/ShippedData',[ReportsConreoller::class, 'generateRecordForShippedTab'])->name('shippedTabData');
+// For export excel file
 
 
-Route::post('/export-excel',[ReportsConreoller::class, 'generateRecord'])->name('generateRecord');
 
-
-Route::get('/register-user', [UserController::class, 'index'])->name('registerUser');
+// Only Admin can access this route
+Route::get('/register-user', [UserController::class, 'index'])->name('registerUser')->middleware('check.designation');
+// Only Admin can access this route
 
 Route::post('/create-user', [UserController::class, 'createUser'])->name('createUser')->middleware('auth');
 
