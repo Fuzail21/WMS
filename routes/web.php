@@ -172,11 +172,14 @@ Route::post('/packet-relocate', [RelocateToWMS::class, 'relocateToWMS'])->name('
 
 Route::get('/reports', [ReportsConreoller::class, 'index'])->name('reports');
 
+// For Search data in reports page
 Route::get('/reports-data', [ReportsConreoller::class, 'searchData'])->name('searchData');
 
 Route::get('/notShipped-data', [ReportsConreoller::class, 'NotShipped'])->name('notShippedData');
 
 Route::get('/Shipped-data', [ReportsConreoller::class, 'Shipped'])->name('shippedData');
+// For Search data in reports page
+
 
 // For export excel file
 Route::post('/export-excel/searchData',[ReportsConreoller::class, 'generateRecordForSearchDataTab'])->name('searchDataTab');
@@ -193,4 +196,8 @@ Route::get('/register-user', [UserController::class, 'index'])->name('registerUs
 Route::post('/create-user', [UserController::class, 'createUser'])->name('createUser')->middleware('auth');
 
 Route::post('/login-user', [UserController::class, 'login'])->name('loginRegister');
+
+
+
+
 

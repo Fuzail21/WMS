@@ -8,6 +8,36 @@
 <link rel="stylesheet" href="{{ asset('css/slidebar.css') }}">
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+
+
+<style>
+    @media only screen and (max-width: 1024px)
+    /* @media only screen and (min-width: 300px) and (max-width: 1024px) */ {
+
+    .main {
+    overflow-x: scroll; /* Enable horizontal scrollbar */
+    min-width: 400%; /* Set minimum width to viewport width */
+    padding-bottom: 20px; /* Add some bottom padding to make room for scrollbar */
+    padding-left: 15%;
+}
+
+.parent-box {
+    overflow: hidden; /* Remove overflow on boxes */
+}
+
+.slider{
+    min-width: 400%;
+}
+.child-box{
+    min-width: 40%;
+}
+
+
+}
+    </style>
+
+
+
 @endsection
 
 @section('content')
@@ -21,12 +51,14 @@
 @endsection
 
 
+
+
 <div class="slider d-flex align-items-center bg-[#f3f4f6]">
     <h1 class="pt-7 " style="font-size:28px;">Hi <strong class="font-bold"> {{ Auth::user()->name }} </strong> </h1>
 </div>
 
 
-<div class="main w-[87%] mx-auto text-white  @if($rackStructure[0]->columns > 8) text-[#ADEFD1FF] ml-[7%] w-full @endif"> {{--  THIS DIV INSIDE IN HEADER BEACUSE THIS <div class="main">, THIS CLASS MOVE ALL DATA WHEN USER HOVER ON SIDEBAR --}}
+<div class="main w-[87%] mx-auto text-white  @if($rackStructure[0]->columns > 8) text-[#ADEFD1FF] ml-[7%] w-full @endif">  {{-- THIS DIV INSIDE IN HEADER BEACUSE THIS <div class="main">, THIS CLASS MOVE ALL DATA WHEN USER HOVER ON SIDEBAR --}}
     {{-------------------------------------- Header it is same in all pages except login or register
     -----------------------------------}}
 
@@ -36,37 +68,35 @@
     Blade
     syntax. ---------}}
 
-    <h1 class="text-center text-black text-3xl font-bold">RACK {{ $racks[0]->rackName }}</h1> {{-- this line of code print
-    rackname in top --}}
-
-    {{-- @php
-    $alphabet = range('A', 'Z'); // Generate an array of alphabet letters
-    @endphp --}}
-
-
-    {{-- this whole div code generate alphabet according to columns data --}}
-
-    {{-- <div class="flex justify-around ">
-        @for ($columnsLoop = 1; $columnsLoop <= $rackStructure[0]->columns; $columnsLoop++)
-            <div class="text-black text-lg pb-2.5 grid grid-cols-{{ $rackStructure[0]->columns }} gap-1 ">
-                <h1 class="pb-3 gap-1">{{ $alphabet[$columnsLoop - 1] }}</h1>
-            </div>
-            @endfor
-    </div> --}}
+    <h1 class="text-center text-black text-3xl font-bold">RACK {{ $racks[0]->rackName }}</h1>
 
 
  {{-- this code generate columns & rows according to data --}}
 @for($rowsLoop = 1; $rowsLoop <= $rackStructure[0]->rows; $rowsLoop++)
-    <div class="grid grid-cols-{{ $rackStructure[0]->columns }} gap-1">
+    <div class="grid grid-cols-{{ $rackStructure[0]->columns }} gap-1 ">
         @for($columnsLoop = 1; $columnsLoop <= $rackStructure[0]->columns; $columnsLoop++)
-            <div class="bg-[#ADEFD1FF] my-2 px-4 pb-2  @if($rackStructure[0]->columns > 8) text-[#ADEFD1FF] w-35 @endif" >
+
+
+         {{-- <div class="flex overflow-x-auto max-w-full">
+          <div class="grid grid-cols-8 gap-1"> --}}
+
+            <div class="wrapper">
+                <div class="content">
+
+
+
+
+
+
+
+            <div class="bg-[#ADEFD1FF] my-2 parent-box min-w-fit px-4 pb-2  @if($rackStructure[0]->columns > 8) text-[#ADEFD1FF] w-35 @endif" >
                 <h1 class="pb-3 text-center"></h1>
 
                 {{-- this code generate innerBoxes according to data --}}
                 <div class="grid grid-cols-{{ $rackStructure[0]->innerBoxes }} inline gap-2 ">
                     @for($boxesLoop = 1; $boxesLoop <= $rackStructure[0]->innerBoxes; $boxesLoop++)
 
-                        <div class="inline bg-[#00203FFF] py-2 border border-white text-center box @if($rackStructure[0]->columns > 8) text-[#ADEFD1FF] w-27.5 @endif">
+                        <div class="inline bg-[#00203FFF] py-2 border border-white text-center child-box @if($rackStructure[0]->columns > 8) text-[#ADEFD1FF] w-27.5 @endif">
                             <p class="new-name-display text-xs text-[#F9F6EE]" id="newNameDisplay-{{ $rowsLoop }}-{{ $columnsLoop }}-{{ $boxesLoop }}">
 
                                 {{--
@@ -190,7 +220,7 @@
                             @elseif($boxNameFound && $packageAdded && $packetAdded)
                             {{-- Show the Details button if packets have been added --}}
 
-                            <div>
+                            <div class="detail-btn">
                                 <a href="{{url('/package-details',)}}/{{$boxid_from_foreach}}">
                                     <button type="button"
                                         class="text-[#ADEFD1FF] focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-xs py-1 px-0"
@@ -201,7 +231,7 @@
                                 </a>
                             </div>
 
-                            <a href="{{ route('add-packet') }}?boxId={{ $boxid_from_foreach }}">
+                            <a class="add-btn" href="{{ route('add-packet') }}?boxId={{ $boxid_from_foreach }}">
                                 <button type="button"
                                     class="text-[#ADEFD1FF] focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-xs py-1 px-1"
                                     data-value1="{{ $rowsLoop }}" data-value2="{{ $columnsLoop }}" data-value3="{{ $boxesLoop }}"
@@ -210,7 +240,7 @@
                                 </button>
                             </a>
 
-                            <a href="{{ route('packets-details', ['pkgId' => $pkgIDs])}}?locID={{ $id = request()->input('locID'); }}&rackId={{ $id = $rackId }}">
+                            <a class="update-btn" href="{{ route('packets-details', ['pkgId' => $pkgIDs])}}?locID={{ $id = request()->input('locID'); }}&rackId={{ $id = $rackId }}">
                                 <button type="button"
                                     class="text-[#ADEFD1FF] focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-xs py-1 px-10.5"
                                     data-value1="{{ $rowsLoop }}" data-value2="{{ $columnsLoop }}" data-value3="{{ $boxesLoop }}"
@@ -220,11 +250,12 @@
                             </a>
 
                                 <button type="button"
-                                    class="text-[#ADEFD1FF] focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-xs py-1 px-1"
+                                    class="text-[#ADEFD1FF] focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-xs py-1 px-1 remove-btn"
                                     data-value1="{{ $rowsLoop }}" data-value2="{{ $columnsLoop }}" data-value3="{{ $boxesLoop }}"
                                     data-value4="{{ $rackId }}" data-value5="{{ $pkgIDs }}"
                                     data-boxid="{{ $boxid_from_foreach }}" data-url="{{ url('/delete-packet') }}/{{ $package->pkgID }}?boxid={{ $boxid_from_foreach }}"  onclick="toggleModal('{{ $pkgIDs }}')">Remove
                                 </button>
+
 
 
 
@@ -368,11 +399,20 @@
                     @endfor
                 </div>
             </div>
+
+
+          </div>
+         </div>
+
+
+
+
         @endfor
     </div>
 @endfor
     </div>
 
+    </div>
 </div> {{-- this is closing div of header <div class="main"> --}}
 
 
@@ -472,7 +512,6 @@
 
 
 
-
     // ------------------------------------------------------------ this code will get today/current date and show on forms feild ------------------------------------------------------
 
     function updateDateField() {
@@ -497,64 +536,6 @@
     //----------------------------------------------------- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ----------------------------------------------------------------------------
 
 
-
-
-
-
-//     function showDeleteConfirmation(event) {
-//     const targetButton = event.currentTarget;
-//     const deleteUrl = targetButton.getAttribute('data-url');
-
-//     Swal.fire({
-//         title: 'Delete Package! Are you sure?',
-//         text: 'Type DELETE (in capital letters) to confirm:',
-//         color: '#DC3545',
-//         input: 'text',
-//         inputAttributes: {
-//             autocapitalize: 'off'
-//         },
-//         showCancelButton: true,
-//         confirmButtonColor: "#DC3545",
-//         confirmButtonText: 'Delete',
-//         showLoaderOnConfirm: true,
-//         preConfirm: (value) => {
-//             if (value === 'DELETE') {
-//                 return true;
-//             } else {
-//                 Swal.showValidationMessage('Please type DELETE in capital letters to confirm.');
-//                 return false;
-//             }
-//         },
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             // User confirmed, redirect to the specified URL
-//             window.location.href = deleteUrl;
-//         }
-//     });
-// }
-
-
-//     const urlParams = new URLSearchParams(window.location.search);
-//     const successMessage = urlParams.get('success');
-
-//     if (successMessage) {
-//         const Toast = Swal.mixin({
-//             toast: true,
-//             position: 'top-end',
-//             showConfirmButton: false,
-//             timer: 3000,
-//             timerProgressBar: true,
-//             didOpen: (toast) => {
-//                 toast.addEventListener('mouseenter', Swal.stopTimer)
-//                 toast.addEventListener('mouseleave', Swal.resumeTimer)
-//             }
-//         })
-
-//         Toast.fire({
-//             icon: 'success',
-//             title: successMessage
-//         });
-//     }
 
 
 // this code will apply on inside whole innerbox for background according to pkg days in package -------------------------------------
