@@ -16,6 +16,7 @@ class PacketsController extends Controller
     }
 
     public function store(Request $request){
+
         $boxId = $request->input('boxId');
 
         $package = Package::where('boxId', $boxId)
@@ -29,7 +30,7 @@ class PacketsController extends Controller
         $rackId = $box[0]->rack_id;
 
         $packets = [
-            'jobNumber' => $request->input('jobName'),
+            'jobNumber' => $request->input('jobNumber'),
             'dateIn' => $request->input('dateIn'),
             'materialType' => $request->input('material-type'),
             'materialDescription' => $request->input('materialDescription'),
@@ -42,7 +43,12 @@ class PacketsController extends Controller
         $packet = $table->pkgID;
 
 
-        return redirect()->route('viewRacks', ['id' => $rackId]);
+        // return redirect()->route('viewRacks', ['id' => $rackId]);
+
+        // new change
+
+        // Redirect back with old input values
+        return redirect()->back()->withInput()->with('rackId', $rackId);
     }
 
     public function edit($packetID){

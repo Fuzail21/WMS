@@ -3,6 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Box;
+use App\Models\RacksStructure;
+use App\Models\Package;
+use App\Models\Packet;
+use App\Models\Location;
+use App\Models\Racks;
+use App\Models\BranchLocation;
+use Carbon\Carbon;
+
 
 class HomeController extends Controller
 {
@@ -21,8 +30,32 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('dashboard');
+    public function index(){
+        $totalPackages = Package::whereNotNull('dateOut')->count();
+        $totalPackets = Packet::whereNotNull('dateOut')->count();
+
+        $totalBoxes = Box::all()->count();
+        $totalRacks = Racks::all()->count();
+        $allLocation = Location::all()->count();
+        $allBranchLocation = BranchLocation::all()->count();
+
+
+
+        // Get the current date
+        $currentDate = Carbon::now();
+
+        $dateLimit = $currentDate->copy()->addDays(5);
+
+        // For Display in dashboard
+        $lessThan5Days = Package::where('expectedDateOut', '>=', $currentDate)
+            ->where('expectedDateOut', '<=', $dateLimit)
+            ->count();
+
+        $expiredPackages = Package::where('expectedDateOut', '<=', $currentDate)->count();
+
+
+
+        $data = compact('totalPackages', 'totalPackets', 'totalBoxes', 'totalRacks', 'allLocation', 'allBranchLocation', 'lessThan5Days', 'expiredPackages');
+        return view('dashboard')->with($data);
     }
 }

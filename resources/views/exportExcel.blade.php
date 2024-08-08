@@ -48,34 +48,32 @@
                 </tr>
             </thead>
             <tbody>
-                @if (!is_null($dataAll))
-
-                @foreach ($dataAll as $item)
-                <tr class="text-center text-sm">
-                    <td class="">{{ $item->boxName ?? null }}</td>
-                    <td class="">{{ $item->pkgID ?? null }}</td>
-                    <td class="">{{ $item->pkgName ?? null }}</td>
-                    <td class="">{{ $item->pm ?? null }}</td>
-                    <td class="">{{ $item->purchasingAgent ?? null }}</td>
-                    <td class="">{{ $item->dateIn ?? null }}</td>
-                    <td class="">{{ $item->expectedDateOut ?? null }}</td>
-                    <td class="">{{ $item->dateOut ?? null }}</td>
-                    <td class="">{{ $item->deliveryLocation ?? null }}</td>
-                    <td class="">{{ $item->removingDriver ?? null }}</td>
-                    <td class="">{{ $item->removingNote ?? null }}</td>
-                    <td class="">{{ $item->pktJobNumber ?? null }}</td>
-                    <td class="">{{ $item->pktShipIn ?? null }}</td>
-                    <td class="">{{ $item->pktMaterialType ?? null }}</td>
-                    <td class="">{{ $item->pktMaterialDesc ?? null }}</td>
-                    <td class="">{{ $item->numberOfBundles ?? null }}</td>
-                    <td class="">{{ $item->modifiedNumOfBundles ?? null }}</td>
-                    <td class="">{{ $item->modifiedDate ?? null }}</td>
-                    <td class="">{{ $item->modifiedBy ?? null }}</td>
-                    <td class="">{{ $item->truckNumber ?? null }}</td>
-                    <td class="">{{ $item->packetDriver ?? null }}</td>
-                    <td class="">{{ $item->packetTruckNumber ?? null }}</td>
-                    <td class="">{{ $item->packetLocation ?? null }}</td>
-                </tr>
+                @if(!empty($dataAll) && is_array($dataAll))
+                @foreach($dataAll as $record)
+                    <tr class="text-center text-sm">
+                        <td>{{ $record['boxName'] ?? '' }}</td>
+                        <td>{{ $record['pkgID'] ?? '' }}</td>
+                        <td>{{ $record['pkgName'] ?? '' }}</td>
+                        <td>{{ $record['pm'] ?? '' }}</td>
+                        <td>{{ $record['purchasingAgent'] ?? '' }}</td>
+                        <td>{{ $record['dateIn'] ?? '' }}</td>
+                        <td>{{ $record['expectedDateOut'] ?? '' }}</td>
+                        <td>{{ $record['dateOut'] ?? '' }}</td>
+                        <td>{{ $record['deliveryLocation'] ?? '' }}</td>
+                        <td>{{ $record['removingDriver'] ?? '' }}</td>
+                        <td>{{ $record['removingNote'] ?? '' }}</td>
+                        <td>{{ $record['jobNumber'] ?? '' }}</td>
+                        <td>{{ $record['materialType'] ?? '' }}</td>
+                        <td>{{ $record['materialDescription'] ?? '' }}</td>
+                        <td>{{ $record['numberOfBundles'] ?? '' }}</td>
+                        <td>{{ $record['modifiedNumOfBundles'] ?? '' }}</td>
+                        <td>{{ $record['modifiedDate'] ?? '' }}</td>
+                        <td>{{ $record['modifiedBy'] ?? '' }}</td>
+                        <td>{{ $record['truckNumber'] ?? '' }}</td>
+                        <td>{{ $record['packetDriver'] ?? '' }}</td>
+                        <td>{{ $record['packetTruckNumber'] ?? '' }}</td>
+                        <td>{{ $record['packetLocation'] ?? '' }}</td>
+                    </tr>
                 @endforeach
                 @endif
 

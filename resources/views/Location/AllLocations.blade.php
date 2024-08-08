@@ -38,7 +38,7 @@
     </a>
 
 
-    <div class="text-black text-lg grid grid-cols-3 ">
+    <div class="text-black text-lg grid grid lg:grid-cols-4 md:grid-cols-2 ">
 
 
         {{-- this code generate div according to no. of location and inside div print location name through database an

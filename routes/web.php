@@ -177,7 +177,7 @@ Route::get('/reports-data', [ReportsConreoller::class, 'searchData'])->name('sea
 
 Route::get('/notShipped-data', [ReportsConreoller::class, 'NotShipped'])->name('notShippedData');
 
-Route::get('/Shipped-data', [ReportsConreoller::class, 'Shipped'])->name('shippedData');
+Route::get('/shipped-data', [ReportsConreoller::class, 'Shipped'])->name('shippedData');
 // For Search data in reports page
 
 
@@ -198,6 +198,7 @@ Route::post('/create-user', [UserController::class, 'createUser'])->name('create
 Route::post('/login-user', [UserController::class, 'login'])->name('loginRegister');
 
 
-
+Route::get('/packages/less-than-5-days', [PackageController::class, 'getLessThanFiveDaysRecords'])->name('lessThanFiveDaysRecords');
+Route::get('/packages/expired-packages', [PackageController::class, 'expiredPackages'])->name('expiredPackages');
 
 

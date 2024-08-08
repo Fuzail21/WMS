@@ -27,8 +27,7 @@ class RackController extends Controller
 
 
     // This function handles rack creation, checks for duplicates, and either creates a new rack with its structure or returns an error if it already exists.
-     public function store(Request $request)
-    {
+     public function store(Request $request){
         // Fetch locID based on the selected location
         $selectedLocation = $request['location'];
         $location = Location::where('locID', $selectedLocation)->first();

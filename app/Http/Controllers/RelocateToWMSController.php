@@ -22,7 +22,8 @@ class RelocateToWMSController extends Controller
         $boxName = $request->input('boxName');
         $boxRecord = Box::where('boxName', $boxName)->first();
         $boxId = $boxRecord->boxId;
-        $pkgRecord = Package::where('boxID', $boxId)->first();
+        $pkgRecord = Package::where('boxID', $boxId)->where('dateOut', null)->first();
+        // dd($pkgRecord);
 
         if (empty($pkgRecord)) {
             // If $pkgRecord is empty or not found, update the package's boxName and boxId
@@ -33,11 +34,15 @@ class RelocateToWMSController extends Controller
             $package->save();
 
             $packets = Packet::where('pkgID', $pkgID)->first();
-            $packets->boxName = $boxName;
-            $packets->save();
+            if(!empty($packets)){
+                $packets->boxName = $boxName;
+                $packets->save();
+            }
 
 
-            return redirect()->route('viewRacks', ['id' => $rackID])->with('success', 'Package Relocated Successfully');;
+
+            return redirect()->route('viewRacks', ['id' => $rackID])->with('success', 'Package Relocated Successfully');
+
         } else {
             return redirect()->route('viewRacks', ['id' => $rackID])->with('error', 'The Box is Not Empty');
         }

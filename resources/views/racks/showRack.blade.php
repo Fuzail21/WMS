@@ -16,7 +16,7 @@
 
     .main {
     overflow-x: scroll; /* Enable horizontal scrollbar */
-    min-width: 400%; /* Set minimum width to viewport width */
+     min-width: 350%; /* Set minimum width to viewport width */
     padding-bottom: 20px; /* Add some bottom padding to make room for scrollbar */
     padding-left: 15%;
 }
@@ -26,7 +26,7 @@
 }
 
 .slider{
-    min-width: 400%;
+    min-width: 350%;
 }
 .child-box{
     min-width: 40%;
@@ -48,6 +48,7 @@
 
 @section('meta')
 <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- Add this line -->
+
 @endsection
 
 
@@ -71,10 +72,31 @@
     <h1 class="text-center text-black text-3xl font-bold">RACK {{ $racks[0]->rackName }}</h1>
 
 
+
+
+       {{-- @dd(session('error')) --}}
+        @if (session('success'))
+            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                <span class="font-medium">{{ session('success') }}</span>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium">{{ session('error') }}</span>
+            </div>  
+        @endif
+
+
+
+
  {{-- this code generate columns & rows according to data --}}
 @for($rowsLoop = 1; $rowsLoop <= $rackStructure[0]->rows; $rowsLoop++)
     <div class="grid grid-cols-{{ $rackStructure[0]->columns }} gap-1 ">
         @for($columnsLoop = 1; $columnsLoop <= $rackStructure[0]->columns; $columnsLoop++)
+
+
+
 
 
          {{-- <div class="flex overflow-x-auto max-w-full">
@@ -82,9 +104,6 @@
 
             <div class="wrapper">
                 <div class="content">
-
-
-
 
 
 
@@ -214,7 +233,7 @@
                                     data-value1="{{ $rowsLoop }}" data-value2="{{ $columnsLoop }}" data-value3="{{ $boxesLoop }}"
                                     data-value4="{{ $rackId }}" data-value5="{{ $pkgIDs }}"
                                     data-boxid="{{ $boxid_from_foreach }}" data-url="{{ url('/delete-packet') }}/{{ $package->pkgID }}?boxid={{ $boxid_from_foreach }}"  onclick="toggleModal('{{ $pkgIDs }}')">Remove
-                                </button> --}}
+                            </button> --}}
 
 
                             @elseif($boxNameFound && $packageAdded && $packetAdded)
@@ -304,11 +323,8 @@
                                                                                     <div class="col-md-6 offset-md-4 pt-2" >
                                                                                         <button class="button text-white bg-[#00203F] py-2 px-2">Submit</button>
                                                                                     </div>
-                                                                                    @if(session('error'))
-                                                                                        <div class="alert alert-danger">
-                                                                                            {{ session('error') }}
-                                                                                        </div>
-                                                                                    @endif
+
+                                                                                    <!-- Check for session error and display SweetAlert -->
                                                                                     @if(session('success'))
                                                                     <div class="alert alert-success">
                                                                         {{ session('success') }}
@@ -415,9 +431,7 @@
     </div>
 </div> {{-- this is closing div of header <div class="main"> --}}
 
-
     <script src='https://use.fontawesome.com/7fcc5972f1.js'></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -660,9 +674,8 @@
 
 
 //----------------------------------------------------- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ----------------------------------------------------------------------------
-
-
     </script>
+
 
 
 

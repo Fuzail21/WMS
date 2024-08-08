@@ -48,13 +48,12 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="jobName" class="col-md-4 col-form-label text-md-end"
+                            <label for="" class="col-md-4 col-form-label text-md-end"
                                 style="color:#0A1E61;">Job Number</label>
 
                             <div class="col-md-6">
-                                <input id="jobName" type="text" class="form-control" name="jobName"
-                                    value="{{ old('jobName') }}" required autofocus >
-
+                                <input id="jobNumber" type="text" class="form-control" name="jobNumber"
+                                value="{{ old('jobNumber') }}" required autofocus >
                             </div>
                         </div>
 
@@ -71,7 +70,7 @@
                                 style="color:#0A1E61;">Material Type</label>
 
                             <div class="col-md-6">
-                                <input id="material-type" type="text" class="form-control" name="material-type" value="{{ old('material-type') }}" required >
+                                <input id="material-type" type="text" class="form-control" name="material-type" required >
 
                             </div>
                         </div>
@@ -81,7 +80,7 @@
                                 style="color:#0A1E61;">Material Description</label>
 
                             <div class="col-md-6">
-                                <input id="materialDescription" type="text" class="form-control" name="materialDescription"  value="{{ old('materialDescription') }}" required>
+                                <input id="materialDescription" type="text" class="form-control" name="materialDescription"  required>
                             </div>
                         </div>
 
@@ -90,7 +89,7 @@
                                 style="color:#0A1E61;">Number Of Bundles</label>
 
                             <div class="col-md-6">
-                                <input id="numberOfBundles" type="number" class="form-control" name="numberOfBundles"  value="{{ old('numberOfBundles') }}" required>
+                                <input id="numberOfBundles" type="number" class="form-control" name="numberOfBundles"  required>
                             </div>
                         </div>
                         <input type="hidden" name="boxId" id="boxIdInput" value="{{ request()->query('boxId') }}">

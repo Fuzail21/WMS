@@ -39,8 +39,16 @@
 </head>
 
 <body>
-    <div id="app">
 
+
+
+    {{-- @include('partials.preloader') --}}
+
+
+
+
+
+    <div id="app">
 
 
 

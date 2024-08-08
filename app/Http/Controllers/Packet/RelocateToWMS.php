@@ -28,7 +28,6 @@ public function relocateToWMS(Request $request){
     $updateNumofBundles = $numberOfBundles - $removeBundles;
 
 
-
     $packetID = $request->input('packetID');
 
 
@@ -60,7 +59,7 @@ public function relocateToWMS(Request $request){
     $newPacket->pkgID = $pkgID; // Setting the foreign key to link this packet to the package
     $newPacket->materialDescription = $materialDescription;
     $newPacket->materialType = $materialType;
-    $newPacket->numberOfBundles = $updateNumofBundles;
+    $newPacket->numberOfBundles = $removeBundles; // new change
     $newPacket->dateIn = $modifiedDate;
     $newPacket->save();
     // Create New Packet

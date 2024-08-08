@@ -16,6 +16,26 @@
 @include('layouts.sidebar')
 
 
+<style>
+    .pagination-link {
+        margin-right: 5px; /* Spacing between links */
+        padding: 5px 10px; /* Padding inside the link */
+        border: 1px solid #ccc; /* Border around each link */
+        text-decoration: none; /* Remove underline */
+        color: black; /* Text color */
+    }
+
+    .pagination-link:hover {
+        background-color: #f0f0f0; /* Background color on hover */
+    }
+
+    .pagination-link.active {
+        font-weight: bold; /* Highlight the active link */
+        background-color: #e0e0e0; /* Background color for active link */
+    }
+</style>
+
+
 <div class="slider d-flex align-items-center bg-[#f3f4f6]">
     <h1 class="pt-7 " style="font-size:28px;">Hi <strong class="font-bold"> {{ Auth::user()->name }} </strong> </h1>
 </div>
@@ -76,8 +96,8 @@
     <div class="hidden p-4 rounded-lg dark:bg-gray-800 w-[167%]" id="Search" role="tabpanel" aria-labelledby="Search-tab">
 
 
-        <div class="flex justify-center items-center h-screen " style="margin-top: -15%; margin-bottom: -15%; margin-left: -10%;" style="">
-            <form id="searchForm" action="{{ route('searchData') }}" method="GET" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
+        <div class="flex justify-center items-center h-screen " style="margin-top: -15%; margin-bottom: -15%; margin-left: -10%;">
+            <form id="searchForm" method="GET" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
                 <div class="flex flex-wrap -mx-4">
                     <div class="w-1/4 px-4 mb-4">
                         <input id="boxName" placeholder="Box Name" name="boxName" type="search" class="border-b border-gray-300 p-2 w-full">
@@ -137,14 +157,27 @@
         </div>
 
 
-        <form method="post" action="{{ route('searchDataTab') }}">
+        {{-- <form method="post" action="{{ route('searchDataTab') }}">
             @csrf
             <input type="hidden" name="dataAll" value="{{ json_encode($dataAll) }}">
             <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]">
                 <span class="material-symbols-outlined pb-0 text-lg">description</span>
-                <span class="ml-2">EXPORT TO EXCEL</span>
+                <span  class="ml-2 bg-[#0A1E61] hover:bg-[#0A1E61] text-white font-bold py-1 px-1 rounded">EXPORT TO EXCEL</span>
+            </button>
+        </form> --}}
+
+
+        <form id="exportForm" method="post" action="{{ route('searchDataTab') }}">
+            @csrf
+            <input type="hidden" name="dataAll" id="dataAll" value="">
+            <button id="exportButton" class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]">
+                <span class="material-symbols-outlined pb-0 text-lg">description</span>
+                <span class="ml-2 bg-[#0A1E61] hover:bg-[#0A1E61] text-white font-bold py-1 px-1 rounded">EXPORT TO EXCEL</span>
             </button>
         </form>
+
+
+
 
 
         <div class=" w-full " style="margin-left: -10%;">
@@ -215,6 +248,9 @@
             </table>
           </div>
 
+          <div id="paginationContainer">
+          </div>
+
           @if (!is_null($dataFromSearch))
           <!-- Display pagination links -->
             {{ $dataFromSearch->links() }}
@@ -233,7 +269,7 @@
 
 
         <div class="flex justify-center items-center h-screen  " style="margin-top: -15%; margin-bottom: -15%; margin-left: -10%;">
-            <form action="{{ route('notShippedData') }}" method="get" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
+            <form id="notShippingSearchData" method="get" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
                 <div class="flex flex-wrap -mx-4">
                     <div class="w-1/4 px-4 mb-4">
                         <input id="boxName" placeholder="Box Name" name="boxName" type="search" class="border-b border-gray-300 p-2 w-full">
@@ -293,12 +329,13 @@
             </form>
         </div>
 
-        <form method="post" action="{{ route('notShippedTabData') }}">
+        <form id="exportForm" method="post" action="{{ route('notShippedTabData') }}">
             @csrf
-            <input type="hidden" name="dataAll" value="{{ json_encode($dataAll) }}">
+            {{-- <input type="hidden" name="dataAll" value="{{ json_encode($dataAll) }}"> --}}
+            <input type="hidden" name="allData" id="allData" value="">
             <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]">
                 <span class="material-symbols-outlined pb-0 text-lg">description</span>
-                <span class="ml-2">EXPORT TO EXCEL</span>
+                <span class="ml-2 bg-[#0A1E61] hover:bg-[#0A1E61] text-white font-bold py-1 px-1 rounded">EXPORT TO EXCEL</span>
             </button>
         </form>
 
@@ -345,7 +382,6 @@
                                     <td>{{ $record->deliveryLocation }}</td>
                                     <td>{{ $record->removingDriver }}</td>
                                     <td>{{ $record->removingNote }}</td>
-
                                     <td>{{ $record->jobNumber }}</td>
                                     <td>{{ $record->dateIn }}</td>
                                     <td>{{ $record->materialType }}</td>
@@ -363,6 +399,9 @@
                 </tbody>
             </table>
           </div>
+
+          <div id="notShippedDataPaginationContainer">
+        </div>
 
 
           @if (!is_null($dataFromNotShipped))
@@ -385,7 +424,7 @@
 
 
         <div class="flex justify-center items-center h-screen  " style="margin-top: -15%; margin-bottom: -15%; margin-left: -10%;">
-            <form action="{{ route('shippedData') }}" method="get" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
+            <form id="ShippedTabSearchData" method="get" class="border-t border-b border-l border-r border-gray-300 p-6 rounded-lg w-full max-w-5xl">
                 <div class="flex flex-wrap -mx-4">
                     <div class="w-1/4 px-4 mb-4">
                         <input id="boxName" placeholder="Box Name" name="boxName" type="search" class="border-b border-gray-300 p-2 w-full">
@@ -446,12 +485,14 @@
         </div>
 
 
-        <form method="post" action="{{ route('shippedTabData') }}">
+        <form id="exportForm" method="post" action="{{ route('shippedTabData') }}">
             @csrf
-            <input type="hidden" name="dataAll" value="{{ json_encode($dataAll) }}">
+            {{-- <input type="hidden" name="dataAll" value="{{ json_encode($dataAll) }}"> --}}
+
+            <input type="hidden" name="allShippedData" id="allShippedData" value="">
             <button class="bg-[#0A1E61] text-white p-2 flex items-center mb-2 ml-[-10%]">
                 <span class="material-symbols-outlined pb-0 text-lg">description</span>
-                <span class="ml-2">EXPORT TO EXCEL</span>
+                <span class="ml-2 bg-[#0A1E61] hover:bg-[#0A1E61] text-white font-bold py-1 px-1 rounded">EXPORT TO EXCEL</span>
             </button>
         </form>
 
@@ -514,6 +555,9 @@
                 </tbody>
             </table>
           </div>
+
+          <div id="shippedDataPaginationContainer">
+        </div>
 
           @if (!is_null($dataFromShipped))
           <!-- Display pagination links -->
@@ -617,7 +661,7 @@
 
 
 
-         document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
     // Get the last active tab from local storage
     var lastTab = localStorage.getItem('lastTab');
     if (lastTab) {
@@ -633,6 +677,354 @@
         });
     });
 });
+
+
+
+
+
+
+
+
+// For 1st tab with ajax search
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchForm = document.getElementById('searchForm');
+            const tableBody = document.querySelector('#searchData tbody');
+            const paginationContainer = document.getElementById('paginationContainer');
+            const exportForm = document.getElementById('exportForm');
+            const dataAllInput = document.getElementById('dataAll');
+
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(searchForm);
+                const searchParams = new URLSearchParams(formData).toString(); // Convert FormData to URLSearchParams
+                fetchData(`/reports-data?${searchParams}`);
+            });
+
+            function fetchData(url) {
+                fetch(url, {
+                    method: 'GET', // Use GET method for AJAX request
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response:', data); // Log the response for debugging
+
+
+                      // Store the 'all' variable in the hidden input field
+                        if (data.all) {
+                            dataAllInput.value = JSON.stringify(data.all);
+                        }
+
+
+                    // Clear existing table rows
+                    tableBody.innerHTML = '';
+
+                    // Check if data is available
+                    if (data && data.paginated && Array.isArray(data.paginated.data)) {
+                        data.paginated.data.forEach(record => {
+                            const row = document.createElement('tr');
+                            row.classList.add('text-xs'); // Add the text-xs class to the row
+                            row.innerHTML = `
+                                <td>${record.boxName ?? ''}</td>
+                                <td>${record.pkgID ?? ''}</td>
+                                <td>${record.pkgName ?? ''}</td>
+                                <td>${record.pm ?? ''}</td>
+                                <td>${record.purchasingAgent ?? ''}</td>
+                                <td>${record.dateIn ?? ''}</td>
+                                <td>${record.expectedDateOut ?? ''}</td>
+                                <td>${record.dateOut ?? ''}</td>
+                                <td>${record.deliveryLocation ?? ''}</td>
+                                <td>${record.removingDriver ?? ''}</td>
+                                <td>${record.removingNote ?? ''}</td>
+                                <td>${record.jobNumber ?? ''}</td>
+                                <td>${record.dateIn ?? ''}</td>
+                                <td>${record.materialType ?? ''}</td>
+                                <td>${record.materialDescription ?? ''}</td>
+                                <td>${record.numberOfBundles ?? ''}</td>
+                                <td>${record.modifiedNumOfBundles ?? ''}</td>
+                                <td>${record.modifiedDate ?? ''}</td>
+                                <td>${record.modifiedBy ?? ''}</td>
+                                <td>${record.truckNumber ?? ''}</td>
+                                <td>${record.packetDriver ?? ''}</td>
+                                <td>${record.packetTruckNumber ?? ''}</td>
+                                <td>${record.packetLocation ?? ''}</td>
+                            `;
+                            tableBody.appendChild(row);
+                        });
+
+                        // Display pagination links
+                        paginationContainer.innerHTML = ''; // Clear previous pagination links
+                        data.paginated.links.forEach(link => {
+                            if (link.label) {
+                                const linkElement = document.createElement('a');
+                                linkElement.href = link.url || '#';
+                                linkElement.innerHTML = link.label.includes('&laquo;') || link.label.includes('&raquo;') ? link.label : link.label;
+                                linkElement.classList.add('pagination-link');
+                                if (link.active) {
+                                    linkElement.classList.add('active'); // Highlight the active link
+                                }
+                                paginationContainer.appendChild(linkElement);
+                            } else {
+                                console.error('Label is undefined for one of the links:', link);
+                            }
+                        });
+
+                        // Add event listeners to pagination links
+                        const paginationLinks = document.querySelectorAll('.pagination-link');
+                        paginationLinks.forEach(link => {
+                            link.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                const url = this.href;
+                                fetchData(url);
+                            });
+                        });
+
+                    } else {
+                        console.error('Invalid data format:', data);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
+
+
+
+// For 1st tab with ajax search
+
+
+
+
+
+
+
+// For 2nd tab with ajax search
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchForm = document.getElementById('notShippingSearchData');
+            const tableBody = document.querySelector('#notShippedData tbody');
+            const paginationContainer = document.getElementById('notShippedDataPaginationContainer');
+            const exportForm = document.getElementById('exportForm');
+            const dataAllInput = document.getElementById('allData');
+
+
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(searchForm);
+                const searchParams = new URLSearchParams(formData).toString(); // Convert FormData to URLSearchParams
+                fetchData(`/notShipped-data?${searchParams}`);
+            });
+
+
+            function fetchData(url) {
+                fetch(url, {
+                    method: 'GET', // Use GET method for AJAX request
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response:', data); // Log the response for debugging
+
+
+                     // Store the 'all' variable in the hidden input field
+                     if (data.all) {
+                            dataAllInput.value = JSON.stringify(data.all);
+                        }
+
+
+                    // Clear existing table rows
+                    tableBody.innerHTML = '';
+
+                    // Check if data is available
+                    if (data && data.paginated && Array.isArray(data.paginated.data)) {
+                        data.paginated.data.forEach(record => {
+                            const row = document.createElement('tr');
+                            row.classList.add('text-xs'); // Add the text-xs class to the row
+                            row.innerHTML = `
+                                <td>${record.boxName ?? ''}</td>
+                                <td>${record.pkgID ?? ''}</td>
+                                <td>${record.pkgName ?? ''}</td>
+                                <td>${record.pm ?? ''}</td>
+                                <td>${record.purchasingAgent ?? ''}</td>
+                                <td>${record.dateIn ?? ''}</td>
+                                <td>${record.expectedDateOut ?? ''}</td>
+                                <td>${record.dateOut ?? ''}</td>
+                                <td>${record.deliveryLocation ?? ''}</td>
+                                <td>${record.removingDriver ?? ''}</td>
+                                <td>${record.removingNote ?? ''}</td>
+                                <td>${record.jobNumber ?? ''}</td>
+                                <td>${record.dateIn ?? ''}</td>
+                                <td>${record.materialType ?? ''}</td>
+                                <td>${record.materialDescription ?? ''}</td>
+                                <td>${record.numberOfBundles ?? ''}</td>
+                                <td>${record.modifiedNumOfBundles ?? ''}</td>
+                                <td>${record.modifiedDate ?? ''}</td>
+                                <td>${record.modifiedBy ?? ''}</td>
+                                <td>${record.truckNumber ?? ''}</td>
+                                <td>${record.packetDriver ?? ''}</td>
+                                <td>${record.packetTruckNumber ?? ''}</td>
+                                <td>${record.packetLocation ?? ''}</td>
+
+                            `;
+                            tableBody.appendChild(row);
+                        });
+
+                        // Display pagination links
+                        paginationContainer.innerHTML = ''; // Clear previous pagination links
+                        data.paginated.links.forEach(link => {
+                            if (link.label) {
+                                const linkElement = document.createElement('a');
+                                linkElement.href = link.url || '#';
+                                linkElement.innerHTML = link.label.includes('&laquo;') || link.label.includes('&raquo;') ? link.label : link.label;
+                                linkElement.classList.add('pagination-link');
+                                linkElement.style.marginRight = '5px'; // Add spacing between links
+                                if (link.active) {
+                                    linkElement.style.fontWeight = 'bold'; // Highlight the active link
+                                }
+                                paginationContainer.appendChild(linkElement);
+                            } else {
+                                console.error('Label is undefined for one of the links:', link);
+                            }
+                        });
+
+                        // Add event listeners to pagination links
+                        const paginationLinks = document.querySelectorAll('.pagination-link');
+                        paginationLinks.forEach(link => {
+                            link.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                const url = this.href;
+                                fetchData(url);
+                            });
+                        });
+
+                    } else {
+                        console.error('Invalid data format:', data);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
+
+
+// For 2nd tab with ajax search
+
+
+
+
+
+
+
+// For 3rd tab with ajax search
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchForm = document.getElementById('ShippedTabSearchData');
+            const tableBody = document.querySelector('#shippedData tbody');
+            const paginationContainer = document.getElementById('shippedDataPaginationContainer');
+            const exportForm = document.getElementById('exportForm');
+            const dataAllInput = document.getElementById('allShippedData');
+
+
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(searchForm);
+                const searchParams = new URLSearchParams(formData).toString(); // Convert FormData to URLSearchParams
+                fetchData(`/shipped-data?${searchParams}`);
+            });
+
+
+            function fetchData(url) {
+                fetch(url, {
+                    method: 'GET', // Use GET method for AJAX request
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response:', data); // Log the response for debugging
+
+
+                     // Store the 'all' variable in the hidden input field
+                     if (data.all) {
+                            dataAllInput.value = JSON.stringify(data.all);
+                        }
+
+                    // Clear existing table rows
+                    tableBody.innerHTML = '';
+
+                    // Check if data is available
+                    if (data && data.paginated && Array.isArray(data.paginated.data)) {
+                        data.paginated.data.forEach(record => {
+                            const row = document.createElement('tr');
+                            row.classList.add('text-xs'); // Add the text-xs class to the row
+                            row.innerHTML = `
+                                <td>${record.boxName ?? ''}</td>
+                                <td>${record.pkgID ?? ''}</td>
+                                <td>${record.pkgName ?? ''}</td>
+                                <td>${record.pm ?? ''}</td>
+                                <td>${record.purchasingAgent ?? ''}</td>
+                                <td>${record.dateIn ?? ''}</td>
+                                <td>${record.expectedDateOut ?? ''}</td>
+                                <td>${record.dateOut ?? ''}</td>
+                                <td>${record.deliveryLocation ?? ''}</td>
+                                <td>${record.removingDriver ?? ''}</td>
+                                <td>${record.removingNote ?? ''}</td>
+                                <td>${record.jobNumber ?? ''}</td>
+                                <td>${record.dateIn ?? ''}</td>
+                                <td>${record.materialType ?? ''}</td>
+                                <td>${record.materialDescription ?? ''}</td>
+                                <td>${record.numberOfBundles ?? ''}</td>
+                                <td>${record.modifiedNumOfBundles ?? ''}</td>
+                                <td>${record.modifiedDate ?? ''}</td>
+                                <td>${record.modifiedBy ?? ''}</td>
+                                <td>${record.truckNumber ?? ''}</td>
+                                <td>${record.packetDriver ?? ''}</td>
+                                <td>${record.packetTruckNumber ?? ''}</td>
+                                <td>${record.packetLocation ?? ''}</td>
+                            `;
+                            tableBody.appendChild(row);
+                        });
+
+                        // Display pagination links
+                        paginationContainer.innerHTML = ''; // Clear previous pagination links
+                        data.paginated.links.forEach(link => {
+                            if (link.label) {
+                                const linkElement = document.createElement('a');
+                                linkElement.href = link.url || '#';
+                                linkElement.innerHTML = link.label.includes('&laquo;') || link.label.includes('&raquo;') ? link.label : link.label;
+                                linkElement.classList.add('pagination-link');
+                                linkElement.style.marginRight = '5px'; // Add spacing between links
+                                if (link.active) {
+                                    linkElement.style.fontWeight = 'bold'; // Highlight the active link
+                                }
+                                paginationContainer.appendChild(linkElement);
+                            } else {
+                                console.error('Label is undefined for one of the links:', link);
+                            }
+                        });
+
+                        // Add event listeners to pagination links
+                        const paginationLinks = document.querySelectorAll('.pagination-link');
+                        paginationLinks.forEach(link => {
+                            link.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                const url = this.href;
+                                fetchData(url);
+                            });
+                        });
+
+                    } else {
+                        console.error('Invalid data format:', data);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
+
+
+// For 3rd tab with ajax search
+
+
+
+
 
 
 

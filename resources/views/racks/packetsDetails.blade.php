@@ -46,6 +46,8 @@
                     <th>Material Type</th>
                     <th>Material Description</th>
                     <th>Number Of Bundles</th>
+                    <th>Date Out</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -56,6 +58,8 @@
                     <td>{{$packet->materialType }}</td>
                     <td>{{$packet->materialDescription }}</td>
                     <td>{{$packet->numberOfBundles }}</td>
+                    <td>{{$packet->dateOut }}</td>
+
                     <td>
                         {{-- <a href="{{route('edit-packet', ['packetID' => $packet->packetID])}}"> --}}
                             <button class="btn btn-primary edit-button" data-packetID="{{ $packet->packetID }} " onclick="editPacket()"><span class="material-symbols-outlined">edit</span></button>

@@ -18,8 +18,7 @@ class LocationController extends Controller
 
 
     // The "addLocation" function creates a location record and redirects to the "addracks" route.
-    public function addLocation(Request $request)
-    {
+    public function addLocation(Request $request){
 
         $branchID = request()->input('branchID');
 
@@ -51,7 +50,7 @@ class LocationController extends Controller
 
         $location = Location::all();
         $branchLocations = Location::where('branchID', $branchID)->get();
-        // dd($branchID);
+        // dd($branchLocations);
         $data = compact('location', 'branchLocations', 'branchID', 'excludeWarehouseLocations', 'excludeFabyardLocations');
         return view('Location.AllLocations')->with($data);
     }

@@ -17,8 +17,6 @@ class ReportsConreoller extends Controller
         $dataFromNotShipped = $request->session()->get('dataFromNotShipped');
         $dataFromShipped = $request->session()->get('dataFromShipped');
 
-
-// dd($dataFromNotShipped);
         return view('racks.reports', compact('dataFromSearch', 'dataFromNotShipped', 'dataFromShipped', 'dataAll'));
     }
 
@@ -106,29 +104,7 @@ class ReportsConreoller extends Controller
                     'packets.*'
                 )->get();
 
-                // dd($searchDataAll);
 
-
-
-
-                // $searchData = $record
-                // ->leftjoin('packets', 'packages.pkgID', '=', 'packets.pkgID')
-                // ->select(
-                //     'packages.*',
-                //     'packets.*'
-                //     // 'packets.jobNumber AS pktJobNumber',
-                //     // 'packets.dateIn AS pktShipIn',
-                //     // 'packets.materialType AS pktMaterialType',
-                //     // 'packets.materialDescription AS pktMaterialDesc',
-                //     // 'packets.numberOfBundles AS pktNumberOfBundles',
-                //     // 'packets.modifiedNumOfBundles AS pktModifiedNumOfBundles',
-                //     // 'packets.modifiedDate AS pktModifiedDate',
-                //     // 'packets.modifiedBy AS pktModifiedBy',
-                //     // 'packets.packetDriver AS pktDriver',
-                //     // 'packets.packetTruckNumber AS pktTruckNumber',
-                //     // 'packets.packetLocation AS pktLocation'
-                // // )->get();
-                //     )->paginate(10)->withQueryString(); // Add pagination with 15 records per page
                 $searchData = $record
                 ->leftJoin('packets as p1', 'packages.pkgID', '=', 'p1.pkgID')
                 ->select(
@@ -136,15 +112,17 @@ class ReportsConreoller extends Controller
                     'p1.*'
                 )->paginate(10)->withQueryString();
 
+                // return response()->json($searchData);
 
-        return redirect()->route('reports')->with('dataFromSearch', $searchData)->with('dataAll', $searchDataAll);
-        // dd($dataAll);
+                return response()->json([
+                    'paginated' => $searchData,
+                    'all' => $searchDataAll
+                ]);
+
+        // return redirect()->route('reports')->with('dataFromSearch', $searchData)->with('dataAll', $searchDataAll);
 
 
     }
-
-
-
 
 
     public function NotShipped(Request $request){
@@ -230,11 +208,17 @@ class ReportsConreoller extends Controller
             'p1.*'
             )->paginate(10)->withQueryString();
 
-        return redirect()->route('reports')->with('dataFromNotShipped', $paginatedNotShippedData)->with('dataAll', $notShippedData);
+
+            // return response()->json($paginatedNotShippedData);
+
+            return response()->json([
+                'paginated' => $paginatedNotShippedData,
+                'all' => $notShippedData
+            ]);
+
+        // return redirect()->route('reports')->with('dataFromNotShipped', $paginatedNotShippedData)->with('dataAll', $notShippedData);
 
     }
-
-
 
     public function Shipped(Request $request){
 
@@ -321,34 +305,39 @@ class ReportsConreoller extends Controller
                 'p1.*'
                 )->paginate(10)->withQueryString();
 
-        return redirect()->route('reports')->with('dataFromShipped', $paginatedShippedData)->with('dataAll', $shippedData);
+            // return response()->json($paginatedShippedData);
+
+
+            return response()->json([
+                'paginated' => $paginatedShippedData,
+                'all' => $shippedData
+            ]);
+
+        // return redirect()->route('reports')->with('dataFromShipped', $paginatedShippedData)->with('dataAll', $shippedData);
 
     }
 
 
+
     public function generateRecordForSearchDataTab(Request $request){
 
-        $dataAll = json_decode($request->dataAll);
-        // dd($dataAll);
+        // $dataAll = json_decode($request->dataAll);
+        $dataAll = json_decode($request->input('dataAll'), true);
 
 
         return view('exportExcel', compact('dataAll'));
     }
 
-
     public function generateRecordForNotShippedTab(Request $request){
 
-        $dataAll = json_decode($request->dataAll);
-        // dd($dataAll);
-
+        $dataAll = json_decode($request->input('allData'), true);
 
         return view('exportExcel', compact('dataAll'));
     }
 
     public function generateRecordForShippedTab(Request $request){
 
-        $dataAll = json_decode($request->dataAll);
-        // dd($dataAll);
+        $dataAll = json_decode($request->input('allShippedData'), true);
 
 
         return view('exportExcel', compact('dataAll'));

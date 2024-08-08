@@ -48,17 +48,40 @@
     </div>
 
 
+    {{-- // new Change --}}
+    @php
+        $showStaging = false;
+        $locID = $warehouseRacks->pluck('locID');
+        foreach ($locID as $id) {
+            if ($id !== '10003') {
+                $showStaging = true;
+                break;
+            }
+        }
+    @endphp
 
-    <div class="border-gray-200 dark:border-gray-700">
-        <ul class="flex -mb-px text-md font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
-            <li class="flex-grow" role="presentation">
-                <button class="w-[99%] p-4 border-b-1 rounded-t-sm hover:text-gray-600  dark:hover:text-gray-300 " id="warehouse-tab" data-tabs-target="#warehouse" type="button" role="tab" aria-controls="warehouse" aria-selected="false">Warehouse</button>
-            </li>
-            <li class="flex-grow" role="presentation">
-                <button class="w-[99%] p-4 hover:text-gray-600  dark:hover:text-gray-300" id="staging-tab" data-tabs-target="#staging" type="button" role="tab" aria-controls="staging" aria-selected="false">Staging</button>
-            </li>
-        </ul>
-    </div>
+    {{-- // new Change --}}
+
+
+
+        <div class="border-gray-200 dark:border-gray-700">
+            <ul class="flex -mb-px text-md font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+                <li class="flex-grow" role="presentation">
+                    <button class="w-[99%] p-4 border-b-1 rounded-t-sm hover:text-gray-600  dark:hover:text-gray-300 " id="warehouse-tab" data-tabs-target="#warehouse" type="button" role="tab" aria-controls="warehouse" aria-selected="false">Warehouse</button>
+                </li>
+
+    {{-- // new Change --}}
+
+                @if ($showStaging)
+                    <li class="flex-grow" role="presentation">
+                        <button class="w-[99%] p-4 hover:text-gray-600  dark:hover:text-gray-300" id="staging-tab" data-tabs-target="#staging" type="button" role="tab" aria-controls="staging" aria-selected="false">Staging</button>
+                    </li>
+                @endif
+
+    {{-- // new Change --}}
+
+            </ul>
+        </div>
 
 
 
@@ -70,10 +93,8 @@
 
 
 
-
-
         {{-- print all rack name on div of specific location name through controller --}}
-        <div class="text-black text-lg grid grid-cols-4">
+        <div class="text-black text-lg grid lg:grid-cols-4 md:grid-cols-2">
             @foreach ($warehouseRacks as $rack)
             <a class=" text-black hover:text-black hover:no-underline" href="{{ route('viewRacks', ['id' => $rack->rack_id]) }}?locID={{ $id = request()->segment(2); }}">
                 <div class=" bg-gray-200 shadow-md py-5 m-3 bg-grey text-center">
@@ -93,7 +114,7 @@
 
 
         {{-- print all rack name on div of specific location name through controller --}}
-        <div class="text-black text-lg grid grid-cols-4">
+        <div class="text-black text-lg grid lg:grid-cols-4 md:grid-cols-2">
             @foreach ($stagingRacks as $rack)
             <a class=" text-black hover:text-black hover:no-underline" href="{{ route('viewRacks', ['id' => $rack->rack_id]) }}?locID={{ $id = request()->segment(2); }}">
                 <div class=" bg-gray-200 shadow-md py-5 m-3 bg-grey text-center">

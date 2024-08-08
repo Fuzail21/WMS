@@ -30,13 +30,13 @@
 
     <h1 class="text-center font-semibold">Branch Locations</h1>
 
-    <div class="text-black text-lg grid grid-cols-3 ">
+    <div class="text-black text-lg grid lg:grid-cols-4 md:grid-cols-2 ">
 
 
         {{-- this code generate div according to no. of location and inside div print location name through database an
         divs work like button--}}
         @foreach ($branchLocation as $branch)
-        <a class="text-black hover:text-black hover:no-underline"
+        <a class="text-black hover:text-black hover:no-underline "
             href="{{ route('viewLocation', ['branchID' => $branch->branchID ]) }}">
 
             <div class=" bg-gray-200 shadow-md py-5 m-3 bg-grey text-center drop-shadow-lg">
