@@ -58,7 +58,8 @@
 
 
         <li class="logout" onclick="event.preventDefault();
-       document.getElementById('logout-form').submit();">
+    //    document.getElementById('logout-form').submit();"
+       >
        <span class="material-symbols-outlined">logout</span>
              {{-- <a class="icon" href="{{ route('logout') }}"><span class="material-symbols-outlined">logout</span></a> --}}
             <a class="btn_text menu_btn_text" href="{{ route('logout') }}">Logout</a>
@@ -83,6 +84,47 @@
 
 
 
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+    var sidebar = document.getElementById('sidebar');
+    var links = document.querySelectorAll('.sidebar a');
+
+    // Function to toggle the visibility of the sidebar
+    function toggleSidebar() {
+        sidebar.classList.toggle('sidebar-open');
+    }
+
+    // Handle sidebar clicks
+    sidebar.addEventListener('click', function(event) {
+        // Check if the click is not on a link (this ensures only the sidebar toggles)
+        if (!event.target.closest('a')) {
+            toggleSidebar();
+        }
+    });
+
+    // Function to handle link clicks
+    function handleLinkClick(event) {
+        if (!sidebar.classList.contains('sidebar-open')) {
+            event.preventDefault(); // Prevent the default link action
+            // alert('Sidebar must be open to use this link.');
+            toggleSidebar();
+            return false;
+        }
+    }
+
+    // Attach the handleLinkClick function to each link
+    links.forEach(function(link) {
+        link.addEventListener('click', handleLinkClick);
+    });
+
+    document.addEventListener('click', function(event) {
+        // Check if the click happened outside the sidebar
+        if (!sidebar.contains(event.target) && sidebar.classList.contains('sidebar-open')) {
+            sidebar.classList.remove('sidebar-open');
+        }
+    });
+});
 
 </script>
 
