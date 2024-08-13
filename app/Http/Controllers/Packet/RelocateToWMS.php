@@ -30,6 +30,7 @@ public function relocateToWMS(Request $request){
 
     $packetID = $request->input('packetID');
 
+    $locID = $request->input('locID');
 
     $boxName = $request->input('boxName');
     $newJobNumber = $request->input('newJobNumber');
@@ -67,10 +68,10 @@ public function relocateToWMS(Request $request){
                 $newPacket->save();
                 // Create New Packet
 
-                return redirect()->route('viewRacks', ['id' => $rackID])->with('success', 'Packet Relocated Successfully');
+                return redirect()->to(route('viewRacks', ['id' => $rackID]) . '?locID=' . $locID)->with('success', 'Packet Relocated Successfully');
 
         } else {
-            return redirect()->route('viewRacks', ['id' => $rackID])->with('error', 'The Box is Empty. No Package Available for Relocation.');
+            return redirect()->to(route('viewRacks', ['id' => $rackID]) . '?locID=' . $locID)->with('error', 'The Box is Empty. No Package Available for Relocation.');
         }
 
 

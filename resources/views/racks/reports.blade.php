@@ -340,7 +340,7 @@
         </form>
 
         <div class=" w-full " style="margin-left: -10%;">
-            <table class="table" id="notShippedData" >
+            <table class="table border-collapse border border-slate-500" id="notShippedData" >
                 <thead>
                     <tr class="text-[12px]">
                         <th>Box Name</th>
@@ -497,7 +497,7 @@
         </form>
 
         <div class=" w-full " style="margin-left: -10%;">
-            <table class="table" id="shippedData">
+            <table class="table border-collapse border border-slate-500" id="shippedData">
                 <thead>
                     <tr class="text-[12px]">
                         <th>Box Name</th>

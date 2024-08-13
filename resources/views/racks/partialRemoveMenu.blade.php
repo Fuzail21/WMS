@@ -159,6 +159,7 @@
 
 
                                     <div class="col-md-6">
+                                        <input type="hidden" name="locID" value="{{ request()->query('locID') }}">
                                         <input id="boxNameInput" type="search" class="form-control text-black " name="boxName" placeholder="" required autocomplete="off" autofocus>
                                         <div id="boxNameDropdown" class="bg-white border rounded-lg mt-2 hidden">
                                             <ul id="boxNameList" class="text-black text-lg p-2" style="max-height: 200px; overflow-y: auto;">
