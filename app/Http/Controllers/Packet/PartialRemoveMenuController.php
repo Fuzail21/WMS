@@ -27,6 +27,14 @@ class PartialRemoveMenuController extends Controller
 
         $locID = $request->input('locID');
 
+        $pkgId = $request->input('pkgID');
+
+        if ($removeBundles > $numberOfBundles) {
+            return redirect()->back()->with('error', 'Removing number of bundles is greater than the existing bundles');
+        }
+
+
+
         $branchLocation = BranchLocation::pluck('branchLocation')->toArray();
         $allRackIds = Racks::where('locID', $locID)->pluck('rack_id');
 
@@ -36,6 +44,7 @@ class PartialRemoveMenuController extends Controller
         //  dd($allBoxNames);
         $boxNamesFromPackage = Package::where('dateOut', NULL)->pluck('boxName');
         // dd($boxNamesFromPackage);
+
 
 
         $boxNamesWithPackages = $allBoxNamesFromBox->filter(function ($boxName) use ($boxNamesFromPackage) {

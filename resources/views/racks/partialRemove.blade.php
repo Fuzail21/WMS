@@ -36,9 +36,26 @@
         <p class="text-center pl-[35%] pt-4 pb-[-20%]" >Package ID:</p>
     </div> --}}
 
+
     <div class="row justify-content-center">
         <div class="col-md-10">
+
             <div class="card">
+
+                @if (session('success'))
+                    <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                        <span class="font-medium">{{ session('success') }}</span>
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                        <span class="font-medium">{{ session('error') }}</span>
+                    </div>  
+                @endif
+
+
+
                 <div class="card-header" style="font-weight:600 ; text-align:center; font-size: 120%; color:#091F62;">
                     Packet Details </div>
 
@@ -92,7 +109,8 @@
                                 style="color:#0A1E61;">Remove Number Of Bundles</label>
 
                             <div class="col-md-6">
-                                <input id="removeBundles" type="number" class="form-control" name="removeBundles" required>
+                                <input id="removeBundles" type="number" class="form-control" name="removeBundles" required onfocusout="validateNumberOfBundles()">
+                                <span id="error-message" style="color:red; display:none;">Removing number of bundles is greater than the existing bundles</span>
                             </div>
                         </div>
 
@@ -162,6 +180,28 @@
 
         // Call the function to update the date field when the page loads
         updateDateField();
+
+
+        function validateNumberOfBundles() {
+            var numberOfBundles = document.getElementById("numberOfBundles").value;
+            var removeBundles = document.getElementById("removeBundles").value;
+            var errorMessage = document.getElementById("error-message");
+
+            // Regular expression to check for a valid number (digits only)
+            var regex = /^[0-9]+$/;
+
+            if (removeBundles === "") {
+                errorMessage.style.display = "none";
+            } else if (!regex.test(removeBundles)) {
+                errorMessage.style.display = "block";
+                errorMessage.textContent = "Please enter a valid number.";
+            } else if (parseInt(removeBundles) > parseInt(numberOfBundles)) {
+                errorMessage.style.display = "block";
+                errorMessage.textContent = "Removing number of bundles is greater than the existing bundles.";
+            } else {
+                errorMessage.style.display = "none";
+            }
+        }
 
     </script>
 </body>

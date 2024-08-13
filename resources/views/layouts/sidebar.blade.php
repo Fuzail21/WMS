@@ -58,9 +58,9 @@
 
 
         <li class="logout" onclick="event.preventDefault();
-    //    document.getElementById('logout-form').submit();"
-       >
-       <span class="material-symbols-outlined">logout</span>
+          document.getElementById('logout-form').submit();">
+
+        <span class="material-symbols-outlined">logout</span>
              {{-- <a class="icon" href="{{ route('logout') }}"><span class="material-symbols-outlined">logout</span></a> --}}
             <a class="btn_text menu_btn_text" href="{{ route('logout') }}">Logout</a>
 
@@ -68,6 +68,10 @@
                 @csrf
             </form>
         </li>
+
+
+
+
     </ul>
 
 </div>

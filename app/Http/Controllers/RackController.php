@@ -97,8 +97,10 @@ class RackController extends Controller
 
         $allBoxNames = Box::pluck('boxName');
 
-        $packages = Package::whereNull('dateOut')->get();
-        $packets = Packet::all();
+        $packages = Package::where('dateOut', '=', NULL)->get();
+        $packets = Packet::where('dateOut', '=', NULL)->get();
+
+
 
         $data = compact('rackStructure', 'racks', 'rackId' , 'boxData', 'boxId' , 'packages', 'packets' , 'allBoxNames');
         return view('racks.showRack')->with($data);

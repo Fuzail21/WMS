@@ -35,13 +35,13 @@ public function relocateToWMS(Request $request){
     $newJobNumber = $request->input('newJobNumber');
 
         // PACKAGE RECORD AND ID OF THOSE RECORD
-        $packageRecord = Package::where('boxName', $boxName)->get();
+        $packageRecord = Package::where('boxName', $boxName)->where('dateOut', '=', NULL)->get();
 
         if ($packageRecord->isNotEmpty()) {
 
-            $pkgIDArray = Package::where('boxName', $boxName)->pluck('pkgID');
-            if ($pkgIDArray->isNotEmpty()) {
+            $pkgIDArray = Package::where('boxName', $boxName)->where('dateOut', '=', NULL)->pluck('pkgID');
                 $pkgID = $pkgIDArray[0];
+
 
                 // BOX RECORD
                 $boxRecord = Box::where("boxName", $boxName)->get();
@@ -49,12 +49,11 @@ public function relocateToWMS(Request $request){
                 // Update packet
                 $packetRecord = Packet::where('packetID', $packetID)->first();
 
-                if ($packetRecord) {
+
                     $packetRecord->numberOfBundles = $updateNumofBundles;
                     $packetRecord->modifiedNumOfBundles = $removeBundles;
                     $packetRecord->modifiedDate = $modifiedDate;
                     $packetRecord->save();
-                }
 
                 // Create New Packet
                 $newPacket = new Packet;
@@ -69,9 +68,6 @@ public function relocateToWMS(Request $request){
                 // Create New Packet
 
                 return redirect()->route('viewRacks', ['id' => $rackID])->with('success', 'Packet Relocated Successfully');
-            } else {
-                return redirect()->route('viewRacks', ['id' => $rackID])->with('error', 'No Package ID Found.');
-            }
 
         } else {
             return redirect()->route('viewRacks', ['id' => $rackID])->with('error', 'The Box is Empty. No Package Available for Relocation.');
