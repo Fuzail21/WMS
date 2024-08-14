@@ -11,8 +11,8 @@
 
 
 <style>
-    @media only screen and (max-width: 1024px)
-    /* @media only screen and (min-width: 300px) and (max-width: 1024px) */ {
+    /* @media only screen and (max-width: 1400px)  { */
+    @media only screen and (min-width: 300px) and (max-width: 1400px) {
 
     .main {
     overflow-x: scroll; /* Enable horizontal scrollbar */

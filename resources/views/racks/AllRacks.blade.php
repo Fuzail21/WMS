@@ -42,9 +42,11 @@
             </select>
         </div>
 
-        <a href="{{ route('newRack') }}" class="ml-[60%]">
-            <button class="text-white bg-[#0A1E61] py-2 px-2 ml-2">Add Racks</button>
-        </a>
+        @if(auth()->check() && auth()->user()->designation == 'Admin')
+            <a href="{{ route('newRack') }}" class="ml-[60%]">
+                <button class="text-white bg-[#0A1E61] py-2 px-2 ml-2">Add Racks</button>
+            </a>
+        @endif
     </div>
 
 

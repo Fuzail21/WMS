@@ -33,9 +33,11 @@
 {{-- @dd($branchID); --}}
     <h1 class="text-center font-semibold">Locations</h1>
 
-    <a href="{{ route('add-location') }}?branchID={{ $branchID }}">
-    <button class="text-white bg-[#0A1E61] py-2 px-2 ml-[92%]">Add Location</button>
-    </a>
+    @if(auth()->check() && auth()->user()->designation == 'Admin')
+        <a href="{{ route('add-location') }}?branchID={{ $branchID }}">
+            <button class="text-white bg-[#0A1E61] py-2 px-2 ml-[92%]">Add Location</button>
+        </a>
+    @endif
 
 
     <div class="text-black text-lg grid grid lg:grid-cols-4 md:grid-cols-2 ">

@@ -34,20 +34,19 @@
         </li>
 
 
-        <li>
-            <span class="material-symbols-outlined">add_location_alt</span>
-            {{-- <a class="icon" href="{{ url('/add-branch') }}"><span class="material-symbols-outlined">add_location_alt</span></a> --}}
-            <a class="btn_text menu_btn_text" href="{{ url('/add-branch') }}">Add New Location</a>
-        </li>
-
-        <li>
-            <span class="material-symbols-outlined">add_circle</span>
-            {{-- <a class="icon" href="{{ route('addracks') }}"><span class="material-symbols-outlined">add_circle</span></a> --}}
-            <a class="btn_text menu_btn_text" href="{{ route('addracks') }}">Add New Rack</a>
-        </li>
-
-
         @if(auth()->check() && auth()->user()->designation == 'Admin')
+            <li>
+                <span class="material-symbols-outlined">add_location_alt</span>
+                {{-- <a class="icon" href="{{ url('/add-branch') }}"><span class="material-symbols-outlined">add_location_alt</span></a> --}}
+                <a class="btn_text menu_btn_text" href="{{ url('/add-branch') }}">Add New Location</a>
+            </li>
+
+            <li>
+                <span class="material-symbols-outlined">add_circle</span>
+                {{-- <a class="icon" href="{{ route('addracks') }}"><span class="material-symbols-outlined">add_circle</span></a> --}}
+                <a class="btn_text menu_btn_text" href="{{ route('addracks') }}">Add New Rack</a>
+            </li>
+
             <li>
                 <span class="material-symbols-outlined">person_add</span>
                 {{-- <a class="icon" href="{{ route('registerUser') }}"><span class="material-symbols-outlined">person_add</span></a> --}}

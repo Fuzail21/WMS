@@ -21,10 +21,26 @@
 
 <div class="slider d-flex align-items-center bg-[#f3f4f6]">
     <h1 class="pt-7 " style="font-size:28px;">Hi <strong class="font-bold"> {{ Auth::user()->name }} </strong> </h1>
+
+    @if (session('success'))
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <span class="font-medium">{{ session('success') }}</span>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <span class="font-medium">{{ session('error') }}</span>
+        </div>  
+    @endif
+
   </div>
+
+
 
               <div class="main grid lg:grid-cols-3 md:grid-cols-2 gap-5 mt-20 px-1 "> {{--  THIS DIV INSIDE IN HEADER BEACUSE THIS <div class="main">, THIS CLASS MOVE ALL DATA WHEN USER HOVER ON SIDEBAR --}}
                 {{-------------------------------------- Header it is same in all pages except login or register  -----------------------------------}}
+
 
 
                 <div class="parent-container flex justify-center ">

@@ -54,7 +54,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // This route hit when user click add new form.
-Route::get('/addracks', [RackController::class, 'index'])->name('newRack');
+Route::get('/addracks', [RackController::class, 'index'])->name('newRack')->middleware('check.designation');
 
 
 // This route hit when user submit form information.
@@ -83,7 +83,7 @@ Route::post('/save-data', [BoxController::class, 'saveData'])->name('save.data')
 
 
 // This route hit when user click on add new location button and its open form
-Route::get('/location', [LocationController::class, "index"])->name('add-location');
+Route::get('/location', [LocationController::class, "index"])->name('add-location')->middleware('check.designation');
 
 
 // This route hit when user submit location form and its redirect to route('addracks')

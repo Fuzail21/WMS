@@ -18,45 +18,6 @@ class UserController extends Controller
 
     public function createUser(Request $request)
     {
-        // // Define validation rules
-        // $rules = [
-        //     'name' => ['required', 'string', 'max:255'],
-        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        //     'password' => ['required', 'string', 'max:6', 'confirmed'],
-        //     'designation' => ['required' , 'string'],
-        //     'department' => ['required' , 'string'],
-        //     // Add more validation rules as needed
-        // ];
-
-        // // Validate the request
-        // $validator = Validator::make($request->all(), $rules);
-
-        // // Validation passed, create a new user
-        // $user = new User();
-        // $user->name = $request->input('name');
-        // $user->email = $request->input('email');
-        // $user->password = $request->input('code');
-        // $user->designation = $request->input('designation');
-        // $user->department = $request->input('department');
-
-
-        // $user->password = Hash::make($user['password']); // Hash the password for security
-
-        // // Save the user
-        // $user->save();
-
-        // // Return success response
-        //     return view('dashboard');
-
-
-
-
-
-
-             // Authorization check (example: allow only users with admin role to create users)
-        // if (!auth()->user()->isAdmin()) {
-        //     abort(403, 'Unauthorized action.');
-        // }
 
         // Validate input data
         $request->validate([
@@ -81,7 +42,7 @@ class UserController extends Controller
         // auth()->login($user);
 
         // Redirect or return a response
-        return view('dashboard')->with('success', 'User created successfully.');
+        return redirect()->route('home')->with('success', 'User created successfully.');
     }
 
 
