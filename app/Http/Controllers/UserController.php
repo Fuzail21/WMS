@@ -46,9 +46,6 @@ class UserController extends Controller
     }
 
 
-
-
-
     public function login(Request $request)
     {
         // Retrieve email and password from the request
@@ -64,7 +61,7 @@ class UserController extends Controller
         $user = User::where('email', $email)->first();
 
         // Attempt to authenticate the user
-        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+        if (Auth::attempt(['email' => $email, 'password' => $password, 'is_deleted' => '0'])) {
             // if ($user && Hash::check($password, $user->password)) {
             // Authentication passed
             return redirect()->intended('dashboard'); // Redirect to dashboard upon successful login
@@ -72,6 +69,49 @@ class UserController extends Controller
 
         // Authentication failed
         return back()->withErrors(['email' => 'Invali..d credentials'])->withInput($request->only('email'));
+    }
+
+
+    public function list(){
+        $users = User::all();
+        $data = compact('users');
+        return view('users.list')->with($data);
+    }
+
+    public function edit($id){
+        $user = User::find($id);
+        $data = compact('user');
+        return view('users.edit')->with($data);
+    }
+
+    public function update(Request $request, $id){
+
+        $request->validate([
+            'email' => 'required|email|unique:users,email,'.$id
+        ]);
+
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->designation = $request->designation;
+        $user->is_deleted = $request->account_status;
+        if (!empty($request->password)) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+
+
+        return redirect('user/list')->with('success', 'User successfully updated');
+
+    }
+
+    public function delete(Request $request, $id){
+
+        $user = User::find($id);
+        $user->is_deleted = '1';
+        $user->save();
+
+        return redirect('user/list')->with('success', 'User successfully deleted');
     }
 
 }

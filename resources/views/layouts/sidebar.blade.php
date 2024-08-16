@@ -48,6 +48,12 @@
             </li>
 
             <li>
+                <span class="material-symbols-outlined">person</span>
+                {{-- <a class="icon" href="{{ route('addracks') }}"><span class="material-symbols-outlined">add_circle</span></a> --}}
+                <a class="btn_text menu_btn_text" href="{{ route('usersList') }}">Users</a>
+            </li>
+
+            <li>
                 <span class="material-symbols-outlined">person_add</span>
                 {{-- <a class="icon" href="{{ route('registerUser') }}"><span class="material-symbols-outlined">person_add</span></a> --}}
                 <a class="btn_text menu_btn_text" href="{{ route('registerUser') }}">Register User</a>

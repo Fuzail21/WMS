@@ -205,3 +205,14 @@ Route::get('/packages/less-than-5-days', [PackageController::class, 'getLessThan
 Route::get('/packages/expired-packages', [PackageController::class, 'expiredPackages'])->name('expiredPackages');
 
 
+// new routes
+Route::get('/user/list', [UserController::class, 'list'])->name('usersList')->middleware('check.designation');
+Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('userEdit')->middleware('check.designation');
+Route::post('/user/edit/{id}', [UserController::class, 'update'])->name('userUpdate')->middleware('check.designation');
+Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('userDelete')->middleware('check.designation');
+
+
+
+
+
+
