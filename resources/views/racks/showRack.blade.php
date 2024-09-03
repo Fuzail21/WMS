@@ -219,7 +219,7 @@
 
                             @elseif($boxNameFound && $packageAdded && !$packetAdded)
                             {{-- Show the Add Packets button --}}
-                            <a href="{{ route('add-packet') }}?boxId={{ $boxid_from_foreach }}">
+                            <a href="{{ route('add-packet') }}?boxId={{ $boxid_from_foreach }}&rackId={{ $id = $rackId }}">
                                 <button type="button"
                                     class="text-[#ADEFD1FF] focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-xs py-1 px-1"
                                     data-value1="{{ $rowsLoop }}" data-value2="{{ $columnsLoop }}" data-value3="{{ $boxesLoop }}"

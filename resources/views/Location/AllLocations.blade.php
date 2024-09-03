@@ -45,22 +45,22 @@
 
         {{-- this code generate div according to no. of location and inside div print location name through database an
         divs work like button--}}
-        @foreach ($excludeWarehouseLocations as $location)
-        <a class="text-black hover:text-black hover:no-underline"
-            href="{{ route('viewAllRacks', ['locID' => $location->locID ]) }}">
-            <div class=" bg-gray-200 shadow-md py-5 m-3 bg-grey text-center drop-shadow-lg">
-                <p class="px-4 uppercase ">{{ $location->name }}</p>  {{--  In this tag print location name through database  --}}
-            </div>
-        </a>
+        @foreach ($parentLocationWithOutChild as $location)
+            <a class="text-black hover:text-black hover:no-underline"
+                href="{{ route('viewAllRacks', ['locID' => $location->locID ]) }}">
+                <div class=" bg-gray-200 shadow-md py-5 m-3 bg-grey text-center drop-shadow-lg">
+                    <p class="px-4 uppercase ">{{ $location->name }}</p>  {{--  In this tag print location name through database  --}}
+                </div>
+            </a>
         @endforeach
 
-
-        <a class="text-black hover:text-black hover:no-underline" onclick="showMainSweetAlert()">
-            <div class="bg-gray-200 shadow-md py-5 m-3 bg-grey text-center drop-shadow-lg">
-                <p class="px-4 uppercase">WAREHOUSE</p>
-            </div>
-        </a>
-
+        @foreach ($parentLocationsWithChild as $parent)
+            <a class="text-black hover:text-black hover:no-underline" onclick="showMainSweetAlert('{{ $parent->locID }}')">
+                <div class="bg-gray-200 shadow-md py-5 m-3 bg-grey text-center drop-shadow-lg">
+                    <p class="px-4 uppercase">{{ $parent->name }}</p>
+                </div>
+            </a>
+        @endforeach
 
     </div>
 
@@ -77,28 +77,35 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        function showMainSweetAlert() {
-        let buttons = '';
-        @foreach ($excludeFabyardLocations as $location)
-            buttons += `<a class="text-black hover:text-black hover:no-underline" onclick="proceedToView('{{ $location->locID }}')">
-                <div class="bg-gray-200 shadow-md py-5 m-3 bg-grey text-center drop-shadow-lg">
-                    <p class="px-4 uppercase">{{ $location->name }}</p>
-                </div>
-            </a>`;
-        @endforeach
+         // Pass the child locations data from Blade to JavaScript
+         const childLocations = @json($childLocations);
 
-        Swal.fire({
-            title: 'Select Location',
-            html: buttons,
-            showCancelButton: true,
-            showConfirmButton: false
-        });
-    }
+        function showMainSweetAlert(parentId) {
+            let buttons = '';
 
-    function proceedToView(locID) {
-        // Redirect to the desired route with locID
-        window.location.href = "{{ route('viewAllRacks', ['locID' => ':locID']) }}".replace(':locID', locID);
-    }
+            // Filter child locations based on the selected parentId
+            childLocations.forEach(location => {
+                if (location.parentId === parentId) {
+                    buttons += `<a class="text-black hover:text-black hover:no-underline" onclick="proceedToView('${location.locID}')">
+                        <div class="bg-gray-200 shadow-md py-5 m-3 bg-grey text-center drop-shadow-lg">
+                            <p class="px-4 uppercase">${location.name}</p>
+                        </div>
+                    </a>`;
+                }
+            });
+
+            Swal.fire({
+                title: 'Select Location',
+                html: buttons,
+                showCancelButton: true,
+                showConfirmButton: false
+            });
+        }
+
+        function proceedToView(locID) {
+            // Redirect to the desired route with locID
+            window.location.href = "{{ route('viewAllRacks', ['locID' => ':locID']) }}".replace(':locID', locID);
+        }
     </script>
 
 </body>

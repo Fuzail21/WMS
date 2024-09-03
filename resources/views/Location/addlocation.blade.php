@@ -44,7 +44,7 @@
 
                             <div class="row mb-3">
                                 <label for="rackName" class="col-md-4 col-form-label text-md-end"
-                                    style="color:#0A1E61;">Location</label>
+                                    style="color:#0A1E61;">Location Name</label>
 
                                 <div class="col-md-6">
                                     <input id="locationName" type="text" class="form-control" name="locationName" value=""
@@ -52,6 +52,23 @@
 
                                 </div>
                             </div>
+
+                            <div class="row mb-3">
+                                <label for="parent_location" class="col-md-4 col-form-label text-md-end"
+                                    style="color:#0A1E61;">Parent Location <span class="text-xs">(Optional)</span></label>
+
+                                <div class="col-md-6">
+
+                                    <select id="parent_location" class="form-control" name="parent_location">
+                                        <option value="" selected>Select a location</option>
+                                        @foreach($location as $loc)
+                                        <option class="capitalize" value="{{ $loc->locID }}">{{ $loc->name }}</option> {{-- this line of code display location name from database --}}
+                                        @endforeach
+                                    </select>
+
+                                </div>
+                            </div>
+
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">

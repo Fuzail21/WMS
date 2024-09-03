@@ -157,6 +157,7 @@
                                         style="color:#0A1E61;">Box Name</label>
                                         {{-- {{ dd($boxNamesWithPackages) }} --}}
 
+                                        {{-- @dd($boxNamesFromPackage); --}}
 
                                     <div class="col-md-6">
                                         <input type="hidden" name="locID" value="{{ request()->query('locID') }}">

@@ -19,8 +19,16 @@ class RackController extends Controller
 
     // This function fetches all location records and their primary keys for the "addnewrack" view.
     public function index() {
+
         $locID = Location::select('primaryKey');
-        $location = Location::all();
+        $location = Location::where(function ($query) {
+            $query->where('relation', 'child')
+                  ->orWhere(function ($query) {
+                      $query->where('relation', 'parent')
+                            ->where('haveChild', '0');
+                  });
+        })->get();
+
         $data = compact('location');
         return view('racks.addnewrack', ['locID' => $locID])->with($data);
     }
@@ -122,7 +130,14 @@ class RackController extends Controller
 
 
         $location = Location::where('locID', $locID)->get();
-        $allLocation = Location::all();
+
+        $allLocation = Location::where(function ($query) {
+            $query->where('relation', 'child')
+                  ->orWhere(function ($query) {
+                      $query->where('relation', 'parent')
+                            ->where('haveChild', '0');
+                  });
+        })->get();
 
         $data = compact('stagingRacks', 'location', 'allLocation', 'warehouseRacks');
         return view('racks.AllRacks')->with($data);
