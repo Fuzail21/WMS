@@ -46,7 +46,6 @@ class PackageController extends Controller
 
     }
 
-
     public function deletePackage(Request $request, $pkgId){
 
         $boxid = $request->query('boxid');
@@ -73,7 +72,6 @@ class PackageController extends Controller
         return redirect()->route('viewRacks', ['id' => $rackId, 'success' => 'Package deleted successfully']);
     }
 
-
     public function getLessThanFiveDaysRecords(Request $request){
 
         // Get the current date
@@ -99,4 +97,41 @@ class PackageController extends Controller
         $data = compact('expiredPackagesRecords');
         return view('reports.expiredPackagesReport')->with($data);
     }
+
+
+    // for update (expiry dateout)
+
+    public function update_expiry_dateout(Request $request) {
+        // Validate the incoming request
+        $request->validate([
+            'dateOut' => 'required|date', // Ensure the date is valid
+            'pkgID' => 'required|integer', // Ensure pkgID is valid and required
+        ]);
+
+        try {
+            $selectedDate = $request->input('dateOut');
+            $pkgID = $request->input('pkgID');
+
+            // Find the package by its ID
+            $package = Package::findOrFail($pkgID); // This will throw a 404 if not found
+
+            // Update the expectedDateOut field
+            $package->expectedDateOut = $selectedDate;
+            $package->save();
+
+            // Respond with success
+            return response()->json(['success' => true, 'dateOut' => $selectedDate]);
+        } catch (\Exception $e) {
+            // Log the error
+            \Log::error('Error updating expiry dateOut: ' . $e->getMessage(), [
+                'dateOut' => $selectedDate,
+                'pkgID' => $pkgID,
+            ]);
+
+            // Return an error response
+            return response()->json(['error' => 'An error occurred while updating the date.'], 500);
+        }
+    }
+
+
 }

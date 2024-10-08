@@ -184,8 +184,8 @@
                                     }
 
                                         // echo '<div class="' . $bgcolor . '"  style="position:relative; align:center;">'. $days;
-                                        echo '<div class="' . $bgcolor . ' package-days" style="position:relative; align:center;">'. $days;
-                                        echo '</div>';
+                                        echo '<a href="javascript:void(0);" onclick="openPopupforExpiryDate(' . $package['pkgID'] . ')"> <div class="' . $bgcolor . ' package-days" style="position:relative; align:center;">' . $days . '</div></a>';
+
 
                                     break; // Exit the package loop once a match is found
                                         }
@@ -245,7 +245,7 @@
                                         class="text-[#ADEFD1FF] focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-xs py-1 px-0"
                                         data-value1="{{ $rowsLoop }}" data-value2="{{ $columnsLoop }}" data-value3="{{ $boxesLoop }}"
                                         data-value4="{{ $rackId }}"
-                                        data-boxid="{{ $boxid_from_foreach }}">Details
+                                        data-boxid="{{ $boxid_from_foreach }}">History
                                     </button>
                                 </a>
                             </div>
@@ -264,7 +264,7 @@
                                     class="text-[#ADEFD1FF] focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-xs py-1 px-10.5"
                                     data-value1="{{ $rowsLoop }}" data-value2="{{ $columnsLoop }}" data-value3="{{ $boxesLoop }}"
                                     data-value4="{{ $rackId }}"
-                                    data-boxid="{{ $boxid_from_foreach }}">Update
+                                    data-boxid="{{ $boxid_from_foreach }}">Details
                                 </button>
                             </a>
 
@@ -434,6 +434,8 @@
     <script src='https://use.fontawesome.com/7fcc5972f1.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+</head>
     <script>
 
 // This JavaScript function opens a popup for entering a new name, sends the data via AJAX to a specified route, and handles the response, including
@@ -674,6 +676,65 @@
 
 
 //----------------------------------------------------- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ----------------------------------------------------------------------------
+
+
+
+
+async function openPopupforExpiryDate(pkgID) {
+    console.log(pkgID);
+    const { value: date } = await Swal.fire({
+        title: "Select Departure Date",
+        input: "date",
+        didOpen: () => {
+            const today = new Date().toISOString();
+            Swal.getInput().min = today.split("T")[0]; // Set minimum date to today
+        },
+        confirmButtonText: 'Submit',
+        showCancelButton: true,
+    });
+
+    if (date) {
+        // Get the CSRF token from a meta tag
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        // Make the AJAX request to update the dateOut field
+        $.ajax({
+            url: '{{ route("update_expiry_dateout") }}', // Ensure this is your correct route
+            method: 'POST',
+            data: {
+                dateOut: date, // Send the selected date to the server
+                pkgID: pkgID
+            },
+            headers: {
+                'X-CSRF-TOKEN': csrfToken, // Include the CSRF token
+            },
+            success: function(response) {
+                // Handle the response from the server
+                Swal.fire(`Departure Date Updated Successfully :  ${date}`);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Log the error details
+                console.error('Error Details:', jqXHR.responseText);
+                console.error('Status:', textStatus);
+                console.error('Error:', errorThrown);
+
+                // Handle the error response
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'An error occurred while updating the date. Please try again later.',
+                });
+            }
+        });
+    }
+}
+
+
+
+
+
+
+
     </script>
 
 

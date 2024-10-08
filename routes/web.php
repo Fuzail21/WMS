@@ -212,6 +212,11 @@ Route::post('/user/edit/{id}', [UserController::class, 'update'])->name('userUpd
 Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('userDelete')->middleware('check.designation');
 
 
+//for update expected date out of Package
+Route::post('/packages/update/expiry_dateout', [PackageController::class, 'update_expiry_dateout'])->name('update_expiry_dateout');
+
+
+
 
 
 
