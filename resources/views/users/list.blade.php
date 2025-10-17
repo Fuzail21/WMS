@@ -32,7 +32,7 @@
 
                 <div class="flex m-3 mb-[2%]" >
                     <div class="ml-[30%] mr-5">
-                        <img class="" src="{{ asset('img/20-20-Logo-Color.png') }}" alt="20-20-Logo" width="230px">
+                        <img class="" src="{{ asset('img/20-20-Logo-Color.png') }}" alt="20-20-Logo" width="150px">
                     </div>
                     <div class="flex-1 pt-4">
                         <h5 class="pt-4 text-2xl text-black font-bold">Warehouse Management System</h5>

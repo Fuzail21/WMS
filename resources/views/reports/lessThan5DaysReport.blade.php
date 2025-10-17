@@ -54,12 +54,13 @@
 
 
 <div class="flex m-3 mb-2" >
-    <div class="flex-1 ml-[20%]">
-        <img class="" src="{{ asset('img/20-20-Logo-Color.png') }}" alt="20-20-Logo" width="230px">
+    <div class="flex-1 ml-[10%]">
+        <img class="" src="{{ asset('img/20-20-Logo-Color.png') }}" alt="20-20-Logo" width="150px">
     </div>
     <div class="flex-1">
         <h5 class="pt-4 text-black">Warehouse Management System</h5>
     </div>
+    
 </div>
 
 
