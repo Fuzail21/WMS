@@ -24,4 +24,9 @@ class Racks extends Model
     {
         return $this->hasMany(Box::class, 'rack_id');
     }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class, 'locID', 'locID');
+    }
 }

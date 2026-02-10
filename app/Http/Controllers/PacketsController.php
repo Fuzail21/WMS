@@ -45,12 +45,15 @@ class PacketsController extends Controller
         $table = Packet::create($packets);
         $packet = $table->pkgID;
 
+        // Check which button was clicked
+        $action = $request->input('action');
 
-        // return redirect()->route('viewRacks', ['id' => $rackId]);
+        if ($action === 'done') {
+            // Redirect to racks page when "Done" button is clicked
+            return redirect()->route('viewRacks', ['id' => $rackId]);
+        }
 
-        // new change
-
-        // Redirect back with old input values
+        // Default behavior: Redirect back with old input values for "Add Packet" button
         return redirect()->back()->withInput()->with('rackId', $rackId);
     }
 

@@ -1,7 +1,5 @@
 {{-- THIS IS SIDE NAVIGATION BAR IT IS INCLUDE IN ALL PAGES EXCEPT LOGIN OR REGISTER --}}
 
-
-
 <div class="sidebar" id="sidebar">
 
     <div class="user-account ">
@@ -98,25 +96,38 @@
     document.addEventListener('DOMContentLoaded', function () {
     var sidebar = document.getElementById('sidebar');
     var links = document.querySelectorAll('.sidebar a');
+    var isMobile = window.matchMedia('(max-width: 1024px)').matches;
+    var isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-    // Function to toggle the visibility of the sidebar
-    function toggleSidebar() {
-        sidebar.classList.toggle('sidebar-open');
+    // Check if sidebar is expanded (either by hover or by class)
+    function isSidebarExpanded() {
+        var currentWidth = sidebar.offsetWidth;
+        return currentWidth > 150 || sidebar.classList.contains('sidebar-open');
     }
 
-    // Handle sidebar clicks
-    sidebar.addEventListener('click', function(event) {
-        // Check if the click is not on a link (this ensures only the sidebar toggles)
-        if (!event.target.closest('a')) {
-            toggleSidebar();
+    // Add hover class for consistency on desktop
+    sidebar.addEventListener('mouseenter', function() {
+        if (!isMobile && !isTouch) {
+            sidebar.classList.add('sidebar-open');
+        }
+    });
+
+    sidebar.addEventListener('mouseleave', function() {
+        if (!isMobile && !isTouch) {
+            sidebar.classList.remove('sidebar-open');
         }
     });
 
     // Function to handle link clicks
     function handleLinkClick(event) {
-        if (!sidebar.classList.contains('sidebar-open')) {
-            event.preventDefault(); // Prevent the default link action
-            // alert('Sidebar must be open to use this link.');
+        // On mobile or touch devices, always allow navigation
+        if (isMobile || isTouch) {
+            return true;
+        }
+
+        // On desktop, check if sidebar is expanded
+        if (!isSidebarExpanded()) {
+            event.preventDefault();
             toggleSidebar();
             return false;
         }
@@ -127,6 +138,7 @@
         link.addEventListener('click', handleLinkClick);
     });
 
+    // Close sidebar when clicking outside
     document.addEventListener('click', function(event) {
         // Check if the click happened outside the sidebar
         if (!sidebar.contains(event.target) && sidebar.classList.contains('sidebar-open')) {

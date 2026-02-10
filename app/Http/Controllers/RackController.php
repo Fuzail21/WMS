@@ -89,7 +89,7 @@ class RackController extends Controller
         $rackStructure = RacksStructure::where('rack_id', $id)->get();
         $rackId = $rackStructures[0]->rack_id;
 
-        $racks = Racks::where('rack_id', $id)->get();
+        $racks = Racks::with('location')->where('rack_id', $id)->get();
 
         $boxData = Box::where('rack_id', $rackId)->get();
         $boxId = $request->input('boxId');

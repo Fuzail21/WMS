@@ -96,11 +96,11 @@
 
                         <div class="row mb-0">
                             <div class="col-md-7 offset-md-4">
-                                <!-- Button to submit the form -->
-                                <button type="submit" class="button">Add Packet</button>
+                                <!-- Button to submit the form and stay on the page -->
+                                <button type="submit" name="action" value="add" class="button">Add Packet</button>
 
-                                <!-- Button to navigate directly without form submission -->
-                                <a href="{{ route('redirectToRacks', ['rackId' => $rackId]) }}" class="button" style="margin-left: 40%; text-decoration: none; color: white; ">Done</a>
+                                <!-- Button to submit the form and redirect to racks page -->
+                                <button type="submit" name="action" value="done" class="button" style="margin-left: 40%;">Done</button>
                             </div>
                         </div>
 
@@ -141,6 +141,31 @@
 
         // Call the function to update the date field when the page loads
         updateDateField();
+
+        // Handle Done button click
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const doneButton = document.querySelector('button[name="action"][value="done"]');
+
+            if (doneButton) {
+                doneButton.addEventListener('click', function(e) {
+                    // Check if all form fields are empty
+                    const jobNumber = document.getElementById('jobNumber').value.trim();
+                    const materialType = document.getElementById('material-type').value.trim();
+                    const materialDescription = document.getElementById('materialDescription').value.trim();
+                    const numberOfBundles = document.getElementById('numberOfBundles').value.trim();
+
+                    // If all fields are empty, redirect without submitting
+                    if (!jobNumber && !materialType && !materialDescription && !numberOfBundles) {
+                        e.preventDefault();
+                        const rackId = document.getElementById('boxIdInput').value;
+                        const boxId = new URLSearchParams(window.location.search).get('boxId');
+                        window.location.href = "{{ route('redirectToRacks', ['rackId' => ':rackId']) }}".replace(':rackId', '{{ $rackId }}');
+                    }
+                    // If there are values, the form will submit normally
+                });
+            }
+        });
 
     </script>
 </body>

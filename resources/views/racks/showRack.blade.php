@@ -128,6 +128,22 @@
                                 $packageAdded = false;
                                 $packetAdded = false;
 
+                                // Check if rack name or location name contains "Fabyard" or "Feb Yard" (with or without space)
+                                $isFabyard = false;
+                                if (isset($racks[0])) {
+                                    $rackName = $racks[0]->rackName ?? '';
+                                    $locationName = $racks[0]->location->locationName ?? '';
+
+                                    // Check for variations: Fabyard, Feb Yard, FEB YARD, etc.
+                                    $rackNameCheck = str_replace(' ', '', strtolower($rackName));
+                                    $locationNameCheck = str_replace(' ', '', strtolower($locationName));
+
+                                    $isFabyard = (stripos($rackNameCheck, 'fabyard') !== false) ||
+                                                 (stripos($rackNameCheck, 'febyard') !== false) ||
+                                                 (stripos($locationNameCheck, 'fabyard') !== false) ||
+                                                 (stripos($locationNameCheck, 'febyard') !== false);
+                                }
+
                                 foreach ($boxData as $box) {
                                     if ($box['row_position'] == $rowsLoop && $box['column_position'] == $columnsLoop && $box['innerBox_position'] == $boxesLoop) {
 
@@ -159,32 +175,35 @@
                                                     }
                                                 }
 
-                                if ($packages->count() > 1) {
-                                    $bgcolor = 'bg-[00203FFF]text-white';
-                                }
-                                    $days='';
+                                // Only show days and background color if not Fabyard
+                                if (!$isFabyard) {
                                     if ($packages->count() > 1) {
-                                        $date = date("Y-m-d");
-                                        $date1 = date_create($date);
-
-                                        $dateFromDB = date_create($package->expectedDateOut)->format("Y-m-d");
-                                        $date2 = date_create($dateFromDB);
-
-
-                                        $interval = $date1->diff($date2);
-                                        $days = $interval->format('%R%a');
+                                        $bgcolor = 'bg-[00203FFF]text-white';
                                     }
+                                        $days='';
+                                        if ($packages->count() > 1) {
+                                            $date = date("Y-m-d");
+                                            $date1 = date_create($date);
 
-                                    if ($days >= 7) {
-                                        $bgcolor = 'bg-[2ECC71] text-black';
-                                    } elseif ($days < 7 && $days > 0) {
-                                        $bgcolor = 'bg-[#FFBF00] text-black';
-                                    } else {
-                                        $bgcolor = 'bg-[#D42A46] text-black';
-                                    }
+                                            $dateFromDB = date_create($package->expectedDateOut)->format("Y-m-d");
+                                            $date2 = date_create($dateFromDB);
 
-                                        // echo '<div class="' . $bgcolor . '"  style="position:relative; align:center;">'. $days;
-                                        echo '<a href="javascript:void(0);" onclick="openPopupforExpiryDate(' . $package['pkgID'] . ')"> <div class="' . $bgcolor . ' package-days" style="position:relative; align:center;">' . $days . '</div></a>';
+
+                                            $interval = $date1->diff($date2);
+                                            $days = $interval->format('%R%a');
+                                        }
+
+                                        if ($days >= 7) {
+                                            $bgcolor = 'bg-[2ECC71] text-black';
+                                        } elseif ($days < 7 && $days > 0) {
+                                            $bgcolor = 'bg-[#FFBF00] text-black';
+                                        } else {
+                                            $bgcolor = 'bg-[#D42A46] text-black';
+                                        }
+
+                                            // echo '<div class="' . $bgcolor . '"  style="position:relative; align:center;">'. $days;
+                                            echo '<a href="javascript:void(0);" onclick="openPopupforExpiryDate(' . $package['pkgID'] . ')"> <div class="' . $bgcolor . ' package-days" style="position:relative; align:center;">' . $days . '</div></a>';
+                                }
 
 
                                     break; // Exit the package loop once a match is found
