@@ -36,6 +36,16 @@
         <h1 class="text-center ml-[50%]">PACKETS</h1>
     </div>
 
+    {{-- Search by Job Number --}}
+    <div class="ml-[25%] mb-3" style="max-width: 500px;">
+        <form method="GET" action="" class="d-flex">
+            <input type="text" name="search" class="form-control" placeholder="Search by Job Number..." value="{{ $search ?? '' }}" style="border: 1px solid #ccc; border-radius: 5px 0 0 5px; padding: 8px 12px;">
+            <button type="submit" class="btn btn-primary" style="border-radius: 0 5px 5px 0; background-color: #0A1E61; border: none; padding: 8px 16px; color: white;">Search</button>
+            @if($search ?? '')
+                <a href="{{ url()->current() }}" class="btn btn-secondary" style="border-radius: 5px; margin-left: 8px; padding: 8px 16px;">Clear</a>
+            @endif
+        </form>
+    </div>
 
     <div class="ml-[25%] w-full">
         <table class="table ">

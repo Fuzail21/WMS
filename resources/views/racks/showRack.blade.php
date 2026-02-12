@@ -287,12 +287,14 @@
                                 </button>
                             </a>
 
+                                @if(!$isFabyard)
                                 <button type="button"
                                     class="text-[#ADEFD1FF] focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-xs py-1 px-1 remove-btn"
                                     data-value1="{{ $rowsLoop }}" data-value2="{{ $columnsLoop }}" data-value3="{{ $boxesLoop }}"
                                     data-value4="{{ $rackId }}" data-value5="{{ $pkgIDs }}"
                                     data-boxid="{{ $boxid_from_foreach }}" data-url="{{ url('/delete-packet') }}/{{ $package->pkgID }}?boxid={{ $boxid_from_foreach }}"  onclick="toggleModal('{{ $pkgIDs }}')">Remove
                                 </button>
+                                @endif
 
 
 
