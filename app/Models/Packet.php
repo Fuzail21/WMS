@@ -24,6 +24,8 @@ class Packet extends Model
         'numberOfBundles',
         'boxName',
         'pkgID',
+        'relocatedAt',
+        'relocatedFromBox',
     ];
 
 

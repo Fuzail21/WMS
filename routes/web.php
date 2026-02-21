@@ -26,6 +26,7 @@ use App\Http\Controllers\ReportsConreoller;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SearchController;
 
 
 
@@ -214,6 +215,10 @@ Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('userDe
 
 //for update expected date out of Package
 Route::post('/packages/update/expiry_dateout', [PackageController::class, 'update_expiry_dateout'])->name('update_expiry_dateout');
+
+// Search packets by Job Number across all locations
+Route::get('/search-job', [SearchController::class, 'index'])->name('search-job');
+Route::get('/search-job/results', [SearchController::class, 'search'])->name('search-job.results');
 
 
 

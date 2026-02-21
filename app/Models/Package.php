@@ -24,7 +24,7 @@ class Package extends Model
         'dateIn',
         'expectedDateOut',
         'boxId',
-        'boxName' ,
+        'boxName',
     ];
 
 

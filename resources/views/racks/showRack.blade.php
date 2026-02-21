@@ -69,6 +69,16 @@
     Blade
     syntax. ---------}}
 
+    {{-- Search button top right --}}
+    <div style="display: flex; justify-content: flex-end; margin-bottom: -30px; margin-top: 20px;">
+        <a href="{{ route('search-job') }}?rackId={{ $rackId }}">
+            <button type="button" style="background-color: #0A1E61; color: white; border: none; border-radius: 7px; padding: 8px 18px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                <span class="material-symbols-outlined" style="font-size: 18px;">search</span>
+                Search Job Number
+            </button>
+        </a>
+    </div>
+
     <h1 class="text-center text-black text-3xl font-bold">RACK {{ $racks[0]->rackName }}</h1>
 
 
@@ -132,7 +142,7 @@
                                 $isFabyard = false;
                                 if (isset($racks[0])) {
                                     $rackName = $racks[0]->rackName ?? '';
-                                    $locationName = $racks[0]->location->locationName ?? '';
+                                    $locationName = $racks[0]->location->name ?? '';
 
                                     // Check for variations: Fabyard, Feb Yard, FEB YARD, etc.
                                     $rackNameCheck = str_replace(' ', '', strtolower($rackName));
@@ -161,8 +171,9 @@
                                             if ($package['boxId'] == $box['boxId']) {
                                                 // Found the matching array, print the "pkgName"
 
-
+                                                if (!$isFabyard) {
                                                 echo $package['pkgName']. '<br>';
+                                                }
                                                 $pkgIDs = $package['pkgID'];
                                                 $packageAdded = true;
 

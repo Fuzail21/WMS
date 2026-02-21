@@ -65,6 +65,8 @@ public function relocateToWMS(Request $request){
                 $newPacket->materialType = $materialType;
                 $newPacket->numberOfBundles = $removeBundles; // new change
                 $newPacket->dateIn = $modifiedDate;
+                $newPacket->relocatedFromBox = $packetRecord->boxName; // track which box it came from
+                $newPacket->relocatedAt = now()->toDateTimeString();   // track when it was relocated
                 $newPacket->save();
                 // Create New Packet
 

@@ -26,17 +26,20 @@ class RelocateToWMSController extends Controller
         // dd($pkgRecord);
 
         if (empty($pkgRecord)) {
-            // If $pkgRecord is empty or not found, update the package's boxName and boxId
+            // Update package's boxName and boxId
             $package = Package::where('pkgID', $pkgID)->first();
+            $oldBoxName = $package->boxName;
             $package->boxName = $boxName;
             $package->boxId = $boxId;
-
             $package->save();
 
-            $packets = Packet::where('pkgID', $pkgID)->first();
-            if(!empty($packets)){
-                $packets->boxName = $boxName;
-                $packets->save();
+            // Save relocatedAt and relocatedFromBox on all packets of this package
+            $packets = Packet::withTrashed()->where('pkgID', $pkgID)->get();
+            foreach ($packets as $packet) {
+                $packet->relocatedFromBox = $oldBoxName;
+                $packet->relocatedAt = now()->toDateTimeString();
+                $packet->boxName = $boxName;
+                $packet->save();
             }
 
 
